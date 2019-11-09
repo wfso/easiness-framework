@@ -1,0 +1,64 @@
+package cn.ibestcode.easiness.core.base.service;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
+public interface CURDService<T, ID> {
+
+  long countAll();
+
+  List<T> getAll();
+
+  Page<T> getPage(Pageable pageable);
+
+  T getById(ID id);
+
+  List<T> getByIds(Iterable<ID> ids);
+
+  T create(T entity);
+
+  T update(T entity);
+
+  List<T> create(Iterable<T> entities);
+
+  List<T> update(Iterable<T> entities);
+
+  T updateIgnoreNull(T entity);
+
+  T updateIgnoreEmpty(T entity);
+
+  @Transactional
+  default List<T> updateIgnoreNull(Iterable<T> entities) {
+    List<T> list = new ArrayList<>();
+    for (T entity : entities) {
+      list.add(updateIgnoreNull(entity));
+    }
+    return list;
+  }
+
+  @Transactional
+  default List<T> updateIgnoreEmpty(Iterable<T> entities) {
+    List<T> list = new ArrayList<>();
+    for (T entity : entities) {
+      list.add(updateIgnoreEmpty(entity));
+    }
+    return list;
+  }
+
+  void remove(T entity);
+
+  void remove(Iterable<T> entities);
+
+  T removeById(ID id);
+
+  @Transactional
+  default List<T> removeByIds(Iterable<ID> ids) {
+    List<T> list = getByIds(ids);
+    remove(list);
+    return list;
+  }
+}
