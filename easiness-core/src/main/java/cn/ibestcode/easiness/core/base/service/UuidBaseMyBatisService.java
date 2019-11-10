@@ -6,7 +6,7 @@ import cn.ibestcode.easiness.core.query.filter.IFilter;
 
 import java.util.List;
 
-public abstract class UuidBaseMyBatisService<T> extends BaseMyBatisService<T, Long> {
+public abstract class UuidBaseMyBatisService<T, ID> extends BaseMyBatisService<T, ID> {
 
   protected abstract String getUuidFieldName();
 
