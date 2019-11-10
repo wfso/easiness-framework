@@ -3,9 +3,11 @@ package cn.ibestcode.easiness.core.query.filter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @ApiModel(description = "JPA搜索过滤器")
 public class DefaultFilter implements IFilter {
 
@@ -112,7 +114,7 @@ public class DefaultFilter implements IFilter {
     if (condition == null) {
       StringBuffer sb = new StringBuffer();
       sb.append("`")
-        .append(key.replaceAll("([^\\.\\_])([A-Z])","$1_$2").toLowerCase().replace(".", "`.`"))
+        .append(key.replaceAll("([^\\.\\_])([A-Z])", "$1_$2").toLowerCase().replace(".", "`.`"))
         .append("` ");
       switch (type) {
         case isNotNull: {
@@ -204,7 +206,7 @@ public class DefaultFilter implements IFilter {
       try {
         clazz = Class.forName(clazzName);
       } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+        log.warn(e.getMessage(), e);
       }
     }
     return clazz;

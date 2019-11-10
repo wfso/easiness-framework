@@ -1,8 +1,7 @@
 package cn.ibestcode.easiness.core.query.specification;
 
 import cn.ibestcode.easiness.core.query.filter.IFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.Assert;
 
@@ -14,9 +13,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public abstract class AbstractSpecification<T> implements Specification<T> {
-
-  private static Logger logger = LoggerFactory.getLogger(AbstractSpecification.class);
 
   public static <T> Predicate generatePredicate(IFilter filter, Root<T> root, CriteriaBuilder builder) {
     if (filter.isAndComplex()) {
@@ -53,8 +51,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
               List<Object> os = generateInEnumObjects(filter);
               predicates.add(root.get(filter.getKey()).in(os));
             } catch (Exception e) {
-              logger.warn(e.getMessage(), e);
-              e.printStackTrace();
+              log.warn(e.getMessage(), e);
             }
           }
           break;
@@ -67,8 +64,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
               List<Object> os = generateInEnumObjects(filter);
               predicates.add(builder.not(root.get(filter.getKey()).in(os)));
             } catch (Exception e) {
-              logger.warn(e.getMessage(), e);
-              e.printStackTrace();
+              log.warn(e.getMessage(), e);
             }
           }
           break;
@@ -81,8 +77,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
               Object o = generateEqualEnumObject(filter);
               predicates.add(builder.equal(root.get(filter.getKey()), o));
             } catch (Exception e) {
-              logger.warn(e.getMessage(), e);
-              e.printStackTrace();
+              log.warn(e.getMessage(), e);
             }
           }
           break;
@@ -111,8 +106,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
               Object o = generateEqualEnumObject(filter);
               predicates.add(builder.notEqual(root.get(filter.getKey()), o));
             } catch (Exception e) {
-              logger.warn(e.getMessage(), e);
-              e.printStackTrace();
+              log.warn(e.getMessage(), e);
             }
           }
           break;
@@ -168,7 +162,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
           break;
         }
         default: {
-          logger.warn("the FilterType {} not found ", filter.getType().name());
+          log.warn("the FilterType {} not found ", filter.getType().name());
         }
       }
     }

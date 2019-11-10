@@ -1,8 +1,11 @@
 package cn.ibestcode.easiness.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 
+@Slf4j
 public class SerializationUtil {
 
   // 把 Object 对象转化为 byte数组
@@ -14,7 +17,7 @@ public class SerializationUtil {
       oo.writeObject(obj);
       bytes = bo.toByteArray();
     } catch (IOException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(),e);
     }
     return DatatypeConverter.printBase64Binary(bytes);
   }
@@ -31,9 +34,9 @@ public class SerializationUtil {
       in = new ObjectInputStream(bi);
       obj = in.readObject();
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(),e);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(),e);
     }
 
     return obj;

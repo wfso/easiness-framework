@@ -2,6 +2,7 @@ package cn.ibestcode.easiness.utils;
 
 
 import cn.ibestcode.easiness.utils.codec.CodecSupport;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 
+@Slf4j
 public class MacUtil extends CodecSupport {
 
   //region hmac
@@ -21,7 +23,7 @@ public class MacUtil extends CodecSupport {
       mac.init(keys);
       return mac.doFinal(data);
     } catch (GeneralSecurityException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(),e);
       return new byte[0];
     }
   }

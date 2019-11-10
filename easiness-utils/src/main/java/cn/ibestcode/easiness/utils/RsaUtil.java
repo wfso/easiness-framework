@@ -1,6 +1,7 @@
 package cn.ibestcode.easiness.utils;
 
 import cn.ibestcode.easiness.utils.codec.CodecSupport;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -17,6 +18,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class RsaUtil extends CodecSupport {
 
   private static KeyFactory keyFactory;
@@ -28,7 +30,7 @@ public class RsaUtil extends CodecSupport {
       keyFactory = KeyFactory.getInstance("RSA");
       keyPairGen = KeyPairGenerator.getInstance("RSA");
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
   }
 
@@ -54,11 +56,11 @@ public class RsaUtil extends CodecSupport {
         return signature.sign();
       }
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (InvalidKeyException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (SignatureException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return new byte[0];
   }
@@ -635,11 +637,11 @@ public class RsaUtil extends CodecSupport {
         return signature.verify(sign);
       }
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (InvalidKeyException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (SignatureException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return false;
   }
@@ -1197,17 +1199,17 @@ public class RsaUtil extends CodecSupport {
         return decryptedData;
       }
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (NoSuchPaddingException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (InvalidKeyException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (BadPaddingException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (IllegalBlockSizeException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return new byte[0];
   }
@@ -1319,17 +1321,17 @@ public class RsaUtil extends CodecSupport {
         return decryptedData;
       }
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (NoSuchPaddingException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (InvalidKeyException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (BadPaddingException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (IllegalBlockSizeException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return new byte[0];
   }
@@ -1392,7 +1394,7 @@ public class RsaUtil extends CodecSupport {
     try {
       return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
     } catch (InvalidKeySpecException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
       return null;
     }
   }
@@ -1404,7 +1406,7 @@ public class RsaUtil extends CodecSupport {
     try {
       return (RSAPublicKey) keyFactory.generatePublic(keySpec);
     } catch (InvalidKeySpecException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
       return null;
     }
   }
