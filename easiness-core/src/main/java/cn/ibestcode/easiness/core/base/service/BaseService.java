@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public abstract class JpaService<T extends Model<ID>, ID> implements Service<T, ID> {
+public abstract class BaseService<T extends Model<ID>, ID> implements Service<T, ID> {
   protected abstract Repository<T, ID> getRepository();
 
   protected ID generateId() {
