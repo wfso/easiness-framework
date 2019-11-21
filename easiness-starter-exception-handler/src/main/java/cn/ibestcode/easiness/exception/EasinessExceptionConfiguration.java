@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EasinessExceptionConfiguration {
   @Bean
-  @ConditionalOnMissingBean
+  @ConditionalOnMissingBean(EasinessExceptionTipsProperties.class)
   public EasinessExceptionTipsProperties easinessExceptionTipsProperties() {
     return new EasinessExceptionTipsProperties();
   }

@@ -67,7 +67,7 @@ public abstract class BaseMyBatisService<T, ID> implements QueryService<T, ID> {
   @Override
   public Page<T> getPage(Pageable pageable) {
     long total = countAll();
-    List<T> ts = getMapper().search(null, pageable.getOffset(), pageable.getPageSize(), genOrder(pageable.getSort()));
+    List<T> ts = getMapper().search(null, pageable.getOffset(), pageable.getPageSize(), genOrderByStatement(pageable.getSort()));
     return new PageImpl<>(ts, pageable, total);
   }
 
@@ -89,7 +89,7 @@ public abstract class BaseMyBatisService<T, ID> implements QueryService<T, ID> {
   @Override
   public Page<T> getPage(IFilter filter, Pageable pageable) {
     long total = count(filter);
-    List<T> ts = getMapper().search(filter, pageable.getOffset(), pageable.getPageSize(), genOrder(pageable.getSort()));
+    List<T> ts = getMapper().search(filter, pageable.getOffset(), pageable.getPageSize(), genOrderByStatement(pageable.getSort()));
     return new PageImpl<>(ts, pageable, total);
   }
 
@@ -102,14 +102,15 @@ public abstract class BaseMyBatisService<T, ID> implements QueryService<T, ID> {
   @Override
   public List<T> getList(IFilter filter, Sort sort) {
     long total = count(filter);
-    return getMapper().search(filter, 0, total, genOrder(sort));
+    return getMapper().search(filter, 0, total, genOrderByStatement(sort));
   }
 
-  protected String genOrder(Sort sort) {
+  protected String genOrderByStatement(Sort sort) {
     StringBuilder orderBy = new StringBuilder();
     for (Sort.Order order : sort) {
-      orderBy.append(order.getProperty())
-        .append(" ")
+      orderBy.append("`")
+        .append(order.getProperty().replaceAll("([^\\.\\_])([A-Z])", "$1_$2").toLowerCase().replace(".", "`.`"))
+        .append("` ")
         .append(order.getDirection().name())
         .append(",");
     }

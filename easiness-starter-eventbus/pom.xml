@@ -8,16 +8,16 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>easiness-starter-exception</artifactId>
+  <artifactId>easiness-starter-eventbus</artifactId>
   <packaging>jar</packaging>
   <dependencies>
     <dependency>
       <groupId>cn.ibestcode.easiness</groupId>
-      <artifactId>easiness-core</artifactId>
+      <artifactId>easiness-eventbus</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

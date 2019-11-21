@@ -19,8 +19,12 @@
   <modules>
     <module>easiness-core</module>
     <module>easiness-utils</module>
+    <module>easiness-eventbus</module>
+    <module>easiness-auth</module>
+    <module>easiness-shiro</module>
     <module>easiness-starter-validation</module>
     <module>easiness-starter-exception</module>
+    <module>easiness-starter-eventbus</module>
   </modules>
 
   <dependencyManagement>
@@ -44,7 +48,27 @@
       </dependency>
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-eventbus</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-auth</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-shiro</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-starter-exception</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-eventbus</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 

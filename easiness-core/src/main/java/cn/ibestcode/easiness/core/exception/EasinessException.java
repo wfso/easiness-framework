@@ -9,12 +9,17 @@ public class EasinessException extends RuntimeException {
     this.params = new String[]{};
   }
 
-  public EasinessException(String message, String[] params) {
+  public EasinessException(String message, String... params) {
     super(message);
     this.params = params;
   }
 
-  public EasinessException(String message, String[] params, Throwable cause) {
+  public EasinessException(String message, Throwable cause) {
+    super(message, cause);
+    this.params = new String[]{};
+  }
+
+  public EasinessException(String message, Throwable cause, String... params) {
     super(message, cause);
     this.params = params;
   }

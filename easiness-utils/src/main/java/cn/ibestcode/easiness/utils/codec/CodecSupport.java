@@ -13,7 +13,7 @@ public abstract class CodecSupport {
     return toBytes(new String(chars), PREFERRED_ENCODING);
   }
 
-  public static byte[] toBytes(char[] chars, String encoding) throws CodecException {
+  public static byte[] toBytes(char[] chars, String encoding) {
     return toBytes(new String(chars), encoding);
   }
 
@@ -23,7 +23,7 @@ public abstract class CodecSupport {
   }
 
 
-  public static byte[] toBytes(String source, String encoding) throws CodecException {
+  public static byte[] toBytes(String source, String encoding) {
     try {
       return source.getBytes(encoding);
     } catch (UnsupportedEncodingException e) {
@@ -39,7 +39,7 @@ public abstract class CodecSupport {
   }
 
 
-  public static String toString(byte[] bytes, String encoding) throws CodecException {
+  public static String toString(byte[] bytes, String encoding) {
     try {
       return new String(bytes, encoding);
     } catch (UnsupportedEncodingException e) {
@@ -54,7 +54,7 @@ public abstract class CodecSupport {
   }
 
 
-  public static char[] toChars(byte[] bytes, String encoding) throws CodecException {
+  public static char[] toChars(byte[] bytes, String encoding) {
     return toString(bytes, encoding).toCharArray();
   }
 
