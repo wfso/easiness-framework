@@ -4,10 +4,12 @@ import cn.ibestcode.easiness.auth.model.EasinessPermission;
 import cn.ibestcode.easiness.auth.service.EasinessRoleService;
 import cn.ibestcode.easiness.auth.service.EasinessUserRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class EasinessUserRelationBiz {
 
   @Autowired
