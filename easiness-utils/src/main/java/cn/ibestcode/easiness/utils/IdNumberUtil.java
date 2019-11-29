@@ -1,6 +1,7 @@
 package cn.ibestcode.easiness.utils;
 
 import cn.ibestcode.easiness.utils.exception.IdNumberException;
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
@@ -50,6 +51,7 @@ public class IdNumberUtil {
       this.birthday = DateUtils.parseDate(idNumber.substring(6, 14), "yyyyMMdd");
     } catch (ParseException e) {
       log.error(e.getMessage(), e);
+      throw new UtilsException("ParseException", e);
     }
 
     // 年龄解析

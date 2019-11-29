@@ -1,5 +1,6 @@
 package cn.ibestcode.easiness.core.query.filter;
 
+import cn.ibestcode.easiness.core.exception.EasinessException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -207,6 +208,7 @@ public class DefaultFilter implements IFilter {
         clazz = Class.forName(clazzName);
       } catch (ClassNotFoundException e) {
         log.warn(e.getMessage(), e);
+        throw new EasinessException("ClassNotFoundException", e, clazzName);
       }
     }
     return clazz;

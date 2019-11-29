@@ -1,6 +1,9 @@
 package cn.ibestcode.easiness.core.converter;
 
+import cn.ibestcode.easiness.core.exception.EasinessException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,8 +25,8 @@ public abstract class AbstractJsonConverter<T> implements AttributeConverter<T, 
       return objectMapper.writeValueAsString(attribute);
     } catch (JsonProcessingException e) {
       log.warn(e.getMessage(), e);
+      throw new EasinessException("JsonProcessingException", e);
     }
-    return null;
   }
 
   @Override
@@ -32,9 +35,15 @@ public abstract class AbstractJsonConverter<T> implements AttributeConverter<T, 
       return null;
     try {
       return objectMapper.readValue(dbData, getTargetClass());
+    } catch (JsonParseException e) {
+      log.warn(e.getMessage(), e);
+      throw new EasinessException("JsonParseException", e);
+    } catch (JsonMappingException e) {
+      log.warn(e.getMessage(), e);
+      throw new EasinessException("JsonMappingException", e);
     } catch (IOException e) {
       log.warn(e.getMessage(), e);
+      throw new EasinessException("IOException", e);
     }
-    return null;
   }
 }

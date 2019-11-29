@@ -1,5 +1,6 @@
 package cn.ibestcode.easiness.spring.utils;
 
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class IpUtil {
       return inet.getHostAddress();
     } catch (UnknownHostException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("UnknownHostException", e);
     }
-    return "";
   }
 }

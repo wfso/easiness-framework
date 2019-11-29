@@ -1,5 +1,6 @@
 package cn.ibestcode.easiness.spring.restClient;
 
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -24,6 +25,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Configuration
@@ -57,8 +61,15 @@ public class RestTemplateConfiguration {
       b.setConnectionManager(connMgr);
 
       client = b.build();
-    } catch (Exception e) {
+    } catch (NoSuchAlgorithmException e) {
       log.error(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
+    } catch (KeyStoreException e) {
+      log.error(e.getMessage(), e);
+      throw new UtilsException("KeyStoreException", e);
+    } catch (KeyManagementException e) {
+      log.error(e.getMessage(), e);
+      throw new UtilsException("KeyManagementException", e);
     }
     return client;
   }

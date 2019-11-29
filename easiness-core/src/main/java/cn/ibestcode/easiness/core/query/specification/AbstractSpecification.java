@@ -1,7 +1,9 @@
 package cn.ibestcode.easiness.core.query.specification;
 
+import cn.ibestcode.easiness.core.exception.EasinessException;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.Assert;
 
@@ -23,8 +25,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
     if (filter.isOrComplex()) {
       return generatePredicate(filter.getList(), root, builder, false);
     }
-    Assert.state(false, "the filter.type only support [and] or [or]");
-    return null;
+    throw new EasinessException("FilterTypeOnlySupportTwo", "and", "or");
   }
 
   public static <T> Predicate generatePredicate(List<? extends IFilter> filters, Root<T> root, CriteriaBuilder builder) {
@@ -47,12 +48,8 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
           if (filter.getClazz() == null) {
             predicates.add(root.get(filter.getKey()).in(filter.getInList()));
           } else {
-            try {
-              List<Object> os = generateInEnumObjects(filter);
-              predicates.add(root.get(filter.getKey()).in(os));
-            } catch (Exception e) {
-              log.warn(e.getMessage(), e);
-            }
+            List<Object> os = generateInEnumObjects(filter);
+            predicates.add(root.get(filter.getKey()).in(os));
           }
           break;
         }
@@ -60,12 +57,8 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
           if (filter.getClazz() == null) {
             predicates.add(builder.not(root.get(filter.getKey()).in(filter.getInList())));
           } else {
-            try {
-              List<Object> os = generateInEnumObjects(filter);
-              predicates.add(builder.not(root.get(filter.getKey()).in(os)));
-            } catch (Exception e) {
-              log.warn(e.getMessage(), e);
-            }
+            List<Object> os = generateInEnumObjects(filter);
+            predicates.add(builder.not(root.get(filter.getKey()).in(os)));
           }
           break;
         }
@@ -73,12 +66,8 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
           if (filter.getClazz() == null) {
             predicates.add(builder.equal(root.get(filter.getKey()), filter.getValue()));
           } else {
-            try {
-              Object o = generateEqualEnumObject(filter);
-              predicates.add(builder.equal(root.get(filter.getKey()), o));
-            } catch (Exception e) {
-              log.warn(e.getMessage(), e);
-            }
+            Object o = generateEqualEnumObject(filter);
+            predicates.add(builder.equal(root.get(filter.getKey()), o));
           }
           break;
         }
@@ -102,12 +91,8 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
           if (filter.getClazz() == null) {
             predicates.add(builder.notEqual(root.get(filter.getKey()), filter.getValue()));
           } else {
-            try {
-              Object o = generateEqualEnumObject(filter);
-              predicates.add(builder.notEqual(root.get(filter.getKey()), o));
-            } catch (Exception e) {
-              log.warn(e.getMessage(), e);
-            }
+            Object o = generateEqualEnumObject(filter);
+            predicates.add(builder.notEqual(root.get(filter.getKey()), o));
           }
           break;
         }
@@ -163,6 +148,7 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
         }
         default: {
           log.warn("the FilterType {} not found ", filter.getType().name());
+          throw new EasinessException("FilterTypeNotFound", filter.getType().name());
         }
       }
     }
@@ -173,15 +159,15 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
     }
   }
 
-  private static List<Object> generateInEnumObjects(IFilter filter) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  private static List<Object> generateInEnumObjects(IFilter filter) {
     Class clazz = filter.getClazz();
     Object[] objects = clazz.getEnumConstants();
     List<Object> os = new ArrayList<>();
     if (clazz.isEnum()) {
-      Method method = clazz.getMethod("name");
+      Method method = getMethod(clazz, "name");
       List<String> list = filter.getInList();
       for (Object o : objects) {
-        String name = (String) method.invoke(o);
+        String name = (String) invoke(o, method);
         if (list.contains(name)) {
           os.add(o);
         }
@@ -190,19 +176,46 @@ public abstract class AbstractSpecification<T> implements Specification<T> {
     return os;
   }
 
-  private static Object generateEqualEnumObject(IFilter filter) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  private static Object generateEqualEnumObject(IFilter filter) {
     Class clazz = filter.getClazz();
     if (clazz.isEnum()) {
       Object[] objects = clazz.getEnumConstants();
-      Method method = clazz.getMethod("name");
+      Method method = getMethod(clazz, "name");
       for (Object o : objects) {
-        String name = (String) method.invoke(o);
+        String name = (String) invoke(o, method);
         if (name.equals(filter.getValue())) {
           return o;
         }
       }
     }
     return null;
+  }
+
+  private static Method getMethod(Class clazz, String methodName, Class<?>... parameterTypes) {
+    try {
+      return clazz.getMethod(methodName, parameterTypes);
+    } catch (NoSuchMethodException e) {
+      log.warn(e.getMessage(), e);
+      throw new EasinessException("NoSuchMethodException", e, "name");
+    }
+  }
+
+  private static Object invoke(Object object, Method method, Class<?>... parameterTypes) {
+    try {
+      return method.invoke(object, parameterTypes);
+    } catch (IllegalAccessException e) {
+      log.warn(e.getMessage(), e);
+      throw new EasinessException("IllegalAccessException", e);
+    } catch (InvocationTargetException e) {
+      log.warn(e.getMessage(), e);
+      if (e.getCause() instanceof Error) {
+        throw (Error) e.getCause();
+      }
+      if (e.getCause() instanceof RuntimeException) {
+        throw (RuntimeException) e.getCause();
+      }
+      throw new EasinessException("IllegalAccessException", e.getCause());
+    }
   }
 
 }

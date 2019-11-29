@@ -74,7 +74,7 @@ public class OmnipotentSubscriber implements Subscriber {
           try {
             immediate(event);
           } catch (Throwable e) {
-            log.error("Event Execute Fail: " + e.getMessage(), e);
+            log.error("EventExecuteFail: " + e.getMessage(), e);
           }
         }
       });
@@ -85,15 +85,17 @@ public class OmnipotentSubscriber implements Subscriber {
     try {
       method.invoke(target, event);
     } catch (IllegalAccessException e) {
-      throw new EventBusException("Method became inaccessible: " + event, e);
+      log.warn(e.getMessage(),e);
+      throw new EventBusException("EventBusIllegalAccessException: " + event, e);
     } catch (InvocationTargetException e) {
+      log.warn(e.getMessage(),e);
       if (e.getCause() instanceof Error) {
         throw (Error) e.getCause();
       }
       if (e.getCause() instanceof RuntimeException) {
         throw (RuntimeException) e.getCause();
       }
-      throw new EventBusException("EventBus InvocationTargetException: " + event, e.getCause());
+      throw new EventBusException("EventBusInvocationTargetException: " + event, e.getCause());
     }
   }
 

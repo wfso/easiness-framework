@@ -1,6 +1,7 @@
 package cn.ibestcode.easiness.utils;
 
 import cn.ibestcode.easiness.utils.codec.CodecSupport;
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.BadPaddingException;
@@ -31,6 +32,7 @@ public class RsaUtil extends CodecSupport {
       keyPairGen = KeyPairGenerator.getInstance("RSA");
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
     }
   }
 
@@ -57,10 +59,13 @@ public class RsaUtil extends CodecSupport {
       }
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
     } catch (InvalidKeyException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("InvalidKeyException", e);
     } catch (SignatureException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("SignatureException", e);
     }
     return new byte[0];
   }
@@ -638,10 +643,13 @@ public class RsaUtil extends CodecSupport {
       }
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
     } catch (InvalidKeyException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("InvalidKeyException", e);
     } catch (SignatureException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("SignatureException", e);
     }
     return false;
   }
@@ -1200,16 +1208,22 @@ public class RsaUtil extends CodecSupport {
       }
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
     } catch (NoSuchPaddingException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchPaddingException", e);
     } catch (InvalidKeyException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("InvalidKeyException", e);
     } catch (BadPaddingException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("BadPaddingException", e);
     } catch (IllegalBlockSizeException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("IllegalBlockSizeException", e);
     } catch (IOException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     }
     return new byte[0];
   }
@@ -1322,16 +1336,22 @@ public class RsaUtil extends CodecSupport {
       }
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchAlgorithmException", e);
     } catch (NoSuchPaddingException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("NoSuchPaddingException", e);
     } catch (InvalidKeyException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("InvalidKeyException", e);
     } catch (BadPaddingException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("BadPaddingException", e);
     } catch (IllegalBlockSizeException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("IllegalBlockSizeException", e);
     } catch (IOException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     }
     return new byte[0];
   }
@@ -1395,7 +1415,7 @@ public class RsaUtil extends CodecSupport {
       return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
     } catch (InvalidKeySpecException e) {
       log.warn(e.getMessage(), e);
-      return null;
+      throw new UtilsException("InvalidKeySpecException", e);
     }
   }
 
@@ -1407,7 +1427,7 @@ public class RsaUtil extends CodecSupport {
       return (RSAPublicKey) keyFactory.generatePublic(keySpec);
     } catch (InvalidKeySpecException e) {
       log.warn(e.getMessage(), e);
-      return null;
+      throw new UtilsException("InvalidKeySpecException", e);
     }
   }
   //endregion

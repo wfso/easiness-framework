@@ -1,5 +1,6 @@
 package cn.ibestcode.easiness.utils;
 
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.DatatypeConverter;
@@ -11,13 +12,14 @@ public class SerializationUtil {
   // 把 Object 对象转化为 byte数组
   public static String serialization(Object obj) {
     ByteArrayOutputStream bo = new ByteArrayOutputStream();
-    byte[] bytes = null;
+    byte[] bytes;
     try {
       ObjectOutputStream oo = new ObjectOutputStream(bo);
       oo.writeObject(obj);
       bytes = bo.toByteArray();
     } catch (IOException e) {
-      log.warn(e.getMessage(),e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     }
     return DatatypeConverter.printBase64Binary(bytes);
   }
@@ -34,11 +36,12 @@ public class SerializationUtil {
       in = new ObjectInputStream(bi);
       obj = in.readObject();
     } catch (ClassNotFoundException e) {
-      log.warn(e.getMessage(),e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("ClassNotFoundException", e);
     } catch (IOException e) {
-      log.warn(e.getMessage(),e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     }
-
     return obj;
   }
 }

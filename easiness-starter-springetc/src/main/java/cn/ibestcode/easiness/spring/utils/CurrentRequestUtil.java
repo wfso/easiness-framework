@@ -1,5 +1,6 @@
 package cn.ibestcode.easiness.spring.utils;
 
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +94,7 @@ public class CurrentRequestUtil {
       }
     } catch (IOException e) {
       log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     }
     return writer.getBuffer().toString();
   }

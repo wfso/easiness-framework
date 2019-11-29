@@ -2,6 +2,7 @@ package cn.ibestcode.easiness.utils;
 
 
 import cn.ibestcode.easiness.utils.codec.CodecSupport;
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.DatatypeConverter;
@@ -22,7 +23,7 @@ public class DigestUtil extends CodecSupport {
       return digest.digest(data);
     } catch (NoSuchAlgorithmException e) {
       log.warn(e.getMessage(),e);
-      return new byte[0];
+      throw new UtilsException("NoSuchAlgorithmException", e);
     }
   }
 

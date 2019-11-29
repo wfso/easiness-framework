@@ -2,9 +2,11 @@ package cn.ibestcode.easiness.core.base.service;
 
 import cn.ibestcode.easiness.core.base.model.Model;
 import cn.ibestcode.easiness.core.base.repository.Repository;
+import cn.ibestcode.easiness.core.exception.EasinessException;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
 import cn.ibestcode.easiness.core.query.specification.AbstractSpecification;
 import cn.ibestcode.easiness.utils.SpringBeanUtilsExt;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +19,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 public abstract class BaseService<T extends Model<ID>, ID> implements Service<T, ID> {
   protected abstract Repository<T, ID> getRepository();
 
@@ -217,7 +220,8 @@ public abstract class BaseService<T extends Model<ID>, ID> implements Service<T,
         entity = (T) object;
       }
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new RuntimeException("Generate Entity Exception", e);
+      log.warn(e.getMessage(), e);
+      throw new EasinessException("GenerateEntityException", e);
     }
     return entity;
   }

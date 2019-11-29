@@ -1,10 +1,11 @@
 package cn.ibestcode.easiness.utils.codec;
 
-
-import cn.ibestcode.easiness.utils.exception.CodecException;
+import cn.ibestcode.easiness.utils.exception.UtilsException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 
+@Slf4j
 public abstract class CodecSupport {
 
   public static final String PREFERRED_ENCODING = "UTF-8";
@@ -27,9 +28,8 @@ public abstract class CodecSupport {
     try {
       return source.getBytes(encoding);
     } catch (UnsupportedEncodingException e) {
-      String msg = "Unable to convert source [" + source + "] to byte array using " +
-        "encoding '" + encoding + "'";
-      throw new CodecException(msg, e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("UnsupportedEncodingException", e, encoding);
     }
   }
 
@@ -43,8 +43,8 @@ public abstract class CodecSupport {
     try {
       return new String(bytes, encoding);
     } catch (UnsupportedEncodingException e) {
-      String msg = "Unable to convert byte array to String with encoding '" + encoding + "'.";
-      throw new CodecException(msg, e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("UnsupportedEncodingException", e, encoding);
     }
   }
 
@@ -66,8 +66,7 @@ public abstract class CodecSupport {
 
   protected static byte[] toBytes(Object o) {
     if (o == null) {
-      String msg = "Argument for byte conversion cannot be null.";
-      throw new IllegalArgumentException(msg);
+      throw new UtilsException("IllegalArgumentException", "ArgumentForByteConversionCannotBeNull");
     }
     if (o instanceof byte[]) {
       return (byte[]) o;
@@ -86,8 +85,7 @@ public abstract class CodecSupport {
 
   protected static String toString(Object o) {
     if (o == null) {
-      String msg = "Argument for String conversion cannot be null.";
-      throw new IllegalArgumentException(msg);
+      throw new UtilsException("IllegalArgumentException", "ArgumentForByteConversionCannotBeNull");
     }
     if (o instanceof byte[]) {
       return toString((byte[]) o);
@@ -102,19 +100,19 @@ public abstract class CodecSupport {
 
   protected static byte[] toBytes(File file) {
     if (file == null) {
-      throw new IllegalArgumentException("File argument cannot be null.");
+      throw new UtilsException("IllegalArgumentException", "FileArgumentCannotBeNull");
     }
     try {
       return toBytes(new FileInputStream(file));
     } catch (FileNotFoundException e) {
-      String msg = "Unable to acquire InputStream for file [" + file + "]";
-      throw new CodecException(msg, e);
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("FileNotFoundException", e);
     }
   }
 
   protected static byte[] toBytes(InputStream in) {
     if (in == null) {
-      throw new IllegalArgumentException("InputStream argument cannot be null.");
+      throw new UtilsException("IllegalArgumentException", "InputStreamArgumentCannotBeNull");
     }
     final int BUFFER_SIZE = 512;
     ByteArrayOutputStream out = new ByteArrayOutputStream(BUFFER_SIZE);
@@ -125,8 +123,9 @@ public abstract class CodecSupport {
         out.write(buffer, 0, bytesRead);
       }
       return out.toByteArray();
-    } catch (IOException ioe) {
-      throw new CodecException(ioe);
+    } catch (IOException e) {
+      log.warn(e.getMessage(), e);
+      throw new UtilsException("IOException", e);
     } finally {
       try {
         in.close();
@@ -147,7 +146,7 @@ public abstract class CodecSupport {
       "this argument type to a byte[], you can 1) convert the argument to one of the supported types " +
       "yourself and then use that as the method argument or 2) subclass " + CodecSupport.class.getName() +
       "and override the objectToBytes(Object o) method.";
-    throw new CodecException(msg);
+    throw new UtilsException("ObjectToBytesException", msg);
   }
 
   /**

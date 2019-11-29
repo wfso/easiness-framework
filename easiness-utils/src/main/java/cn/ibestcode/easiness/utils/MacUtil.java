@@ -2,6 +2,7 @@ package cn.ibestcode.easiness.utils;
 
 
 import cn.ibestcode.easiness.utils.codec.CodecSupport;
+import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Mac;
@@ -24,7 +25,7 @@ public class MacUtil extends CodecSupport {
       return mac.doFinal(data);
     } catch (GeneralSecurityException e) {
       log.warn(e.getMessage(),e);
-      return new byte[0];
+      throw new UtilsException("GeneralSecurityException", e);
     }
   }
 
