@@ -18,6 +18,7 @@
 
   <modules>
     <module>easiness-core</module>
+    <module>easiness-swagger2</module>
     <module>easiness-configuration</module>
     <module>easiness-utils</module>
     <module>easiness-eventbus</module>
@@ -34,6 +35,8 @@
     <module>easiness-starter-auth-password</module>
     <module>easiness-starter-sendsms-submail</module>
     <module>easiness-starter-sendsms-aliyun</module>
+    <module>easiness-starter-storage-local</module>
+    <module>easiness-starter-storage-aliyun-oss</module>
   </modules>
 
   <dependencyManagement>
@@ -43,6 +46,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-core</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-swagger2</artifactId>
         <version>${easiness.version}</version>
       </dependency>
       <dependency>
@@ -123,6 +131,16 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-starter-sendsms-aliyun</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-storage-local</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-storage-aliyun-oss</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 
