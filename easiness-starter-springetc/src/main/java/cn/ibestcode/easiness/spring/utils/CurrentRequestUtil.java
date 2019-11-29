@@ -1,5 +1,7 @@
 package cn.ibestcode.easiness.spring.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class CurrentRequestUtil {
   public static String getHost() {
     HttpServletRequest request = ServletUtil.getHttpServletRequest();
@@ -89,7 +92,7 @@ public class CurrentRequestUtil {
         writer.write(buf);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return writer.getBuffer().toString();
   }

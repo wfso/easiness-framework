@@ -1,9 +1,12 @@
 package cn.ibestcode.easiness.spring.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@Slf4j
 public class IpUtil {
   /**
    * 获取客户端IP地址
@@ -43,7 +46,7 @@ public class IpUtil {
       InetAddress inet = InetAddress.getLocalHost();
       return inet.getHostAddress();
     } catch (UnknownHostException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
     return "";
   }

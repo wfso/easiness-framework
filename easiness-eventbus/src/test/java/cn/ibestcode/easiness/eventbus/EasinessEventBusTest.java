@@ -46,7 +46,7 @@ public class EasinessEventBusTest {
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      log.warn(e.getMessage(), e);
     }
   }
 
