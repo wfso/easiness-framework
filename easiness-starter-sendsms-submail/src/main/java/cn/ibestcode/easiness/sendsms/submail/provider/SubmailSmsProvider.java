@@ -13,6 +13,7 @@ import cn.ibestcode.easiness.sendsms.exception.SendSmsException;
 import cn.ibestcode.easiness.sendsms.provider.SmsProvider;
 import cn.ibestcode.easiness.sendsms.sender.SmsSender;
 import cn.ibestcode.easiness.sendsms.sender.SmsSenderResult;
+import cn.ibestcode.easiness.sendsms.submail.SubmailSendSmsConstant;
 import cn.ibestcode.easiness.sendsms.submail.properties.SubmailSmsProperties;
 import cn.ibestcode.easiness.utils.DigestUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -90,7 +91,7 @@ public class SubmailSmsProvider implements SmsProvider {
 
   @Override
   public String getType() {
-    return "submail";
+    return SubmailSendSmsConstant.EASINESS_SEND_SMS_TYPE_SUBMAIL;
   }
 
   private static class Timestamp {

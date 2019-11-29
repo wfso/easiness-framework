@@ -8,17 +8,10 @@
 
 package cn.ibestcode.easiness.sendsms.submail;
 
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
-
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2019/11/23
+ * create by WFSO (仵士杰) at 2019/11/29 20:42
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Import(SubmailSendSmsConfiguration.class)
-public @interface EnableSubmailSendSms {
+public class SubmailSendSmsConstant {
+  public static final String EASINESS_SEND_SMS_TYPE_SUBMAIL = "submail";
 }

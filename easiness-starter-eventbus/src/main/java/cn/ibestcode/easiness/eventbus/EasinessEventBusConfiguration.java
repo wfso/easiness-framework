@@ -11,12 +11,14 @@ package cn.ibestcode.easiness.eventbus;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/25 19:56
  */
+@Configuration
 @ComponentScan
 public class EasinessEventBusConfiguration {
   /**

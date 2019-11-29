@@ -6,19 +6,23 @@
  * See the LICENSE file in the project root for more information.
  */
 
-package cn.ibestcode.easiness.sendsms.aliyun;
-
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+package cn.ibestcode.easiness.storage.exception;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Import(AliyunSendSmsConfiguration.class)
-public @interface EnableAliyunSendSms {
+public class StorageException extends RuntimeException {
+
+  public StorageException(String message) {
+    super(message);
+  }
+
+  public StorageException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public StorageException(Throwable cause) {
+    super(cause);
+  }
 }

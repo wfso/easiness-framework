@@ -8,14 +8,16 @@
 
 package cn.ibestcode.easiness.sendsms.submail;
 
-import cn.ibestcode.easiness.sendsms.EnableEasinessSendSms;
+import cn.ibestcode.easiness.spring.restClient.EnableRestTemplate;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
+@Configuration
 @ComponentScan
-@EnableEasinessSendSms
+@EnableRestTemplate
 public class SubmailSendSmsConfiguration {
 }

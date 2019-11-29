@@ -1,5 +1,8 @@
 package cn.ibestcode.easiness.shiro.auth;
 
+import cn.ibestcode.easiness.auth.EnableEasinessAuth;
+import cn.ibestcode.easiness.auth.biz.EasinessAuthBiz;
+import cn.ibestcode.easiness.shiro.auth.biz.DefaultEasinessAuthBiz;
 import cn.ibestcode.easiness.shiro.authentication.DefaultEasinessAuthentication;
 import cn.ibestcode.easiness.shiro.filter.SpringShiroFilterRegistrationBean;
 import cn.ibestcode.easiness.shiro.realm.EasinessAuthorizationRealm;
@@ -31,6 +34,7 @@ import java.io.Serializable;
 
 @Configuration
 @ComponentScan
+@EnableEasinessAuth
 public class EasinessShiroAuthConfiguration {
 
   @Bean(name = "shiroFilter")
@@ -121,6 +125,12 @@ public class EasinessShiroAuthConfiguration {
   @ConditionalOnMissingBean(DefaultEasinessAuthentication.class)
   public DefaultEasinessAuthentication defaultEasinessAuthentication() {
     return new DefaultEasinessAuthentication();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(EasinessAuthBiz.class)
+  public EasinessAuthBiz easinessAuthBiz() {
+    return new DefaultEasinessAuthBiz();
   }
 
 }

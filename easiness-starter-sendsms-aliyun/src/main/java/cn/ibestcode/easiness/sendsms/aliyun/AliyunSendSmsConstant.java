@@ -8,14 +8,10 @@
 
 package cn.ibestcode.easiness.sendsms.aliyun;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2019/11/23
+ * create by WFSO (仵士杰) at 2019/11/29 20:43
  */
-@Configuration
-@ComponentScan
-public class AliyunSendSmsConfiguration {
+public class AliyunSendSmsConstant {
+  public static final String EASINESS_SEND_SMS_TYPE_ALIYUN = "aliyun";
 }

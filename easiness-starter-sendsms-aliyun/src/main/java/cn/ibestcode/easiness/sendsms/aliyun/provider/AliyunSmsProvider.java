@@ -9,6 +9,7 @@
 package cn.ibestcode.easiness.sendsms.aliyun.provider;
 
 import cn.ibestcode.easiness.configuration.EasinessConfiguration;
+import cn.ibestcode.easiness.sendsms.aliyun.AliyunSendSmsConstant;
 import cn.ibestcode.easiness.sendsms.aliyun.properties.AliyunSmsProperties;
 import cn.ibestcode.easiness.sendsms.exception.SendSmsException;
 import cn.ibestcode.easiness.sendsms.provider.SmsProvider;
@@ -114,7 +115,7 @@ public class AliyunSmsProvider implements SmsProvider {
 
   @Override
   public String getType() {
-    return "aliyun";
+    return AliyunSendSmsConstant.EASINESS_SEND_SMS_TYPE_ALIYUN;
   }
 
   private static class AliyunSmsSender implements SmsSender {
@@ -161,13 +162,12 @@ public class AliyunSmsProvider implements SmsProvider {
           throw new SendSmsException("ParseJSONFail", e);
         }
       } catch (ServerException e) {
-        e.printStackTrace();
         logger.warn(e.getMessage(), e);
+        throw new SendSmsException("ServerException", e);
       } catch (ClientException e) {
-        e.printStackTrace();
         logger.warn(e.getMessage(), e);
+        throw new SendSmsException("ClientException", e);
       }
-      return null;
     }
   }
 

@@ -13,14 +13,13 @@ import cn.ibestcode.easiness.shiro.session.utils.EasinessSessionUtil;
 import cn.ibestcode.easiness.shiro.token.EasinessAuthenticationToken;
 import cn.ibestcode.easiness.utils.RandomUtil;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.stereotype.Component;
 
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/28 18:33
  */
-@Component
+
 public class DefaultEasinessAuthBiz extends AbstractEasinessAuthBiz {
 
   @Override
