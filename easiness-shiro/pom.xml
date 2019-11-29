@@ -22,11 +22,11 @@
 
     <dependency>
       <groupId>org.redisson</groupId>
-      <artifactId>redisson-spring-boot-starter</artifactId>
+      <artifactId>redisson</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
