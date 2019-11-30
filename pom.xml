@@ -22,6 +22,7 @@
     <module>easiness-configuration</module>
     <module>easiness-utils</module>
     <module>easiness-eventbus</module>
+    <module>easiness-backup-entity</module>
     <module>easiness-auth</module>
     <module>easiness-shiro</module>
     <module>easiness-sendsms</module>
@@ -66,6 +67,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-eventbus</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-backup-entity</artifactId>
         <version>${easiness.version}</version>
       </dependency>
       <dependency>
