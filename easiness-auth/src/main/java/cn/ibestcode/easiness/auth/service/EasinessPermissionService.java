@@ -66,20 +66,20 @@ public class EasinessPermissionService extends BaseJpaService<EasinessPermission
 
   @Override
   @Transactional
-  public void remove(Iterable<EasinessPermission> entities) {
+  public Iterable<EasinessPermission> remove(Iterable<EasinessPermission> entities) {
     for (EasinessPermission permission : entities) {
       userPermissionRepository.deleteAllByPermissionCode(permission.getCode());
       rolePermissionRepository.deleteAllByPermissionCode(permission.getCode());
     }
-    super.remove(entities);
+    return super.remove(entities);
   }
 
   @Override
   @Transactional
-  public void remove(EasinessPermission entity) {
+  public EasinessPermission remove(EasinessPermission entity) {
     userPermissionRepository.deleteAllByPermissionCode(entity.getCode());
     rolePermissionRepository.deleteAllByPermissionCode(entity.getCode());
-    super.remove(entity);
+    return super.remove(entity);
   }
 
   // endregion

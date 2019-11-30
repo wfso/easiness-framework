@@ -67,20 +67,20 @@ public class EasinessRoleService extends BaseJpaService<EasinessRole> {
 
   @Override
   @Transactional
-  public void remove(Iterable<EasinessRole> entities) {
+  public Iterable<EasinessRole> remove(Iterable<EasinessRole> entities) {
     for (EasinessRole role : entities) {
       rolePermissionRepository.deleteAllByRoleCode(role.getCode());
       userRoleRepository.deleteAllByRoleCode(role.getCode());
     }
-    super.remove(entities);
+    return super.remove(entities);
   }
 
   @Override
   @Transactional
-  public void remove(EasinessRole entity) {
+  public EasinessRole remove(EasinessRole entity) {
     rolePermissionRepository.deleteAllByRoleCode(entity.getCode());
     userRoleRepository.deleteAllByRoleCode(entity.getCode());
-    super.remove(entity);
+    return super.remove(entity);
   }
 
   // endregion

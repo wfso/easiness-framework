@@ -49,16 +49,15 @@ public interface CURDService<T, ID> {
     return list;
   }
 
-  void remove(T entity);
+  T remove(T entity);
 
-  void remove(Iterable<T> entities);
+  Iterable<T> remove(Iterable<T> entities);
 
   T removeById(ID id);
 
   @Transactional
-  default List<T> removeByIds(Iterable<ID> ids) {
+  default Iterable<T> removeByIds(Iterable<ID> ids) {
     List<T> list = getByIds(ids);
-    remove(list);
-    return list;
+    return remove(list);
   }
 }

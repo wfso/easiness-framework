@@ -171,9 +171,9 @@ public class ConfigurationService extends BaseJpaService<Configuration> implemen
 
   @Override
   @Transactional
-  public void remove(Configuration configuration) {
+  public Configuration remove(Configuration configuration) {
     removeConfigCache(configuration.getConfigKey());
-    super.remove(configuration);
+    return super.remove(configuration);
   }
 
 

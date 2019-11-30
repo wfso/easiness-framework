@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -87,14 +88,16 @@ public abstract class BaseService<T extends Model<ID>, ID> implements Service<T,
 
   @Override
   @Transactional
-  public void remove(Iterable<T> entities) {
+  public Iterable<T> remove(Iterable<T> entities) {
     getRepository().deleteInBatch(entities);
+    return entities;
   }
 
   @Override
   @Transactional
-  public void remove(T entity) {
+  public T remove(T entity) {
     getRepository().delete(entity);
+    return entity;
   }
 
   @Override
