@@ -11,42 +11,42 @@ public abstract class UuidBaseJpaBackupService<T extends UuidBaseJpaModel> exten
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "create")
   public T create(T entity) {
     return super.create(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T update(T entity) {
     return super.update(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "create")
   public List<T> create(Iterable<T> entities) {
     return super.create(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> update(Iterable<T> entities) {
     return super.update(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateIgnoreNull(T entity) {
     return super.updateIgnoreNull(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateIgnoreEmpty(T entity) {
     return super.updateIgnoreEmpty(entity);
   }
@@ -54,43 +54,43 @@ public abstract class UuidBaseJpaBackupService<T extends UuidBaseJpaModel> exten
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> updateIgnoreNull(Iterable<T> entities) {
     return super.updateIgnoreNull(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> updateIgnoreEmpty(Iterable<T> entities) {
     return super.updateIgnoreEmpty(entities);
   }
 
 
   @Override
-  @BackupResult
   @Transactional
+  @BackupResult(type = "remove")
   public Iterable<T> remove(Iterable<T> entities) {
     return super.remove(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "remove")
   public Iterable<T> removeByIds(Iterable<Long> ids) {
     return super.removeByIds(ids);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "remove")
   public T removeById(Long id) {
     return super.removeById(id);
   }
 
   @Override
-  @BackupResult
   @Transactional
+  @BackupResult(type = "remove")
   public T remove(T entity) {
     return super.remove(entity);
   }
@@ -98,28 +98,28 @@ public abstract class UuidBaseJpaBackupService<T extends UuidBaseJpaModel> exten
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "remove")
   public T removeByUuid(String uuid) {
     return super.removeByUuid(uuid);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateByUuid(T entity) {
     return super.updateByUuid(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateByUuidIgnoreNull(T entity) {
     return super.updateByUuidIgnoreNull(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateByUuidIgnoreEmpty(T entity) {
     return super.updateByUuidIgnoreEmpty(entity);
   }

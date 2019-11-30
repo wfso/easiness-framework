@@ -11,42 +11,42 @@ public abstract class BaseBackupService<T extends Model<ID>, ID> extends BaseSer
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "create")
   public T create(T entity) {
     return super.create(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T update(T entity) {
     return super.update(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "create")
   public List<T> create(Iterable<T> entities) {
     return super.create(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> update(Iterable<T> entities) {
     return super.update(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateIgnoreNull(T entity) {
     return super.updateIgnoreNull(entity);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public T updateIgnoreEmpty(T entity) {
     return super.updateIgnoreEmpty(entity);
   }
@@ -54,43 +54,43 @@ public abstract class BaseBackupService<T extends Model<ID>, ID> extends BaseSer
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> updateIgnoreNull(Iterable<T> entities) {
     return super.updateIgnoreNull(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "update")
   public List<T> updateIgnoreEmpty(Iterable<T> entities) {
     return super.updateIgnoreEmpty(entities);
   }
 
 
   @Override
-  @BackupResult
   @Transactional
+  @BackupResult(type = "remove")
   public Iterable<T> remove(Iterable<T> entities) {
     return super.remove(entities);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "remove")
   public Iterable<T> removeByIds(Iterable<ID> ids) {
     return super.removeByIds(ids);
   }
 
   @Override
   @Transactional
-  @BackupResult
+  @BackupResult(type = "remove")
   public T removeById(ID id) {
     return super.removeById(id);
   }
 
   @Override
-  @BackupResult
   @Transactional
+  @BackupResult(type = "remove")
   public T remove(T entity) {
     return super.remove(entity);
   }
