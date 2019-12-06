@@ -1,11 +1,9 @@
 package cn.ibestcode.easiness.utils;
 
-import cn.ibestcode.easiness.utils.exception.IdNumberException;
 import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
-
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,19 +25,19 @@ public class IdNumberUtil {
 
   public IdNumberUtil(String idNumber) {
     if (idNumber.length() != 18) {
-      throw new IdNumberException("身份证号长度应为18位长度的字符串");
+      throw new UtilsException("IdNumberLengthMustBe18");
     }
-    char[] ids = idNumber.toCharArray();
+    char[] ids = idNumber.toUpperCase().toCharArray();
     int sum = 0;
     for (int i = 0; i < 17; i++) {
       if (ids[i] > '9' || ids[i] < '0') {
-        throw new IdNumberException("身份证号前17位字符只能是0-9的数字");
+        throw new UtilsException("IdNumberCharacterFail");
       }
       sum += Integer.parseInt(Character.toString(ids[i])) * integers.get(i);
     }
     sum = sum % 11;
     if (characters.get(sum) != ids[17]) {
-      throw new IdNumberException("非法身份证号");
+      throw new UtilsException("IdNumberFail");
     }
 
     // 性别解析
@@ -51,7 +49,7 @@ public class IdNumberUtil {
       this.birthday = DateUtils.parseDate(idNumber.substring(6, 14), "yyyyMMdd");
     } catch (ParseException e) {
       log.error(e.getMessage(), e);
-      throw new UtilsException("ParseException", e);
+      throw new UtilsException("DateParseException", e);
     }
 
     // 年龄解析

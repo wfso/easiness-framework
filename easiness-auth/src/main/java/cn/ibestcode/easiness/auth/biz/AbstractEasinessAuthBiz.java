@@ -67,13 +67,13 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   @Override
   public EasinessLoginResult login(String type) {
-    EasinessLoginResult result = new EasinessLoginResult();
     long userId = loginHandlerBus.loginHandle(type);
     recordLoginStatus(userId);
     setSession(EasinessAuthConstant.USER_ID_SESSION_NAME, String.valueOf(userId));
-    result.setEasinessToken(getSessionId());
     RoleAndPermissionResult roleAndPermissionResult = checkRole(null);
+    EasinessLoginResult result = new EasinessLoginResult();
     SpringBeanUtilsExt.copyPropertiesIgnoreEmpty(roleAndPermissionResult, result);
+    result.setEasinessToken(getSessionId());
     return result;
   }
 
@@ -227,6 +227,12 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   protected abstract String getSessionId();
 
+  /**
+   * 记录登录状态
+   * 保存登录信息到 SESSION 中
+   *
+   * @param userId 用户ID
+   */
   protected abstract void recordLoginStatus(long userId);
 
 }

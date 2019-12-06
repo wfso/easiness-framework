@@ -39,7 +39,9 @@ public class DefaultEasinessAuthBiz extends AbstractEasinessAuthBiz {
 
   @Override
   protected void recordLoginStatus(long userId) {
-    SecurityUtils.getSubject().login(new EasinessAuthenticationToken(userId, RandomUtil.generateUnseparatedUuid()));
+    if (userId > 0) {
+      SecurityUtils.getSubject().login(new EasinessAuthenticationToken(userId, RandomUtil.generateUnseparatedUuid()));
+    }
   }
 
   @Override

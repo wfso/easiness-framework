@@ -15,7 +15,7 @@ public class DefaultEasinessExceptionHandler extends AbstractEasinessExceptionHa
 
   @ExceptionHandler(EasinessException.class)
   @ResponseBody
-  ResponseEntity<Object> defaultEasinessExceptionHandler(EasinessException throwable) {
+  public ResponseEntity<Object> defaultEasinessExceptionHandler(EasinessException throwable) {
     return commonExceptionHandler(throwable, properties.getCodeName(), properties.getMsgName());
   }
 }
