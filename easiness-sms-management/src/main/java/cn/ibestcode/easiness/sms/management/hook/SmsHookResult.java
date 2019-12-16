@@ -20,6 +20,8 @@ public interface SmsHookResult {
 
   String getPhone();
 
+  String getSenderType();
+
   EasinessSmsStatus getStatus();
 
   String getIntro();

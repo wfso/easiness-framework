@@ -16,5 +16,5 @@ import cn.ibestcode.easiness.sms.management.model.EasinessSmsRecord;
  * create by WFSO (仵士杰) at 2019/12/15 23:31
  */
 public interface EasinessSmsRecordRepository extends UuidBaseJpaRepository<EasinessSmsRecord> {
-  EasinessSmsRecord findBySendId(String sendId);
+  EasinessSmsRecord findBySendIdAndSenderType(String sendId, String senderType);
 }

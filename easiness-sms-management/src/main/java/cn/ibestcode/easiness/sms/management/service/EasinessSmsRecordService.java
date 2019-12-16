@@ -29,7 +29,7 @@ public class EasinessSmsRecordService extends UuidBaseJpaService<EasinessSmsReco
     return repository;
   }
 
-  public EasinessSmsRecord getBySendId(String sendId) {
-    return repository.findBySendId(sendId);
+  public EasinessSmsRecord getBySendIdAndSenderType(String sendId, String senderType) {
+    return repository.findBySendIdAndSenderType(sendId, senderType);
   }
 }

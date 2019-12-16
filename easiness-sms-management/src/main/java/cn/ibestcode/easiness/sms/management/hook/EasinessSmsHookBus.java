@@ -39,7 +39,7 @@ public class EasinessSmsHookBus {
       throw new NullPointerException("HookCanNotBeNull");
     }
     SmsHookResult result = hook.hook();
-    EasinessSmsRecord smsRecord = smsRecordService.getBySendId(result.getSendId());
+    EasinessSmsRecord smsRecord = smsRecordService.getBySendIdAndSenderType(result.getSendId(), result.getSenderType());
     if (smsRecord != null) {
       smsRecord.setSmsStatus(result.getStatus());
       smsRecord.setIntro(result.getIntro());

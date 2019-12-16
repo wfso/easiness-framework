@@ -32,7 +32,8 @@ import java.util.Map;
 @Table(name = "easiness_sms_record",
   indexes = {
     @Index(columnList = "uuid", name = "easiness_sms_record_uuid", unique = true),
-    @Index(columnList = "sendId", name = "easiness_sms_record_send_id", unique = true),
+    @Index(columnList = "sendId,sendType", name = "easiness_sms_record_send_id_unique", unique = true),
+    @Index(columnList = "sendId", name = "easiness_sms_record_send_id"),
     @Index(columnList = "template", name = "easiness_sms_record_template"),
     @Index(columnList = "createdAt", name = "easiness_sms_record_created_at"),
     @Index(columnList = "phone", name = "easiness_sms_record_phone")
@@ -50,7 +51,7 @@ public class EasinessSmsRecord extends UuidBaseJpaModel {
 
   @ApiModelProperty("发送短信的方式")
   @Column(length = 20)
-  private String sendType;
+  private String senderType;
 
   @Lob
   @ApiModelProperty("短信的参数")
