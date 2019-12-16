@@ -18,6 +18,8 @@ import cn.ibestcode.easiness.sendsms.submail.properties.SubmailSmsProperties;
 import cn.ibestcode.easiness.utils.DigestUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +168,8 @@ public class SubmailSmsProvider implements SmsProvider {
 
   }
 
+  @Setter
+  @Getter
   private static class SubmailSmsResult implements SmsSenderResult {
 
     private String status;
@@ -174,54 +178,6 @@ public class SubmailSmsProvider implements SmsProvider {
     private String sms_credits;
     private String code;
     private String msg;
-
-    public String getStatus() {
-      return status;
-    }
-
-    public void setStatus(String status) {
-      this.status = status;
-    }
-
-    public String getSend_id() {
-      return send_id;
-    }
-
-    public void setSend_id(String send_id) {
-      this.send_id = send_id;
-    }
-
-    public String getFee() {
-      return fee;
-    }
-
-    public void setFee(String fee) {
-      this.fee = fee;
-    }
-
-    public String getSms_credits() {
-      return sms_credits;
-    }
-
-    public void setSms_credits(String sms_credits) {
-      this.sms_credits = sms_credits;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public void setCode(String code) {
-      this.code = code;
-    }
-
-    public String getMsg() {
-      return msg;
-    }
-
-    public void setMsg(String msg) {
-      this.msg = msg;
-    }
 
     @Override
     public String getId() {
@@ -241,6 +197,11 @@ public class SubmailSmsProvider implements SmsProvider {
         log.warn(e.getMessage(), e);
         throw new SendSmsException("ConvertJSONFail", e);
       }
+    }
+
+    @Override
+    public String getSenderType() {
+      return SubmailSendSmsConstant.EASINESS_SEND_SMS_TYPE_SUBMAIL;
     }
 
     @Override

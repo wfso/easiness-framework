@@ -17,5 +17,7 @@ public interface SmsSenderResult {
 
   boolean isSuccess();
 
+  String getSenderType();
+
   String toJSON();
 }

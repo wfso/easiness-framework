@@ -25,6 +25,8 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -171,44 +173,14 @@ public class AliyunSmsProvider implements SmsProvider {
     }
   }
 
+  @Getter
+  @Setter
   private static class AliyunSmsResult implements SmsSenderResult {
 
     private String BizId;
     private String Code;
     private String Message;
     private String RequestId;
-
-    public String getBizId() {
-      return BizId;
-    }
-
-    public void setBizId(String bizId) {
-      BizId = bizId;
-    }
-
-    public String getCode() {
-      return Code;
-    }
-
-    public void setCode(String code) {
-      Code = code;
-    }
-
-    public String getMessage() {
-      return Message;
-    }
-
-    public void setMessage(String message) {
-      Message = message;
-    }
-
-    public String getRequestId() {
-      return RequestId;
-    }
-
-    public void setRequestId(String requestId) {
-      RequestId = requestId;
-    }
 
     @Override
     public String getId() {
@@ -218,6 +190,11 @@ public class AliyunSmsProvider implements SmsProvider {
     @Override
     public boolean isSuccess() {
       return "OK".equalsIgnoreCase(getCode());
+    }
+
+    @Override
+    public String getSenderType() {
+      return AliyunSendSmsConstant.EASINESS_SEND_SMS_TYPE_ALIYUN;
     }
 
     @Override
