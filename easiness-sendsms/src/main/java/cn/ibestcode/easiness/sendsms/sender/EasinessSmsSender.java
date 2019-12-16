@@ -9,6 +9,7 @@
 package cn.ibestcode.easiness.sendsms.sender;
 
 import cn.ibestcode.easiness.configuration.EasinessConfiguration;
+import cn.ibestcode.easiness.sendsms.EasinessSendSmsConstant;
 import cn.ibestcode.easiness.sendsms.properties.SmsProperties;
 import cn.ibestcode.easiness.sendsms.provider.SmsProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class EasinessSmsSender implements SmsSender {
   public void postConstruct() {
     this.type = smsProperties.getType();
     if (redissonClient != null) {
-      RTopic rTopic = redissonClient.getTopic("easiness.sms.subscribe");
+      RTopic rTopic = redissonClient.getTopic(EasinessSendSmsConstant.SUBSCRIBE_CONFIG_FIELD);
       rTopic.addListener(Integer.class, (s, m) -> clear());
     }
   }
@@ -54,7 +55,7 @@ public class EasinessSmsSender implements SmsSender {
   public SmsSenderResult sendSms(String phone, String template, Map<String, String> vars, String type) {
     boolean flag = true;
     if (configuration != null) {
-      flag = configuration.getBooleanConfigure("easiness.sms.enable", true);
+      flag = configuration.getBooleanConfigure(EasinessSendSmsConstant.ENABLE_CONFIG_FIELD, true);
     }
     if (flag) {
       for (SmsProvider provider : providers) {
@@ -75,7 +76,7 @@ public class EasinessSmsSender implements SmsSender {
   private void clear() {
     type = null;
     if (configuration != null) {
-      type = configuration.getConfig("easiness.sms.type");
+      type = configuration.getConfig(EasinessSendSmsConstant.DEFAULT_TYPE_CONFIG_FIELD);
     }
     if (StringUtils.isEmpty(type)) {
       type = smsProperties.getType();

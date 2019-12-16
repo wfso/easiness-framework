@@ -13,5 +13,5 @@ package cn.ibestcode.easiness.sendsms.aliyun;
  * create by WFSO (仵士杰) at 2019/11/29 20:43
  */
 public class AliyunSendSmsConstant {
-  public static final String EASINESS_SEND_SMS_TYPE_ALIYUN = "aliyun";
+  public static final String ALIYUN_TYPE = "aliyun";
 }

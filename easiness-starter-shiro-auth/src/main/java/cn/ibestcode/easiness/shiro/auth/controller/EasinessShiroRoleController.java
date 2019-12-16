@@ -35,7 +35,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PostMapping
   @ApiOperation("添加角色")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void add(@RequestBody EasinessRole role) {
     super.add(role);
   }
@@ -43,7 +43,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PutMapping
   @ApiOperation("修改角色")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void edit(@RequestBody EasinessRole role) {
     super.edit(role);
   }
@@ -51,7 +51,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @DeleteMapping("{code}")
   @ApiOperation("删除角色")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void remove(@PathVariable String code) {
     super.remove(code);
   }
@@ -59,7 +59,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @GetMapping("all")
   @ApiOperation("获取所有角色-不分页")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public List<EasinessRole> getAll() {
     return super.getAll();
   }
@@ -67,7 +67,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @GetMapping
   @ApiOperation("根据条件搜索角色-带分页")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessRole> getPage(EasinessRoleQueryVo filterGenerator, DefaultPageableGenerator pageableGenerator) {
     return super.getPage(filterGenerator, pageableGenerator);
   }
@@ -79,7 +79,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @GetMapping("{code}/permissions")
   @ApiOperation("获取角色的权限列表")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public List<EasinessPermission> getPermissions(@PathVariable String code) {
     return super.getPermissions(code);
   }
@@ -87,7 +87,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PutMapping("{code}/permissions")
   @ApiOperation("设置“角色-权限”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void setPermissions(@PathVariable String code, @RequestBody List<String> permissionCodes) {
     super.setPermissions(code, permissionCodes);
   }
@@ -95,7 +95,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PostMapping("{code}/permissions")
   @ApiOperation("添加“角色-权限”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void addPermissions(@PathVariable String code, @RequestBody List<String> permissionCodes) {
     super.addPermissions(code, permissionCodes);
   }
@@ -103,7 +103,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @DeleteMapping("{code}/permissions")
   @ApiOperation("删除“角色-权限”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void removePermissions(@PathVariable String code, @RequestBody List<String> permissionCodes) {
     super.removePermissions(code, permissionCodes);
   }
@@ -114,7 +114,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PutMapping("{code}/users")
   @ApiOperation("设置“用户-角色”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void setUsers(@PathVariable String code, @RequestBody List<Long> userIds) {
     super.setUsers(code, userIds);
   }
@@ -122,7 +122,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @PostMapping("{code}/users")
   @ApiOperation("添加“用户-角色”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void addUsers(@PathVariable String code, @RequestBody List<Long> userIds) {
     super.addUsers(code, userIds);
   }
@@ -130,7 +130,7 @@ public class EasinessShiroRoleController extends EasinessRoleController {
   @Override
   @DeleteMapping("{code}/users")
   @ApiOperation("删除“用户-角色”")
-  @RequiresRoles(EasinessRoleConstant.EASINESS_DEFAULT_SYSTEM_ROLE)
+  @RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void removeUsers(@PathVariable String code, @RequestBody List<Long> userIds) {
     super.removeUsers(code, userIds);
   }

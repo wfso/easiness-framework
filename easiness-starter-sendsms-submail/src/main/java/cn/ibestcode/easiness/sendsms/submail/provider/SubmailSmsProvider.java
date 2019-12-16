@@ -93,7 +93,7 @@ public class SubmailSmsProvider implements SmsProvider {
 
   @Override
   public String getType() {
-    return SubmailSendSmsConstant.EASINESS_SEND_SMS_TYPE_SUBMAIL;
+    return SubmailSendSmsConstant.SUBMAIL_TYPE;
   }
 
   private static class Timestamp {
@@ -201,7 +201,7 @@ public class SubmailSmsProvider implements SmsProvider {
 
     @Override
     public String getSenderType() {
-      return SubmailSendSmsConstant.EASINESS_SEND_SMS_TYPE_SUBMAIL;
+      return SubmailSendSmsConstant.SUBMAIL_TYPE;
     }
 
     @Override

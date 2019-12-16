@@ -64,7 +64,7 @@ public class LocalStorageProvider implements StorageProvider {
 
   @Override
   public String getType() {
-    return LocalStorageConstant.EASINESS_STORAGE_TYPE_LOCAL;
+    return LocalStorageConstant.LOCAL_TYPE;
   }
 
   @Slf4j

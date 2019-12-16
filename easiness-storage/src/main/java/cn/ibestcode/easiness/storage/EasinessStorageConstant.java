@@ -6,12 +6,13 @@
  * See the LICENSE file in the project root for more information.
  */
 
-package cn.ibestcode.easiness.sendsms.submail;
+package cn.ibestcode.easiness.storage;
 
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2019/11/29 20:42
+ * create by WFSO (仵士杰) at 2019/12/16 20:45
  */
-public class SubmailSendSmsConstant {
-  public static final String SUBMAIL_TYPE = "submail";
+public class EasinessStorageConstant {
+  public static final String DEFAULT_TYPE_CONFIG_FIELD = "easiness.storage.type";
+  public static final String SUBSCRIBE_CONFIG_FIELD = "easiness.storage.subscribe";
 }

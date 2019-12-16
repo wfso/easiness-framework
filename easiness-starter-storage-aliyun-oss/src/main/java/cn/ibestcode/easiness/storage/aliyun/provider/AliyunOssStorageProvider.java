@@ -85,7 +85,7 @@ public class AliyunOssStorageProvider implements StorageProvider {
 
   @Override
   public String getType() {
-    return AliyunOssStorageConstant.EASINESS_STORAGE_TYPE_ALIYUN_OSS;
+    return AliyunOssStorageConstant.ALIYUN_OSS_TYPE;
   }
 
   private static class AliyunOssStorage implements Storage {

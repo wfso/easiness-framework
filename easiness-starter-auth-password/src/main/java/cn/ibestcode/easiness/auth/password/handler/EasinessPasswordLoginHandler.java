@@ -29,7 +29,7 @@ public class EasinessPasswordLoginHandler implements EasinessLoginHandler {
 
   @Override
   public String supportType() {
-    return EasinessPasswordAuthConstant.EASINESS_LOGIN_TYPE_PASSWORD;
+    return EasinessPasswordAuthConstant.LOGIN_TYPE;
   }
 
   @Override

@@ -34,7 +34,7 @@ public class EasinessStorage implements Storage {
   private void postConstruct() {
     this.type = storageProperties.getType();
     if (redissonClient != null) {
-      RTopic rTopic = redissonClient.getTopic("easiness.storage.subscribe");
+      RTopic rTopic = redissonClient.getTopic(EasinessStorageConstant.SUBSCRIBE_CONFIG_FIELD);
       rTopic.addListener(Integer.class, (s, o) -> clear());
     }
   }
@@ -42,7 +42,7 @@ public class EasinessStorage implements Storage {
   private void clear() {
     type = null;
     if (configuration != null) {
-      type = configuration.getConfig("easiness.storage.type");
+      type = configuration.getConfig(EasinessStorageConstant.DEFAULT_TYPE_CONFIG_FIELD);
     }
     if (StringUtils.isEmpty(type)) {
       type = storageProperties.getType();

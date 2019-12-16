@@ -117,7 +117,7 @@ public class AliyunSmsProvider implements SmsProvider {
 
   @Override
   public String getType() {
-    return AliyunSendSmsConstant.EASINESS_SEND_SMS_TYPE_ALIYUN;
+    return AliyunSendSmsConstant.ALIYUN_TYPE;
   }
 
   private static class AliyunSmsSender implements SmsSender {
@@ -194,7 +194,7 @@ public class AliyunSmsProvider implements SmsProvider {
 
     @Override
     public String getSenderType() {
-      return AliyunSendSmsConstant.EASINESS_SEND_SMS_TYPE_ALIYUN;
+      return AliyunSendSmsConstant.ALIYUN_TYPE;
     }
 
     @Override
