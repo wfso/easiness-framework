@@ -31,7 +31,7 @@ public class EasinessLoginHandlerBus {
   public long loginHandle(String type) {
     EasinessLoginHandler handler = getHandlerByType(type);
     if (handler == null) {
-      throw new NullPointerException("LoginHandlerCanNotBeNull");
+      throw new EasinessAuthenticationException("LoginHandlerCanNotBeNull");
     }
     return handler.loginHandle();
   }
