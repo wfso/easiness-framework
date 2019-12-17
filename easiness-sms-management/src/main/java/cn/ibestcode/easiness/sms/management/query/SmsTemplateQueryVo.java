@@ -12,7 +12,6 @@ package cn.ibestcode.easiness.sms.management.query;
 import cn.ibestcode.easiness.core.query.builder.DefaultFiltersBuilder;
 import cn.ibestcode.easiness.core.query.filter.FilterGenerator;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,26 +21,23 @@ import lombok.Setter;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:18
  */
-@Getter
 @Setter
-@ApiModel("定时短信查询Vo")
-public class SmsCrontabQueryVo implements FilterGenerator {
+@Getter
+@ApiModel("短信模板查询Vo")
+public class SmsTemplateQueryVo implements FilterGenerator {
 
   @ApiModelProperty("短信的Template")
   private String template;
 
-  @ApiModelProperty("手机号")
-  private String phone;
-
-  @ApiModelProperty("发送状态")
-  private EasinessSmsStatus smsStatus;
+  @ApiModelProperty("短信的Template名")
+  private String templateName;
 
   @Override
   public IFilter generateFilter() {
+
     return DefaultFiltersBuilder.getAndInstance()
       .andEqual("template", template)
-      .andEqual("phone", phone)
-      .andEqual("smsStatus", smsStatus.name(), EasinessSmsStatus.class)
+      .andContain("templateName", templateName)
       .build();
   }
 }

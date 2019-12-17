@@ -8,8 +8,12 @@
 
 package cn.ibestcode.easiness.sms.management.query;
 
+import cn.ibestcode.easiness.core.query.builder.DefaultFiltersBuilder;
 import cn.ibestcode.easiness.core.query.filter.FilterGenerator;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
+import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +25,24 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@ApiModel("短信记录查询Vo")
 public class SmsRecordQueryVo implements FilterGenerator, Serializable {
+  @ApiModelProperty("模块")
+  private String template;
+  @ApiModelProperty("手机号")
+  private String phone;
+  @ApiModelProperty("发送短信的方式")
+  private String senderType;
+  @ApiModelProperty("发送状态")
+  private EasinessSmsStatus smsStatus;
+
   @Override
   public IFilter generateFilter() {
-    return null;
+    return DefaultFiltersBuilder.getAndInstance()
+      .andEqual("template", template)
+      .andEqual("phone", phone)
+      .andEqual("senderType", senderType)
+      .andEqual("smsStatus", smsStatus.name(), EasinessSmsStatus.class)
+      .build();
   }
 }

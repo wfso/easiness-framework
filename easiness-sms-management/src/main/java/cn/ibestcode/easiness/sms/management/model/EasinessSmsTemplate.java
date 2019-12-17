@@ -38,6 +38,10 @@ public class EasinessSmsTemplate extends UuidBaseJpaModel {
   @ApiModelProperty("短信的Template")
   private String template;
 
+  @Column(length = 100)
+  @ApiModelProperty("短信的Template名")
+  private String templateName;
+
   @Column(length = 250)
   @ApiModelProperty("模板内容")
   private String content;
