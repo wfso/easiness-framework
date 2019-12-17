@@ -11,7 +11,7 @@ package cn.ibestcode.easiness.sms.management.query;
 import cn.ibestcode.easiness.core.query.builder.DefaultFiltersBuilder;
 import cn.ibestcode.easiness.core.query.filter.FilterGenerator;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

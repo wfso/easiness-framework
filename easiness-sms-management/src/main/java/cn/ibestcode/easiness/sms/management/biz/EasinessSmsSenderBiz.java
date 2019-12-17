@@ -12,7 +12,7 @@ import cn.ibestcode.easiness.core.annotation.Biz;
 import cn.ibestcode.easiness.sendsms.sender.EasinessSmsSender;
 import cn.ibestcode.easiness.sendsms.sender.SmsSenderResult;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsRecord;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsTemplate;
 import cn.ibestcode.easiness.sms.management.service.EasinessSmsRecordService;
 import cn.ibestcode.easiness.sms.management.service.EasinessSmsTemplateService;

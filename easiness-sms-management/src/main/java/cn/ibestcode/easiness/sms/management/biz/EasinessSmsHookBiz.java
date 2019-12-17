@@ -6,39 +6,28 @@
  * See the LICENSE file in the project root for more information.
  */
 
-package cn.ibestcode.easiness.sms.management.hook;
+package cn.ibestcode.easiness.sms.management.biz;
 
-import cn.ibestcode.easiness.sms.management.exception.SmsManagementException;
+import cn.ibestcode.easiness.core.annotation.Biz;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsHookBus;
+import cn.ibestcode.easiness.sendsms.hook.SmsHookResult;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsRecord;
 import cn.ibestcode.easiness.sms.management.service.EasinessSmsRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:30
  */
-@Component
-public class EasinessSmsHookBus {
-
-  @Autowired
-  protected List<EasinessSmsHook> smsHookList;
+@Biz
+public class EasinessSmsHookBiz extends EasinessSmsHookBus{
 
   @Autowired
   protected EasinessSmsRecordService smsRecordService;
 
-  protected Map<String, EasinessSmsHook> smsHookMap;
-
+  @Override
   public String hook(String type) {
-    EasinessSmsHook hook = getHookByType(type);
-    if (hook == null) {
-      throw new SmsManagementException("HookCanNotBeNull");
-    }
-    SmsHookResult result = hook.hook();
+    SmsHookResult result = doHook(type);
     EasinessSmsRecord smsRecord = smsRecordService.getBySendIdAndSenderType(result.getSendId(), result.getSenderType());
     if (smsRecord != null) {
       smsRecord.setSmsStatus(result.getStatus());
@@ -47,18 +36,5 @@ public class EasinessSmsHookBus {
       smsRecordService.update(smsRecord);
     }
     return result.getResponse();
-  }
-
-  private EasinessSmsHook getHookByType(String type) {
-    if (smsHookMap == null) {
-      smsHookMap = new HashMap<>();
-      for (EasinessSmsHook hook : smsHookList) {
-        smsHookMap.put(hook.supportType(), hook);
-      }
-    }
-    if (!smsHookMap.containsKey(type)) {
-      throw new SmsManagementException("NotHookExistOfType", type);
-    }
-    return smsHookMap.get(type);
   }
 }

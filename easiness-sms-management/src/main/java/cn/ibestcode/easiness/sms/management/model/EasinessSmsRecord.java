@@ -10,6 +10,7 @@ package cn.ibestcode.easiness.sms.management.model;
 
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.core.converter.MapJsonConverter;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

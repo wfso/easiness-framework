@@ -10,7 +10,7 @@ package cn.ibestcode.easiness.sms.management.service;
 
 import cn.ibestcode.easiness.core.base.service.UuidBaseJpaService;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import cn.ibestcode.easiness.sms.management.repository.EasinessSmsCrontabRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

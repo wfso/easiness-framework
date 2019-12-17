@@ -8,7 +8,7 @@
 
 package cn.ibestcode.easiness.sms.management.controller;
 
-import cn.ibestcode.easiness.sms.management.hook.EasinessSmsHookBus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsHookBus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

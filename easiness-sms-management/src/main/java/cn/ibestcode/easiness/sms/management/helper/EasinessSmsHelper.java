@@ -9,7 +9,7 @@
 package cn.ibestcode.easiness.sms.management.helper;
 
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import cn.ibestcode.easiness.utils.RandomUtil;
 
 import java.util.ArrayList;

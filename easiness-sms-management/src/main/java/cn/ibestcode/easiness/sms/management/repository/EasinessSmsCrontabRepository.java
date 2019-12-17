@@ -10,7 +10,7 @@ package cn.ibestcode.easiness.sms.management.repository;
 
 import cn.ibestcode.easiness.core.base.repository.UuidBaseJpaRepository;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 
 import java.util.List;
 

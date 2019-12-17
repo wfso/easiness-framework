@@ -12,7 +12,7 @@ import cn.ibestcode.easiness.core.properites.EasinessApplicationProperties;
 import cn.ibestcode.easiness.sendsms.sender.SmsSender;
 import cn.ibestcode.easiness.sendsms.sender.SmsSenderResult;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsStatus;
 import cn.ibestcode.easiness.sms.management.service.EasinessSmsCrontabService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;

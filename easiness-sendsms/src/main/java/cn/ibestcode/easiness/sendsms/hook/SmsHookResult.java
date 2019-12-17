@@ -6,9 +6,7 @@
  * See the LICENSE file in the project root for more information.
  */
 
-package cn.ibestcode.easiness.sms.management.hook;
-
-import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+package cn.ibestcode.easiness.sendsms.hook;
 
 /**
  * @author WFSO (仵士杰)

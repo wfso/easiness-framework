@@ -8,6 +8,7 @@
 
 package cn.ibestcode.easiness.sendsms;
 
+import cn.ibestcode.easiness.sendsms.hook.EasinessSmsHookBus;
 import cn.ibestcode.easiness.sendsms.properties.SmsProperties;
 import cn.ibestcode.easiness.sendsms.sender.EasinessSmsSender;
 import cn.ibestcode.easiness.sendsms.sender.SmsSender;
@@ -34,5 +35,11 @@ public class EasinessSendSmsConfiguration {
   @ConditionalOnMissingBean(SmsSender.class)
   public EasinessSmsSender smsSender() {
     return new EasinessSmsSender();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(EasinessSmsHookBus.class)
+  public EasinessSmsHookBus easinessSmsHookBus() {
+    return new EasinessSmsHookBus();
   }
 }
