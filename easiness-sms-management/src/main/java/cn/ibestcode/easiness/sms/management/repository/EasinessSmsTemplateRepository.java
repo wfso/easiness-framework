@@ -15,5 +15,6 @@ import cn.ibestcode.easiness.sms.management.model.EasinessSmsTemplate;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 23:31
  */
-public interface EasinessSmsTemplateRepository extends UuidBaseJpaRepository<EasinessSmsTemplate > {
+public interface EasinessSmsTemplateRepository extends UuidBaseJpaRepository<EasinessSmsTemplate> {
+  EasinessSmsTemplate findByTemplate(String template);
 }

@@ -28,4 +28,8 @@ public class EasinessSmsTemplateService extends UuidBaseJpaService<EasinessSmsTe
   protected EasinessSmsTemplateRepository getRepository() {
     return repository;
   }
+
+  public EasinessSmsTemplate getByTemplate(String template) {
+    return repository.findByTemplate(template);
+  }
 }

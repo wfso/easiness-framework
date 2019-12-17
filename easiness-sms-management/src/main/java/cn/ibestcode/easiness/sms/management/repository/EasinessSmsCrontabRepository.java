@@ -10,10 +10,14 @@ package cn.ibestcode.easiness.sms.management.repository;
 
 import cn.ibestcode.easiness.core.base.repository.UuidBaseJpaRepository;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
+import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
+
+import java.util.List;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 23:16
  */
 public interface EasinessSmsCrontabRepository extends UuidBaseJpaRepository<EasinessSmsCrontab> {
+  List<EasinessSmsCrontab> findAllBySmsStatusAndSendAtLessThanEqual(EasinessSmsStatus smsStatus, long sendAt);
 }

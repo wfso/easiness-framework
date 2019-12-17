@@ -29,7 +29,7 @@ import javax.persistence.*;
 @Table(name = "easiness_sms_template",
   indexes = {
     @Index(columnList = "uuid", name = "easiness_sms_template_uuid", unique = true),
-    @Index(columnList = "template", name = "easiness_sms_template_template")
+    @Index(columnList = "template", name = "easiness_sms_template_template", unique = true)
   }
 )
 public class EasinessSmsTemplate extends UuidBaseJpaModel {

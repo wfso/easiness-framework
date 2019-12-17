@@ -26,17 +26,17 @@ import java.util.Map;
 public class EasinessSmsHookBus {
 
   @Autowired
-  private List<EasinessSmsHook> smsHookList;
+  protected List<EasinessSmsHook> smsHookList;
 
   @Autowired
-  private EasinessSmsRecordService smsRecordService;
+  protected EasinessSmsRecordService smsRecordService;
 
-  private Map<String, EasinessSmsHook> smsHookMap;
+  protected Map<String, EasinessSmsHook> smsHookMap;
 
   public String hook(String type) {
     EasinessSmsHook hook = getHookByType(type);
     if (hook == null) {
-      throw new NullPointerException("HookCanNotBeNull");
+      throw new SmsManagementException("HookCanNotBeNull");
     }
     SmsHookResult result = hook.hook();
     EasinessSmsRecord smsRecord = smsRecordService.getBySendIdAndSenderType(result.getSendId(), result.getSenderType());

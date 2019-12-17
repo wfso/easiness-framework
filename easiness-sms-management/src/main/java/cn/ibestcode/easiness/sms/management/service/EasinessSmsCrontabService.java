@@ -10,13 +10,18 @@ package cn.ibestcode.easiness.sms.management.service;
 
 import cn.ibestcode.easiness.core.base.service.UuidBaseJpaService;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
+import cn.ibestcode.easiness.sms.management.model.EasinessSmsStatus;
 import cn.ibestcode.easiness.sms.management.repository.EasinessSmsCrontabRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 23:17
  */
+@Service
 public class EasinessSmsCrontabService extends UuidBaseJpaService<EasinessSmsCrontab> {
 
   @Autowired
@@ -24,5 +29,9 @@ public class EasinessSmsCrontabService extends UuidBaseJpaService<EasinessSmsCro
 
   protected EasinessSmsCrontabRepository getRepository() {
     return repository;
+  }
+
+  public List<EasinessSmsCrontab> getBySmsStatusAndSendAtLessThenEqual(EasinessSmsStatus  smsStatus, long sendAt) {
+    return repository.findAllBySmsStatusAndSendAtLessThanEqual(smsStatus, sendAt);
   }
 }

@@ -8,7 +8,6 @@
 
 package cn.ibestcode.easiness.sms.management;
 
-import cn.ibestcode.easiness.sendsms.EnableEasinessSendSms;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -20,7 +19,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnableEasinessSendSms
 @Import(SmsManagementConfiguration.class)
 public @interface EnableEasinessSmsManagement {
 }
