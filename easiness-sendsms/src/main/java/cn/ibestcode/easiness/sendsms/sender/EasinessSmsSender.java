@@ -10,6 +10,7 @@ package cn.ibestcode.easiness.sendsms.sender;
 
 import cn.ibestcode.easiness.configuration.EasinessConfiguration;
 import cn.ibestcode.easiness.sendsms.EasinessSendSmsConstant;
+import cn.ibestcode.easiness.sendsms.exception.SendSmsException;
 import cn.ibestcode.easiness.sendsms.properties.SmsProperties;
 import cn.ibestcode.easiness.sendsms.provider.SmsProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -30,18 +31,20 @@ import java.util.Map;
 public class EasinessSmsSender implements SmsSender {
 
   @Autowired
-  private SmsProperties smsProperties;
+  protected SmsProperties smsProperties;
 
   @Autowired(required = false)
-  private EasinessConfiguration configuration;
+  protected EasinessConfiguration configuration;
 
   @Autowired(required = false)
-  private RedissonClient redissonClient;
+  protected RedissonClient redissonClient;
 
   @Autowired
-  private List<SmsProvider> providers;
+  protected List<SmsProvider> providers;
 
-  private String type;
+  protected Map<String, SmsProvider> providerMap;
+
+  protected String type;
 
   @PostConstruct
   public void postConstruct() {
@@ -58,13 +61,11 @@ public class EasinessSmsSender implements SmsSender {
       flag = configuration.getBooleanConfigure(EasinessSendSmsConstant.ENABLE_CONFIG_FIELD, true);
     }
     if (flag) {
-      for (SmsProvider provider : providers) {
-        if (provider.supports(type)) {
-          return provider.getSender().sendSms(phone, template, vars);
-        }
+      SmsProvider provider = getProviderByType(type);
+      if (provider == null) {
+        throw new SendSmsException("SmsProviderCanNotBeNull");
       }
-      log.warn("No available provider was found by type [{}]", type);
-      return null;
+      return provider.getSender().sendSms(phone, template, vars);
     }
     return null;
   }
@@ -73,7 +74,7 @@ public class EasinessSmsSender implements SmsSender {
     return sendSms(phone, template, vars, type);
   }
 
-  private void clear() {
+  protected void clear() {
     type = null;
     if (configuration != null) {
       type = configuration.getConfig(EasinessSendSmsConstant.DEFAULT_TYPE_CONFIG_FIELD);
@@ -84,6 +85,19 @@ public class EasinessSmsSender implements SmsSender {
     for (SmsProvider provider : providers) {
       provider.clear();
     }
+  }
+
+  protected SmsProvider getProviderByType(String type) {
+    if (providerMap == null) {
+      for (SmsProvider provider : providers) {
+        providerMap.put(provider.getType(), provider);
+      }
+    }
+    if (!providerMap.containsKey(type)) {
+      log.warn("No available provider was found by type [{}]", type);
+      throw new SendSmsException("NotProviderExistOfType", type);
+    }
+    return providerMap.get(type);
   }
 
 }

@@ -14,15 +14,29 @@ package cn.ibestcode.easiness.sendsms.exception;
  */
 public class SendSmsException extends RuntimeException {
 
+  private String[] params;
+
   public SendSmsException(String message) {
     super(message);
+    this.params = new String[]{};
+  }
+
+  public SendSmsException(String message, String... params) {
+    super(message);
+    this.params = params;
   }
 
   public SendSmsException(String message, Throwable cause) {
     super(message, cause);
+    this.params = new String[]{};
   }
 
-  public SendSmsException(Throwable cause) {
-    super(cause);
+  public SendSmsException(String message, Throwable cause, String... params) {
+    super(message, cause);
+    this.params = params;
+  }
+
+  public String[] getParams() {
+    return params;
   }
 }
