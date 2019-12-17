@@ -8,8 +8,4 @@ public interface StorageProvider {
   void clear();
 
   String getType();
-
-  default boolean supports(String type) {
-    return type != null && type.equalsIgnoreCase(getType());
-  }
 }

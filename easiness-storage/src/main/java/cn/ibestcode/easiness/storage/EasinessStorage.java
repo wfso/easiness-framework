@@ -1,6 +1,7 @@
 package cn.ibestcode.easiness.storage;
 
 import cn.ibestcode.easiness.configuration.EasinessConfiguration;
+import cn.ibestcode.easiness.storage.exception.StorageException;
 import cn.ibestcode.easiness.storage.properties.StorageProperties;
 import cn.ibestcode.easiness.storage.provider.StorageProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -12,26 +13,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class EasinessStorage implements Storage {
 
   @Autowired(required = false)
-  private EasinessConfiguration configuration;
+  protected EasinessConfiguration configuration;
 
   @Autowired
-  private StorageProperties storageProperties;
+  protected StorageProperties storageProperties;
 
   @Autowired(required = false)
-  private RedissonClient redissonClient;
+  protected RedissonClient redissonClient;
 
   @Autowired
-  private List<StorageProvider> providers;
+  protected List<StorageProvider> providers;
 
-  private String type;
+  protected Map<String, StorageProvider> providerMap;
+
+  protected String type;
 
   @PostConstruct
-  private void postConstruct() {
+  protected void postConstruct() {
     this.type = storageProperties.getType();
     if (redissonClient != null) {
       RTopic rTopic = redissonClient.getTopic(EasinessStorageConstant.SUBSCRIBE_CONFIG_FIELD);
@@ -39,7 +43,7 @@ public class EasinessStorage implements Storage {
     }
   }
 
-  private void clear() {
+  protected void clear() {
     type = null;
     if (configuration != null) {
       type = configuration.getConfig(EasinessStorageConstant.DEFAULT_TYPE_CONFIG_FIELD);
@@ -59,13 +63,11 @@ public class EasinessStorage implements Storage {
 
   @Override
   public StorageResult putFile(String fileName, InputStream inputStream, String type) {
-    for (StorageProvider provider : providers) {
-      if (provider.supports(type)) {
-        return provider.getStorage().putFile(fileName, inputStream);
-      }
+    StorageProvider provider = getProviderByType(type);
+    if (provider == null) {
+      throw new StorageException("StorageProviderCanNotBeNull");
     }
-    log.warn("No available provider was found by type [{}]", type);
-    return null;
+    return provider.getStorage().putFile(fileName, inputStream);
   }
 
   @Override
@@ -76,13 +78,11 @@ public class EasinessStorage implements Storage {
 
   @Override
   public StorageResult simulatePutFile(String fileName, String type) {
-    for (StorageProvider provider : providers) {
-      if (provider.supports(type)) {
-        return provider.getStorage().simulatePutFile(fileName);
-      }
+    StorageProvider provider = getProviderByType(type);
+    if (provider == null) {
+      throw new StorageException("StorageProviderCanNotBeNull");
     }
-    log.warn("No available provider was found by type [{}]", type);
-    return null;
+    return provider.getStorage().simulatePutFile(fileName);
   }
 
   @Override
@@ -92,13 +92,24 @@ public class EasinessStorage implements Storage {
 
   @Override
   public boolean removeFile(String id, String type) {
-    for (StorageProvider provider : providers) {
-      if (provider.supports(type)) {
-        return provider.getStorage().removeFile(id);
+    StorageProvider provider = getProviderByType(type);
+    if (provider == null) {
+      throw new StorageException("StorageProviderCanNotBeNull");
+    }
+    return provider.getStorage().removeFile(id);
+  }
+
+  protected StorageProvider getProviderByType(String type) {
+    if (providerMap == null) {
+      for (StorageProvider provider : providers) {
+        providerMap.put(provider.getType(), provider);
       }
     }
-    log.warn("No available provider was found by type [{}]", type);
-    return false;
+    if (!providerMap.containsKey(type)) {
+      log.warn("No available provider was found by type [{}]", type);
+      throw new StorageException("NotProviderExistOfType", type);
+    }
+    return providerMap.get(type);
   }
 
 }
