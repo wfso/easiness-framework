@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "短信回调管理")
-@RequestMapping("/api/easiness/sms/hook")
+@RequestMapping("/api/easiness/sms/hook/{type}")
 public class EasinessSmsHookController {
 
   @Autowired
   private EasinessSmsHookBus smsHookBus;
 
-  @RequestMapping("{type}")
+  @RequestMapping("status")
   @ApiOperation("发送结果回调")
   public String hook(@PathVariable String type) {
     return smsHookBus.hook(type);

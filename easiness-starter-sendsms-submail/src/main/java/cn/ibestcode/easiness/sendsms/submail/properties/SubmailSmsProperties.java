@@ -28,6 +28,8 @@ public class SubmailSmsProperties {
 
   private String appKey;
 
+  private String hookKey;
+
   private String smsUrl = "https://api.mysubmail.com/message/xsend.json";
 
   private String timestampUrl = "https://api.mysubmail.com/service/timestamp.json";

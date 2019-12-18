@@ -8,23 +8,33 @@
 
 package cn.ibestcode.easiness.sendsms.hook;
 
+import java.util.List;
+
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:49
  */
 public interface SmsHookResult {
 
-  String getSendId();
+  /**
+   * 每个 SmsHookResultItem 对象表示一个短信的
+   * hook 返回值
+   *
+   * @return SmsHookResultItem 列表
+   */
+  List<SmsHookResultItem> getItems();
 
-  String getPhone();
-
-  String getSenderType();
-
-  EasinessSmsStatus getStatus();
-
-  String getIntro();
-
+  /**
+   * 把当前对象转换成JSON字符串
+   *
+   * @return JSON字符串
+   */
   String toJSON();
 
+  /**
+   * 需要向hook的响应
+   *
+   * @return hook 响应体
+   */
   String getResponse();
 }

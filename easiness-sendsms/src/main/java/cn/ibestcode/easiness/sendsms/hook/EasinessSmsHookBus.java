@@ -30,7 +30,10 @@ public class EasinessSmsHookBus {
 
   public String hook(String type) {
     SmsHookResult result = doHook(type);
-    return result.getResponse();
+    if (result != null) {
+      return result.getResponse();
+    }
+    throw new NullPointerException("SmsHookResultCanNotBeNull");
   }
 
   protected SmsHookResult doHook(String type) {
