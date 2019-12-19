@@ -6,9 +6,9 @@
  * See the LICENSE file in the project root for more information.
  */
 
-package cn.ibestcode.easiness.shiro.filter;
+package cn.ibestcode.easiness.auth.filter;
 
-import cn.ibestcode.easiness.shiro.session.utils.EasinessSessionUtil;
+import cn.ibestcode.easiness.auth.biz.EasinessAuthBiz;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,9 +24,12 @@ import java.io.IOException;
 @Slf4j
 public class EasinessTokenFilter implements Filter {
 
+  private EasinessAuthBiz authBiz;
+
   private String tokenIdentification;
 
-  public EasinessTokenFilter(String tokenIdentification) {
+  public EasinessTokenFilter(EasinessAuthBiz authBiz, String tokenIdentification) {
+    this.authBiz = authBiz;
     this.tokenIdentification = tokenIdentification;
   }
 
@@ -36,11 +39,12 @@ public class EasinessTokenFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     String token = request.getHeader(tokenIdentification);
-    String sessionId = EasinessSessionUtil.getSessionId();
+    String sessionId = authBiz.getSessionId();
     if (StringUtils.isBlank(token) || !token.equalsIgnoreCase(sessionId)) {
       log.debug("EasinessTokenFilter - set response header "
         + tokenIdentification + ":" + sessionId);
       response.setHeader(tokenIdentification, sessionId);
+      response.addHeader("Access-Control-Allow-Headers", tokenIdentification);
     }
     filterChain.doFilter(servletRequest, servletResponse);
   }

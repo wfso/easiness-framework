@@ -20,20 +20,25 @@ import org.apache.shiro.SecurityUtils;
  * create by WFSO (仵士杰) at 2019/11/28 18:33
  */
 
-public class DefaultEasinessAuthBiz extends AbstractEasinessAuthBiz {
+public class EasinessShiroAuthBiz extends AbstractEasinessAuthBiz {
 
   @Override
-  protected void setSession(String key, String value) {
+  public void setSession(String key, Object value) {
     EasinessSessionUtil.setSession(key, value);
   }
 
   @Override
-  protected String getSession(String key) {
-    return (String) EasinessSessionUtil.getSession(key);
+  public Object getSession(String key) {
+    return EasinessSessionUtil.getSession(key);
   }
 
   @Override
-  protected String getSessionId() {
+  public Object removeSession(String key) {
+    return EasinessSessionUtil.removeSession(key);
+  }
+
+  @Override
+  public String getSessionId() {
     return EasinessSessionUtil.getSessionId();
   }
 
@@ -43,6 +48,12 @@ public class DefaultEasinessAuthBiz extends AbstractEasinessAuthBiz {
       SecurityUtils.getSubject().login(new EasinessAuthenticationToken(userId, RandomUtil.generateUnseparatedUuid()));
     }
   }
+
+  @Override
+  public long getLoginUserId() {
+    return (long) SecurityUtils.getSubject().getPrincipal();
+  }
+
 
   @Override
   public void logout() {

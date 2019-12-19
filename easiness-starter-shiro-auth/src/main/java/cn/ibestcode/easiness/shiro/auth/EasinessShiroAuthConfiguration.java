@@ -2,7 +2,7 @@ package cn.ibestcode.easiness.shiro.auth;
 
 import cn.ibestcode.easiness.auth.EnableEasinessAuth;
 import cn.ibestcode.easiness.auth.biz.EasinessAuthBiz;
-import cn.ibestcode.easiness.shiro.auth.biz.DefaultEasinessAuthBiz;
+import cn.ibestcode.easiness.shiro.auth.biz.EasinessShiroAuthBiz;
 import cn.ibestcode.easiness.shiro.authentication.DefaultEasinessAuthentication;
 import cn.ibestcode.easiness.shiro.filter.SpringShiroFilterRegistrationBean;
 import cn.ibestcode.easiness.shiro.realm.EasinessAuthorizationRealm;
@@ -47,13 +47,13 @@ public class EasinessShiroAuthConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(DefaultEasinessSession.class)
-  public DefaultEasinessSession sessionUtil() {
+  public DefaultEasinessSession defaultEasinessSession() {
     return new DefaultEasinessSession();
   }
 
   @Bean
   @ConditionalOnMissingBean(Realm.class)
-  public EasinessAuthorizationRealm defaultAuthorizationRealm(DefaultWebSecurityManager defaultWebSecurityManager) {
+  public Realm realm(DefaultWebSecurityManager defaultWebSecurityManager) {
     EasinessAuthorizationRealm realm = new EasinessAuthorizationRealm();
     defaultWebSecurityManager.setRealm(realm);
     return realm;
@@ -61,7 +61,7 @@ public class EasinessShiroAuthConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(EasinessSessionProperties.class)
-  public EasinessSessionProperties shiroSessionProperties() {
+  public EasinessSessionProperties easinessSessionProperties() {
     return new EasinessSessionProperties();
   }
 
@@ -103,7 +103,7 @@ public class EasinessShiroAuthConfiguration {
   @Bean
   @DependsOn("lifecycleBeanPostProcessor")
   @ConditionalOnMissingBean(AuthorizationAttributeSourceAdvisor.class)
-  public AuthorizationAttributeSourceAdvisor advisor(SecurityManager securityManager) {
+  public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
     AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
     authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
     return authorizationAttributeSourceAdvisor;
@@ -130,7 +130,7 @@ public class EasinessShiroAuthConfiguration {
   @Bean
   @ConditionalOnMissingBean(EasinessAuthBiz.class)
   public EasinessAuthBiz easinessAuthBiz() {
-    return new DefaultEasinessAuthBiz();
+    return new EasinessShiroAuthBiz();
   }
 
 }

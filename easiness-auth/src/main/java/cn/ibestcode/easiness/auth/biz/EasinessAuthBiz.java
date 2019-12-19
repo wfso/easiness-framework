@@ -152,4 +152,36 @@ public interface EasinessAuthBiz {
   void logout();
 
 
+  /**
+   * 设置 Session
+   *
+   * @param key   session的键
+   * @param value session的值
+   */
+  void setSession(String key, Object value);
+
+  /**
+   * 通过session的键 获取session的值
+   *
+   * @param key session的键
+   * @return 对应key的session值
+   */
+  Object getSession(String key);
+
+  /**
+   * 通过session的键 删除session的值
+   *
+   * @param key session的键
+   * @return 对应key的session值
+   */
+  Object removeSession(String key);
+
+  /**
+   * 获取sessionId
+   *
+   * @return sessionId
+   */
+  String getSessionId();
+
+
 }

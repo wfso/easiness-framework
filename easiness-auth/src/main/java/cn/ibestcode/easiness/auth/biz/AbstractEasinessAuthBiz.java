@@ -69,7 +69,7 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
   public EasinessLoginResult login(String type) {
     long userId = loginHandlerBus.loginHandle(type);
     recordLoginStatus(userId);
-    setSession(EasinessAuthConstant.USER_ID_SESSION_NAME, String.valueOf(userId));
+    setSession(EasinessAuthConstant.USER_ID_SESSION_NAME, userId);
     RoleAndPermissionResult roleAndPermissionResult = checkRole(null);
     EasinessLoginResult result = new EasinessLoginResult();
     SpringBeanUtilsExt.copyPropertiesIgnoreEmpty(roleAndPermissionResult, result);
@@ -118,7 +118,7 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
     // 如果有主角色，则触发同步登录角色的事件
     if (result.getMasterRole() != null) {
-      setSession(EasinessAuthConstant.ROLE_ID_SESSION_NAME, result.getMasterRole().getId().toString());
+      setSession(EasinessAuthConstant.ROLE_ID_SESSION_NAME, result.getMasterRole().getId());
     }
 
     if (result.getRoles().size() == 0) {
@@ -131,12 +131,12 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   @Override
   public long getLoginUserId() {
-    return Long.parseLong(getSession(EasinessAuthConstant.USER_ID_SESSION_NAME));
+    return (long) getSession(EasinessAuthConstant.USER_ID_SESSION_NAME);
   }
 
   @Override
   public long getMasterRoleId() {
-    return Long.parseLong(getSession(EasinessAuthConstant.ROLE_ID_SESSION_NAME));
+    return (long) getSession(EasinessAuthConstant.ROLE_ID_SESSION_NAME);
   }
 
   @Override
@@ -206,8 +206,8 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   @Override
   public boolean validateCredentials(String dbPassword, String requestPassword) {
-    String token = getSession(EasinessAuthConstant.TOKEN_FIELD_SESSION_NAME);
-    String userName = getSession(EasinessAuthConstant.USER_FIELD_SESSION_NAME);
+    String token = (String) getSession(EasinessAuthConstant.TOKEN_FIELD_SESSION_NAME);
+    String userName = (String) getSession(EasinessAuthConstant.USER_FIELD_SESSION_NAME);
     if (token == null || userName == null) {
       return false;
     }
@@ -220,12 +220,6 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
   protected List<String> getExcludeRoleCodes() {
     return new ArrayList<>();
   }
-
-  protected abstract void setSession(String key, String value);
-
-  protected abstract String getSession(String key);
-
-  protected abstract String getSessionId();
 
   /**
    * 记录登录状态
