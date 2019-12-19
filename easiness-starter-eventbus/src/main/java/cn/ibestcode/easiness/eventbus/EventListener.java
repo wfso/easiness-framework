@@ -8,27 +8,29 @@
 
 package cn.ibestcode.easiness.eventbus;
 
+import cn.ibestcode.easiness.eventbus.annotation.Listener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
+
+import java.lang.annotation.*;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/25 19:56
  */
+@Listener
+@Autowired
 @Component
-@Order(value=1)
-public class EasinessEventBusRegisterCommandLineRunner implements CommandLineRunner {
-
-  @Autowired
-  private EventBus eventBus;
-
-  @Autowired
-  private EasinessEventBusBeanPostProcessor easinessEventBusBeanPostProcessor;
-
-  @Override
-  public void run(String... args) throws Exception {
-    easinessEventBusBeanPostProcessor.init(eventBus);
-  }
+@Inherited
+@Documented
+@Qualifier("EventListener")
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD})
+public @interface EventListener {
+  @AliasFor(
+    annotation = Component.class
+  )
+  String value() default "";
 }
