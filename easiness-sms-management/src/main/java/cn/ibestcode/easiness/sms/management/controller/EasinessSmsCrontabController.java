@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:54
  */
-@RestController
 @Api(tags = "定时短信管理")
 @RequestMapping("/api/easiness/sms/crontab")
 public class EasinessSmsCrontabController implements Controller<EasinessSmsCrontab, Long, SmsCrontabQueryVo, DefaultPageableGenerator> {

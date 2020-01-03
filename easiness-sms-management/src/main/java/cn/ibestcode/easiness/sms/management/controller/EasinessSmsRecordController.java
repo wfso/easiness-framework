@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:14
  */
-@RestController
 @Api(tags = "短信记录管理")
 @RequestMapping("/api/easiness/sms/record")
 public class EasinessSmsRecordController {

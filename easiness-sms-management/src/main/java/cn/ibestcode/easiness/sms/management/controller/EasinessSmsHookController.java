@@ -14,13 +14,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/12/15 20:54
  */
-@RestController
 @Api(tags = "短信回调管理")
 @RequestMapping("/api/easiness/sms/hook/{type}")
 public class EasinessSmsHookController {
