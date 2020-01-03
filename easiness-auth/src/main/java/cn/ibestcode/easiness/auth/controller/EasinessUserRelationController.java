@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags = "用户管理")
+@RequestMapping("/api/easiness/user")
 public class EasinessUserRelationController {
 
   @Autowired

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags = "角色管理")
+@RequestMapping("/api/easiness/role")
 public class EasinessRoleController {
 
   @Autowired

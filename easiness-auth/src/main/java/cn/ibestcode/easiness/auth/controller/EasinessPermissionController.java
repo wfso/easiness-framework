@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags = "权限管理")
+@RequestMapping("/api/easiness/permission")
 public class EasinessPermissionController {
 
   @Autowired

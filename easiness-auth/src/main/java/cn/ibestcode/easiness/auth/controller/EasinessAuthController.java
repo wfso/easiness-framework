@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags = "身份认证及授权接口")
+@RequestMapping("/api/easiness/auth")
 public class EasinessAuthController {
 
   @Autowired
