@@ -22,6 +22,7 @@ import java.util.List;
  * create by WFSO (仵士杰) at 2019/11/23
  */
 @Api(tags = "系统配置管理接口")
+@RequestMapping("/api/easiness/configuration")
 public class ConfigurationController {
 
   @Autowired
