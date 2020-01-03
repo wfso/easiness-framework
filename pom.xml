@@ -39,6 +39,7 @@
     <module>easiness-starter-storage-local</module>
     <module>easiness-starter-storage-aliyun-oss</module>
     <module>easiness-sms-management</module>
+    <module>easiness-file-management</module>
   </modules>
 
   <dependencyManagement>
@@ -153,6 +154,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-sms-management</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-file-management</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 
