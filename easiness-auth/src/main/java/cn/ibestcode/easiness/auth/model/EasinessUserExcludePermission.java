@@ -20,7 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(EasinessUserExcludePermission.class)
-@ApiModel(description = "用户-排除-权限")
+@ApiModel("用户-排除-权限")
 public class EasinessUserExcludePermission implements Serializable {
   @Id
   @ApiModelProperty("用户的ID")

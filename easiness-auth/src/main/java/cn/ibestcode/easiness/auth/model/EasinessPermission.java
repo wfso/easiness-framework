@@ -20,7 +20,7 @@ import javax.persistence.Table;
     @Index(columnList = "name", name = "easiness_permission_name", unique = true)
   }
 )
-@ApiModel(description = "权限实体")
+@ApiModel("权限实体")
 @Getter
 @Setter
 @ToString(callSuper = true)

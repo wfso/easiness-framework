@@ -29,7 +29,7 @@ import java.util.Map;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@ApiModel(description = "通用配置")
+@ApiModel("短信发送记录")
 @Table(name = "easiness_sms_record",
   indexes = {
     @Index(columnList = "uuid", name = "easiness_sms_record_uuid", unique = true),

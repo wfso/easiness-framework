@@ -25,7 +25,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@ApiModel(description = "通用配置")
+@ApiModel("通用配置")
 @Table(name = "easiness_configuration",
   indexes = {
     @Index(columnList = "configKey", name = "easiness_configuration_configKey", unique = true)

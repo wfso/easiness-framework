@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-@ApiModel(description = "JPA搜索过滤器")
+@ApiModel("搜索过滤器")
 public class DefaultFilter implements IFilter {
 
   @ApiModelProperty("过滤规则，配合 value 完成过滤的约束条件，只有满足约束条件的对象才会被返回")

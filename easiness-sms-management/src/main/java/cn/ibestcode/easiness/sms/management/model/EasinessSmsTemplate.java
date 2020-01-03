@@ -25,7 +25,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@ApiModel(description = "通用配置")
+@ApiModel("短信模板")
 @Table(name = "easiness_sms_template",
   indexes = {
     @Index(columnList = "uuid", name = "easiness_sms_template_uuid", unique = true),

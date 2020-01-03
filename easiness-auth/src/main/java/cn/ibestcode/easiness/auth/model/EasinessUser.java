@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "用户实体")
+@ApiModel("用户实体")
 public interface EasinessUser {
 
   @ApiModelProperty("唯一标识")

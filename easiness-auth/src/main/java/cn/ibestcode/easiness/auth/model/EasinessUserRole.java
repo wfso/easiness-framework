@@ -20,7 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(EasinessUserRole.class)
-@ApiModel(description = "用户-角色")
+@ApiModel("用户-角色")
 public class EasinessUserRole implements Serializable {
 
   @Id

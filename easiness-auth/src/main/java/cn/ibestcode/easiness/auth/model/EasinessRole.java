@@ -21,7 +21,7 @@ import javax.persistence.Table;
     @Index(columnList = "name", name = "easiness_role_name", unique = true)
   }
 )
-@ApiModel(description = "角色实体")
+@ApiModel("角色实体")
 @Setter
 @Getter
 @EqualsAndHashCode

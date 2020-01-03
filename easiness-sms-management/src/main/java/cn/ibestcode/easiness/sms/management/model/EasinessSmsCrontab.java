@@ -28,7 +28,7 @@ import java.util.Map;
 )
 @Getter
 @Setter
-@ApiModel(description = "短信")
+@ApiModel("定时短信")
 @ToString(callSuper = true)
 public class EasinessSmsCrontab extends UuidBaseJpaModel {
 
