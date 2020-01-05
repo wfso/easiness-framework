@@ -16,42 +16,27 @@ public class SortBuilder {
     this.orders = new ArrayList<>();
   }
 
-  private SortBuilder(Sort.Order... orders) {
-    for (Sort.Order order : orders) {
-      this.orders.add(order);
-    }
-  }
-
-  private SortBuilder(Sort.Direction direction, String... properties) {
-    for (String property : properties) {
-      this.orders.add(new Sort.Order(direction, property));
-    }
-  }
-
-  private SortBuilder(Sort sort) {
-    for (Sort.Order order : sort) {
-      this.orders.add(order);
-    }
-  }
-
-
   public static SortBuilder from() {
     return new SortBuilder();
   }
 
-
-  public static SortBuilder from(Sort.Direction direction, String properties) {
-    return new SortBuilder(direction, properties);
+  public static SortBuilder from(Sort.Direction direction, String... properties) {
+    SortBuilder builder = new SortBuilder();
+    builder.addOrderBy(direction, properties);
+    return builder;
   }
 
-  public static SortBuilder from(int pageNumber, int pageSize, Sort sort) {
-    return new SortBuilder(sort);
+  public static SortBuilder from(Sort sort) {
+    SortBuilder builder = new SortBuilder();
+    for (Sort.Order order : sort) {
+      builder.addOrder(order);
+    }
+    return builder;
   }
 
   public static SortBuilder from(Pageable pageable) {
-    return new SortBuilder(pageable.getSort());
+    return from(pageable.getSort());
   }
-
 
   public SortBuilder addOrder(Sort.Order order) {
     this.orders.add(order);
