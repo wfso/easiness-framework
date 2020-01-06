@@ -111,7 +111,7 @@ public class LocalStorageProvider implements StorageProvider {
 
     @Override
     public boolean removeFile(String id) {
-      File file = new File(prefixUrl + id);
+      File file = new File(filePath + id);
       if (!file.exists() || !file.isFile()) {
         return false;
       }
