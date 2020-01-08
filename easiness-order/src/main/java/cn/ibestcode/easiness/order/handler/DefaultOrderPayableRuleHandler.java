@@ -9,11 +9,11 @@ package cn.ibestcode.easiness.order.handler;
 
 import cn.ibestcode.easiness.order.model.EasinessOrder;
 import cn.ibestcode.easiness.order.model.EasinessOrderPayableRule;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,32 +21,39 @@ import java.util.Map;
  * create by WFSO (仵士杰) at 2020/01/06 20:13
  */
 @Component
-public class DefaultOrderPayableRuleHandler implements BeanPostProcessor {
+public class DefaultOrderPayableRuleHandler {
+
+  @Autowired
+  private List<IOrderPayableRuleHandler> handlers;
 
   private Map<String, IOrderPayableRuleHandler> handlerMap = new HashMap<>();
 
   public boolean handle(EasinessOrder order, EasinessOrderPayableRule rule) {
-    if (handlerMap.containsKey(rule.getPayableType())) {
-      return handlerMap.get(rule.getPayableType()).handle(order, rule);
+    if (getHandlerMap().containsKey(rule.getPayableType())) {
+      return getHandlerMap().get(rule.getPayableType()).handle(order, rule);
     }
     return false;
   }
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof IOrderPayableRuleHandler) {
-      IOrderPayableRuleHandler handler = (IOrderPayableRuleHandler) bean;
-      if (handlerMap.containsKey(handler.supportType())) {
-        throw new RuntimeException(
-          new StringBuilder()
-            .append("The IOrderPayableRuleHandler that type is ")
-            .append(handler.supportType())
-            .append(" Existed")
-            .toString()
-        );
+  protected Map<String, IOrderPayableRuleHandler> getHandlerMap() {
+    if (handlerMap == null) {
+      synchronized (this) {
+        if (handlerMap == null) {
+          for (IOrderPayableRuleHandler handler : handlers) {
+            if (handlerMap.containsKey(handler.supportType())) {
+              throw new RuntimeException(
+                new StringBuilder()
+                  .append("The IOrderPayableRuleHandler that type is ")
+                  .append(handler.supportType())
+                  .append(" Existed")
+                  .toString()
+              );
+            }
+            handlerMap.put(handler.supportType(), handler);
+          }
+        }
       }
-      handlerMap.put(handler.supportType(), handler);
     }
-    return bean;
+    return handlerMap;
   }
 }

@@ -101,8 +101,12 @@ public class EasinessStorage implements Storage {
 
   protected StorageProvider getProviderByType(String type) {
     if (providerMap == null) {
-      for (StorageProvider provider : providers) {
-        providerMap.put(provider.getType(), provider);
+      synchronized (this) {
+        if (providerMap == null) {
+          for (StorageProvider provider : providers) {
+            providerMap.put(provider.getType(), provider);
+          }
+        }
       }
     }
     if (!providerMap.containsKey(type)) {

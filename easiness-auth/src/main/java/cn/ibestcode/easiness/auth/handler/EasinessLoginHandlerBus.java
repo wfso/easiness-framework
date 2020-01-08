@@ -38,9 +38,13 @@ public class EasinessLoginHandlerBus {
 
   private EasinessLoginHandler getHandlerByType(String type) {
     if (loginHandlerMap == null) {
-      loginHandlerMap = new HashMap<>();
-      for (EasinessLoginHandler handler : loginHandlerList) {
-        loginHandlerMap.put(handler.supportType(), handler);
+      synchronized (this) {
+        if (loginHandlerMap == null) {
+          loginHandlerMap = new HashMap<>();
+          for (EasinessLoginHandler handler : loginHandlerList) {
+            loginHandlerMap.put(handler.supportType(), handler);
+          }
+        }
       }
     }
     if (!loginHandlerMap.containsKey(type)) {

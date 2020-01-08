@@ -89,8 +89,12 @@ public class EasinessSmsSender implements SmsSender {
 
   protected SmsProvider getProviderByType(String type) {
     if (providerMap == null) {
-      for (SmsProvider provider : providers) {
-        providerMap.put(provider.getType(), provider);
+      synchronized (this) {
+        if (providerMap == null) {
+          for (SmsProvider provider : providers) {
+            providerMap.put(provider.getType(), provider);
+          }
+        }
       }
     }
     if (!providerMap.containsKey(type)) {

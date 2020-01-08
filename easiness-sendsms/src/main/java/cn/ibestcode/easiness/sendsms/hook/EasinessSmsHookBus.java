@@ -46,9 +46,13 @@ public class EasinessSmsHookBus {
 
   protected EasinessSmsHook getHookByType(String type) {
     if (smsHookMap == null) {
-      smsHookMap = new HashMap<>();
-      for (EasinessSmsHook hook : smsHookList) {
-        smsHookMap.put(hook.supportType(), hook);
+      synchronized (this) {
+        if (smsHookMap == null) {
+          smsHookMap = new HashMap<>();
+          for (EasinessSmsHook hook : smsHookList) {
+            smsHookMap.put(hook.supportType(), hook);
+          }
+        }
       }
     }
     if (!smsHookMap.containsKey(type)) {
