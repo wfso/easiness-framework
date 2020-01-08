@@ -8,6 +8,7 @@
 package cn.ibestcode.easiness.order.biz;
 
 import cn.ibestcode.easiness.core.annotation.Biz;
+import cn.ibestcode.easiness.eventbus.EventBus;
 import cn.ibestcode.easiness.order.domain.EasinessOrderCreateVo;
 import cn.ibestcode.easiness.order.domain.EasinessOrderItemCreateVo;
 import cn.ibestcode.easiness.order.domain.EasinessOrderItemUpdateVo;
@@ -23,10 +24,8 @@ import cn.ibestcode.easiness.order.helper.EasinessOrderHelper;
 import cn.ibestcode.easiness.order.model.*;
 import cn.ibestcode.easiness.order.service.*;
 import cn.ibestcode.easiness.utils.SpringBeanUtilsExt;
-import com.google.common.eventbus.EventBus;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -53,8 +52,8 @@ public class EasinessOrderBiz {
   private EasinessOrderItemExtendService orderItemExtendService;
   @Autowired
   private EasinessOrderPayableRuleService orderPayableRuleService;
+
   @Autowired
-  @Qualifier("asyncEventBus")
   private EventBus eventBus;
 
   // region 创建订单
