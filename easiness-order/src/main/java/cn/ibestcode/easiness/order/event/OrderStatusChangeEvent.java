@@ -28,11 +28,6 @@ public class OrderStatusChangeEvent implements Serializable {
     this.orderStatus = orderStatus;
   }
 
-  public OrderStatusChangeEvent(String orderUuid, OrderStatus orderStatus) {
-    this.orderUuid = orderUuid;
-    this.orderStatus = orderStatus;
-  }
-
   private String orderUuid;
   private String payUuid;
   private OrderStatus orderStatus;

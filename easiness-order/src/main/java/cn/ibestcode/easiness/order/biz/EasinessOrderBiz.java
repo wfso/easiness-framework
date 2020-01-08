@@ -68,7 +68,7 @@ public class EasinessOrderBiz {
    * @return 返回订单的UUID
    */
   @Transactional
-  public String create(EasinessOrder  order, List<EasinessOrderItemCreateVo> itemCreateVos,
+  public String create(EasinessOrder order, List<EasinessOrderItemCreateVo> itemCreateVos,
                        List<EasinessOrderPayableRule> rules, List<EasinessOrderExtend> orderExtends) {
     // 首先设置订单的状态为: 未付款
     order.setOrderStatus(OrderStatus.UNPAID);
@@ -108,7 +108,7 @@ public class EasinessOrderBiz {
    * @return 返回订单的UUID
    */
   @Transactional
-  public String create(EasinessOrder  order, List<EasinessOrderItemCreateVo> itemCreateVos,
+  public String create(EasinessOrder order, List<EasinessOrderItemCreateVo> itemCreateVos,
                        List<EasinessOrderPayableRule> rules, Map<String, String> map) {
     return create(order, itemCreateVos, rules, EasinessOrderExtendHelper.getInstanceList(map));
   }
@@ -122,7 +122,7 @@ public class EasinessOrderBiz {
    * @return 返回订单的UUID
    */
   @Transactional
-  public String create(EasinessOrder  order, List<EasinessOrderItemCreateVo> itemCreateVos,
+  public String create(EasinessOrder order, List<EasinessOrderItemCreateVo> itemCreateVos,
                        List<EasinessOrderPayableRule> rules) {
     return create(order, itemCreateVos, rules, new ArrayList<>());
   }
@@ -135,7 +135,7 @@ public class EasinessOrderBiz {
    * @return 返回订单的UUID
    */
   @Transactional
-  public String create(EasinessOrder  order, List<EasinessOrderItemCreateVo> itemCreateVos) {
+  public String create(EasinessOrder order, List<EasinessOrderItemCreateVo> itemCreateVos) {
     return create(order, itemCreateVos, new ArrayList<>());
   }
 
@@ -148,7 +148,7 @@ public class EasinessOrderBiz {
    * @return 返回订单的UUID
    */
   @Transactional
-  public String create(EasinessOrder  order, List<EasinessOrderItemCreateVo> itemCreateVos, Map<String, String> map) {
+  public String create(EasinessOrder order, List<EasinessOrderItemCreateVo> itemCreateVos, Map<String, String> map) {
     return create(order, itemCreateVos, new ArrayList<>(), EasinessOrderExtendHelper.getInstanceList(map));
   }
 
@@ -707,7 +707,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
-    eventBus.post(new OrderStatusChangeEvent(orderUuid, OrderStatus.CANCEL));
+    eventBus.post(new OrderStatusChangeEvent(orderUuid, order.getPayUuid(), OrderStatus.CANCEL));
   }
 
   /**
@@ -727,7 +727,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
-    eventBus.post(new OrderStatusChangeEvent(orderUuid, OrderStatus.REFUNDING));
+    eventBus.post(new OrderStatusChangeEvent(orderUuid, order.getPayUuid(), OrderStatus.REFUNDING));
   }
 
   /**
@@ -746,7 +746,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
-    eventBus.post(new OrderStatusChangeEvent(orderUuid, OrderStatus.REFUND));
+    eventBus.post(new OrderStatusChangeEvent(orderUuid, order.getPayUuid(), OrderStatus.REFUND));
   }
 
   /**
@@ -881,7 +881,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
-    eventBus.post(new OrderStatusChangeEvent(orderUuid, OrderStatus.COMPLETE));
+    eventBus.post(new OrderStatusChangeEvent(orderUuid, order.getPayUuid(), OrderStatus.COMPLETE));
   }
 
   // endregion
