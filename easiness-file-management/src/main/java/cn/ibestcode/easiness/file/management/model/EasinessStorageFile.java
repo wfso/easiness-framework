@@ -53,6 +53,7 @@ public class EasinessStorageFile extends UuidBaseJpaModel {
 
   @ApiModelProperty("文件的状态")
   @Column(length = 50)
+  @Enumerated(value = EnumType.STRING)
   private StorageFileStatus fileStatus = StorageFileStatus.TEMPORARY;
 
   @Column
