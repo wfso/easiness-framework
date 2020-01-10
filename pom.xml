@@ -42,6 +42,7 @@
     <module>easiness-file-management</module>
     <module>easiness-order</module>
     <module>easiness-pay</module>
+    <module>easiness-starter-pay</module>
   </modules>
 
   <dependencyManagement>
@@ -171,6 +172,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-pay</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-pay</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 
