@@ -35,16 +35,18 @@ public class EasinessDefaultPayHandlerBus implements EasinessPayNotifyHandlerBus
 
   @Override
   public String notifyHandle(String payType, String payUuid) {
-    if (getNotifyHandlerMap().containsKey(payType)) {
-      return getNotifyHandlerMap().get(payType).notifyHandle(payUuid);
+    Map<String, EasinessPayNotifyHandler> handlerMap = getNotifyHandlerMap();
+    if (handlerMap.containsKey(payType)) {
+      return handlerMap.get(payType).notifyHandle(payUuid);
     }
     throw new EasinessPayException("The EasinessPayNotifyHandler Not Exist By Type : " + payType);
   }
 
   @Override
   public PlaceOrderResult placeOrderHandle(String orderUuid, String payType, String payerUuid, Map<String, String> params) {
-    if (getPlaceOrderHandlerMap().containsKey(payType)) {
-      return getPlaceOrderHandlerMap().get(payType).placeOrderHandle(orderUuid, payerUuid, params);
+    Map<String, EasinessPayPlaceOrderHandler> handlerMap = getPlaceOrderHandlerMap();
+    if (handlerMap.containsKey(payType)) {
+      return handlerMap.get(payType).placeOrderHandle(orderUuid, payerUuid, params);
     }
     throw new EasinessPayException("The EasinessPayPlaceOrderHandler Not Exist By Type : " + payType);
   }
