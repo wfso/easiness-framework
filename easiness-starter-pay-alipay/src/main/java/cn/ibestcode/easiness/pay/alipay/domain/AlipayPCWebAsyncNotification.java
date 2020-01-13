@@ -229,7 +229,7 @@ public class AlipayPCWebAsyncNotification implements PayAsyncNotification, Seria
     try {
       EasinessPayPassbackParams params = objectMapper.readValue(passbackParams, EasinessPayPassbackParams.class);
       this.platformId = params.getPlatformId();
-      this.workerId = params.getPlatformId();
+      this.workerId = params.getWorkerId();
     } catch (IOException e) {
       e.printStackTrace();
     }
