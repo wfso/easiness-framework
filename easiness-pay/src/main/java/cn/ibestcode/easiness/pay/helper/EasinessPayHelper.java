@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EasinessPayHelper {
   // region 在线支付
-  public static EasinessPay getOnlineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOnlineInstance(String orderUuid, String payType, int price,
                                              String payerUuid, long expirationAt, String currency) {
     if (StringUtils.isBlank(currency)) {
       currency = "CNY";
@@ -40,21 +40,21 @@ public class EasinessPayHelper {
   }
 
 
-  public static EasinessPay getOnlineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOnlineInstance(String orderUuid, String payType, int price,
                                           String payerUuid, long expirationAt) {
-    return getOnlineInstace(orderUuid, payType, price, payerUuid, expirationAt, "CNY");
+    return getOnlineInstance(orderUuid, payType, price, payerUuid, expirationAt, "CNY");
   }
 
 
-  public static EasinessPay getOnlineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOnlineInstance(String orderUuid, String payType, int price,
                                           String payerUuid) {
-    return getOnlineInstace(orderUuid, payType, price, payerUuid,
+    return getOnlineInstance(orderUuid, payType, price, payerUuid,
       System.currentTimeMillis() + 5 * 60 * 1000);
   }
   // endregion
 
   // region 线下支付
-  public static EasinessPay getOfflineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOfflineInstance(String orderUuid, String payType, int price,
                                            String handlerUuid, String offlineDescription, String currency) {
     if (StringUtils.isBlank(currency)) {
       currency = "CNY";
@@ -72,19 +72,19 @@ public class EasinessPayHelper {
     return pay;
   }
 
-  public static EasinessPay getOfflineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOfflineInstance(String orderUuid, String payType, int price,
                                            String handlerUuid, String offlineDescription) {
-    return getOfflineInstace(orderUuid, payType, price, handlerUuid, offlineDescription, "CNY");
+    return getOfflineInstance(orderUuid, payType, price, handlerUuid, offlineDescription, "CNY");
   }
 
-  public static EasinessPay getOfflineInstace(String orderUuid, String payType, int price,
+  public static EasinessPay getOfflineInstance(String orderUuid, String payType, int price,
                                            String handlerUuid) {
-    return getOfflineInstace(orderUuid, payType, price, handlerUuid, null);
+    return getOfflineInstance(orderUuid, payType, price, handlerUuid, null);
   }
 
 
-  public static EasinessPay getOfflineInstace(String orderUuid, String payType, int price) {
-    return getOfflineInstace(orderUuid, payType, price, null);
+  public static EasinessPay getOfflineInstance(String orderUuid, String payType, int price) {
+    return getOfflineInstance(orderUuid, payType, price, null);
   }
 
   // endregion

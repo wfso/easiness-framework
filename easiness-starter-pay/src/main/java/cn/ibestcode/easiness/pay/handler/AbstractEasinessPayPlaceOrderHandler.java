@@ -73,7 +73,7 @@ public abstract class AbstractEasinessPayPlaceOrderHandler implements EasinessPa
 
     // 如果没有支付中的订单，则创建并使用
     if (easinessPay == null) {
-      easinessPay = EasinessPayHelper.getOnlineInstace(order.getUuid(), supportType(), order.getPayablePrice(), payerUuid);
+      easinessPay = EasinessPayHelper.getOnlineInstance(order.getUuid(), supportType(), order.getPayablePrice(), payerUuid);
       // 订单默认过期时间为2小时
       long expire = payProperties.getExpire();
       if (expire == 0) {
