@@ -44,6 +44,7 @@
     <module>easiness-pay</module>
     <module>easiness-starter-pay</module>
     <module>easiness-starter-pay-alipay</module>
+    <module>easiness-starter-pay-wechat</module>
   </modules>
 
   <dependencyManagement>
@@ -183,6 +184,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-starter-pay-alipay</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-pay-wechat</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 
