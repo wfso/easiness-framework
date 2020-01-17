@@ -10,22 +10,20 @@ import java.beans.PropertyDescriptor;
 import java.util.Map;
 
 public class MultiValueMapUtil {
-  public static MultiValueMap fromMap(Map map) {
-    MultiValueMap multiValueMap = new LinkedMultiValueMap();
+  public static MultiValueMap<String, String> fromMap(Map<String, String> map) {
+    MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
     multiValueMap.setAll(map);
     return multiValueMap;
   }
 
-  public static MultiValueMap fromMonolayerObject(Object object) {
+  public static MultiValueMap<String, String> fromMonolayerObject(Object object) {
     final BeanWrapper sourceWrapper = new BeanWrapperImpl(object);
     PropertyDescriptor[] pds = sourceWrapper.getPropertyDescriptors();
-    MultiValueMap multiValueMap = new LinkedMultiValueMap();
+    MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
     for (PropertyDescriptor pd : pds) {
       Object propertyValue = sourceWrapper.getPropertyValue(pd.getName());
-      if (propertyValue instanceof String) {
-        if (!ObjectUtils.isEmpty(propertyValue)) {
-          multiValueMap.add(pd.getName(), propertyValue);
-        }
+      if (!ObjectUtils.isEmpty(propertyValue)) {
+        multiValueMap.add(pd.getName(), propertyValue.toString());
       }
     }
     return multiValueMap;
