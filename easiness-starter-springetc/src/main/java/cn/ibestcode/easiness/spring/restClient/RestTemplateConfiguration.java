@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -82,8 +81,8 @@ public class RestTemplateConfiguration {
 
   @Bean("restTemplate")
   @ConditionalOnMissingBean
-  public RestTemplate restTemplate(@Autowired @Qualifier("httpComponentsClientHttpRequestFactory") HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory) {
-    RestTemplate restTemplate = new RestTemplate(httpComponentsClientHttpRequestFactory);
+  public RestTemplateExt restTemplate(@Autowired @Qualifier("httpComponentsClientHttpRequestFactory") HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory) {
+    RestTemplateExt restTemplate = new RestTemplateExt(httpComponentsClientHttpRequestFactory);
     int index = -1;
     for (int i = 0; i < restTemplate.getMessageConverters().size(); i++) {
       HttpMessageConverter converter = restTemplate.getMessageConverters().get(i);
