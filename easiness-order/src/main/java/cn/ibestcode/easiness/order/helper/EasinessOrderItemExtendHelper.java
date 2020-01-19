@@ -12,7 +12,6 @@ import cn.ibestcode.easiness.order.model.EasinessOrderItemExtend;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author WFSO (仵士杰)
@@ -56,9 +55,8 @@ public class EasinessOrderItemExtendHelper {
    */
   public static List<EasinessOrderItemExtend> getInstanceList(Map<String, String> map) {
     List<EasinessOrderItemExtend> extendList = new ArrayList<>();
-    Set<String> keys = map.keySet();
-    for (String key : keys) {
-      extendList.add(getInstance(key, map.get(key)));
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      extendList.add(getInstance(entry.getKey(), entry.getValue()));
     }
     return extendList;
   }

@@ -12,7 +12,6 @@ import cn.ibestcode.easiness.pay.model.EasinessPayExtend;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author WFSO (仵士杰)
@@ -28,7 +27,7 @@ public class EasinessPayExtendHelper {
    * @param value   值
    * @return EasinessPayExtend 对象
    */
-  public static EasinessPayExtend  getInstance(String key, String keyName, String value) {
+  public static EasinessPayExtend getInstance(String key, String keyName, String value) {
     EasinessPayExtend orderExtend = new EasinessPayExtend();
     orderExtend.setExtendKey(key);
     orderExtend.setKeyName(keyName);
@@ -39,8 +38,8 @@ public class EasinessPayExtendHelper {
   /**
    * 用于生成 EasinessPayExtend 对象的 工具函数
    *
-   * @param keyName   键名（给人看的，一般为有含义的中文词组或短语）
-   * @param value 值
+   * @param keyName 键名（给人看的，一般为有含义的中文词组或短语）
+   * @param value   值
    * @return EasinessPayExtend 对象
    */
   public static EasinessPayExtend getInstance(String keyName, String value) {
@@ -56,9 +55,8 @@ public class EasinessPayExtendHelper {
    */
   public static List<EasinessPayExtend> getInstanceList(Map<String, String> map) {
     List<EasinessPayExtend> extendList = new ArrayList<>();
-    Set<String> keys = map.keySet();
-    for (String key : keys) {
-      extendList.add(getInstance(key, map.get(key)));
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      extendList.add(getInstance(entry.getKey(), entry.getValue()));
     }
     return extendList;
   }

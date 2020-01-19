@@ -27,7 +27,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -147,12 +146,10 @@ public class SubmailSmsProvider implements SmsProvider {
     }
 
     private String sign(Map<String, String> map) {
-      Iterator<String> iter = map.keySet().iterator();
       StringBuilder sb = new StringBuilder();
       sb.append(appId).append(appKey);
-      while (iter.hasNext()) {
-        String key = iter.next();
-        sb.append(key).append("=").append(map.get(key)).append("&");
+      for (Map.Entry<String, String> entry : map.entrySet()) {
+        sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
       }
       sb.deleteCharAt(sb.length() - 1).append(appId).append(appKey);
       return DigestUtil.sha1Hex(sb.toString()).toLowerCase();
