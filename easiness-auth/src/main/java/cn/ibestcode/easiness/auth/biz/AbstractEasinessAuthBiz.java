@@ -206,8 +206,8 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   @Override
   public boolean validateCredentials(String dbPassword, String requestPassword) {
-    String token = (String) getSession(EasinessAuthConstant.TOKEN_FIELD_SESSION_NAME);
-    String userName = (String) getSession(EasinessAuthConstant.USER_FIELD_SESSION_NAME);
+    String token = (String) removeSession(EasinessAuthConstant.TOKEN_FIELD_SESSION_NAME);
+    String userName = (String) removeSession(EasinessAuthConstant.USER_FIELD_SESSION_NAME);
     if (token == null || userName == null) {
       return false;
     }
