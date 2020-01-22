@@ -11,12 +11,12 @@ package cn.ibestcode.easiness.region.management.model;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/01/17 20:13
  */
-public interface IRegionProvince extends IRegionNationality {
-  String getProvinceCode();
+public interface IRegionNationality {
+  String getNationalityCode();
 
-  String getProvinceName();
+  String getNationalityName();
 
-  void setProvinceCode(String code);
+  void setNationalityCode(String code);
 
-  void setProvinceName(String name);
+  void setNationalityName(String name);
 }
