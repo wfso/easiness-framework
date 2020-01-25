@@ -37,6 +37,7 @@ public class EasinessStorageFileController {
 
   @PostMapping
   @ApiOperation("上传文件")
+  //@RequiresPermissions("storage:file:upload")
   public EasinessStorageFileUploadVo upload(@RequestParam MultipartFile file) {
     EasinessStorageFile storageFile = fileBiz.upload(file);
     EasinessStorageFileUploadVo uploadVo = new EasinessStorageFileUploadVo();
@@ -49,6 +50,7 @@ public class EasinessStorageFileController {
 
   @GetMapping("check")
   @ApiOperation("检查文件是否存在")
+  //@RequiresPermissions("storage:file:check")
   public EasinessStorageFileUploadVo checkFile(@RequestParam String sha256, @RequestParam long size) {
     EasinessStorageFile storageFile = fileService.getBySha256AndSize(sha256, size);
     EasinessStorageFileUploadVo uploadVo = new EasinessStorageFileUploadVo();
@@ -61,12 +63,16 @@ public class EasinessStorageFileController {
 
   @DeleteMapping("{uuid}")
   @ApiOperation("删除文件")
+  //@RequiresPermissions("storage:file:remove")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void remove(@PathVariable String uuid) {
     fileBiz.remove(uuid);
   }
 
   @GetMapping
   @ApiOperation("文件列表-可分页")
+  //@RequiresPermissions("storage:file:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessStorageFile> page(EasinessStorageFileQueryVo filterGenerator, DefaultPageableGenerator pageableGenerator) {
     return fileService.getPage(filterGenerator.generateFilter(), pageableGenerator.generatePageable());
   }
