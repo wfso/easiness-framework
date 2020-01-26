@@ -44,6 +44,8 @@ public class EasinessPayController {
 
   @PutMapping("cancel/{payUuid}")
   @ApiOperation("取消支付")
+  //@RequiresPermissions("pay:cancel")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void easinessPayCancel(@PathVariable String payUuid) {
     easinessPayBiz.setPayStatusCancel(payUuid);
   }
