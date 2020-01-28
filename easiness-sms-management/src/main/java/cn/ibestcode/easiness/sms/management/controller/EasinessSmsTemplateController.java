@@ -34,6 +34,8 @@ public class EasinessSmsTemplateController implements Controller<EasinessSmsTemp
   @Override
   @PostMapping
   @ApiOperation("添加短信模")
+  //@RequiresPermissions("sms:template:add")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsTemplate add(@RequestBody EasinessSmsTemplate smsTemplate) {
     return smsTemplateService.create(smsTemplate);
   }
@@ -41,6 +43,8 @@ public class EasinessSmsTemplateController implements Controller<EasinessSmsTemp
   @Override
   @PutMapping
   @ApiOperation("修改短信模")
+  //@RequiresPermissions("sms:template:edit")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsTemplate edit(@RequestBody EasinessSmsTemplate smsTemplate) {
     return smsTemplateService.update(smsTemplate);
   }
@@ -48,6 +52,8 @@ public class EasinessSmsTemplateController implements Controller<EasinessSmsTemp
   @Override
   @DeleteMapping(path = "{id}")
   @ApiOperation("删除短信模")
+  //@RequiresPermissions("sms:template:remove")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsTemplate remove(@PathVariable("id") Long id) {
     return smsTemplateService.removeById(id);
   }
@@ -55,20 +61,26 @@ public class EasinessSmsTemplateController implements Controller<EasinessSmsTemp
   @Override
   @GetMapping(path = "{id}")
   @ApiOperation("获取短信模详情")
+  //@RequiresPermissions("sms:template:info")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsTemplate info(@PathVariable("id") Long id) {
     return smsTemplateService.getById(id);
   }
 
   @Override
   @PostMapping(path = "page")
-  @ApiOperation("短信模记录-POST-带分页")
+  @ApiOperation("短信模列表-POST-带分页")
+  //@RequiresPermissions("sms:template:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsTemplate> postPage(@RequestBody SmsTemplateQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return getPage(queryVo, pageableGenerator);
   }
 
   @Override
   @GetMapping
-  @ApiOperation("smsTemplate记录-GET-带分页")
+  @ApiOperation("短信模列表-GET-带分页")
+  //@RequiresPermissions("sms:template:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsTemplate> getPage(SmsTemplateQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return smsTemplateService.getPage(queryVo.generateFilter(), pageableGenerator.generatePageable());
   }

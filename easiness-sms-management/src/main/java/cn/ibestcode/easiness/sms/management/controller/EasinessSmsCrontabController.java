@@ -34,6 +34,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @PostMapping
   @ApiOperation("添加定时短信")
+  //@RequiresPermissions("sms:cron:add")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsCrontab add(@RequestBody EasinessSmsCrontab smsCrontab) {
     return SmsCrontabService.create(smsCrontab);
   }
@@ -41,6 +43,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @PutMapping
   @ApiOperation("修改定时短信")
+  //@RequiresPermissions("sms:cron:edit")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsCrontab edit(@RequestBody EasinessSmsCrontab smsCrontab) {
     return SmsCrontabService.update(smsCrontab);
   }
@@ -48,6 +52,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @DeleteMapping(path = "{id}")
   @ApiOperation("删除定时短信")
+  //@RequiresPermissions("sms:cron:remove")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsCrontab remove(@PathVariable("id") Long id) {
     return SmsCrontabService.removeById(id);
   }
@@ -55,6 +61,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @GetMapping(path = "{id}")
   @ApiOperation("获取定时短信详情")
+  //@RequiresPermissions("sms:cron:info")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public EasinessSmsCrontab info(@PathVariable("id") Long id) {
     return SmsCrontabService.getById(id);
   }
@@ -62,6 +70,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @PostMapping(path = "page")
   @ApiOperation("定时短信记录-POST-带分页")
+  //@RequiresPermissions("sms:cron:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsCrontab> postPage(@RequestBody SmsCrontabQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return getPage(queryVo, pageableGenerator);
   }
@@ -69,6 +79,8 @@ public class EasinessSmsCrontabController implements Controller<EasinessSmsCront
   @Override
   @GetMapping
   @ApiOperation("定时短信记录-GET-带分页")
+  //@RequiresPermissions("sms:cron:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsCrontab> getPage(SmsCrontabQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return SmsCrontabService.getPage(queryVo.generateFilter(), pageableGenerator.generatePageable());
   }

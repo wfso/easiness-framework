@@ -31,18 +31,24 @@ public class EasinessSmsRecordController {
 
   @GetMapping
   @ApiOperation("短信发送记录-GET-带分页")
+  //@RequiresPermissions("sms:record:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsRecord> getPage(SmsRecordQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return smsRecordService.getPage(queryVo, pageableGenerator.generatePageable());
   }
 
   @PostMapping
   @ApiOperation("短信发送记录-POST-带分页")
+  //@RequiresPermissions("sms:record:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public Page<EasinessSmsRecord> postPage(@RequestBody SmsRecordQueryVo queryVo, DefaultPageableGenerator pageableGenerator) {
     return smsRecordService.getPage(queryVo, pageableGenerator.generatePageable());
   }
 
   @PutMapping
   @ApiOperation("修改短信发送记录")
+  //@RequiresPermissions("sms:record:edit")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void edit(@RequestBody EasinessSmsRecord smsRecord) {
     smsRecordService.updateByUuidIgnoreNull(smsRecord);
   }
