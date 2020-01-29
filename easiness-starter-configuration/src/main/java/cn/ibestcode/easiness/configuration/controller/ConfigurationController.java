@@ -30,36 +30,48 @@ public class ConfigurationController {
 
   @PostMapping
   @ApiOperation("添加一个配置项")
+  //@RequiresPermissions("configuration:add")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void add(@RequestBody Configuration configuration) {
     configurationService.create(configuration);
   }
 
   @PutMapping
   @ApiOperation("修改一个配置项")
+  //@RequiresPermissions("configuration:edit")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void edit(@RequestBody Configuration configuration) {
     configurationService.update(configuration);
   }
 
   @PutMapping("batch")
   @ApiOperation("批量配置")
+  //@RequiresPermissions("configuration:edit")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void batchUpdate(@RequestBody List<Configuration> configs) {
     configurationService.update(configs);
   }
 
   @DeleteMapping("/{id}")
   @ApiOperation("通过id删除一个配置项")
+  //@RequiresPermissions("configuration:remove")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void remove(@PathVariable("id") long id) {
     configurationService.removeById(id);
   }
 
   @DeleteMapping("/key/{key}")
   @ApiOperation("通过key删除一个配置项")
+  //@RequiresPermissions("configuration:remove")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void remove(@PathVariable("key") String key) {
     configurationService.remove(key);
   }
 
   @GetMapping("/{category}")
   @ApiOperation("通过配置项的分类,获取一组配置项")
+  //@RequiresPermissions("configuration:list")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public List<Configuration> getByCategory(@PathVariable("category") String category) {
     return configurationService.getAllByCategory(category);
   }
@@ -67,6 +79,8 @@ public class ConfigurationController {
 
   @GetMapping
   @ApiOperation("获取所有配置项")
+  //@RequiresPermissions("configuration:all")
+  //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public List<Configuration> getAll() {
     return configurationService.getAll();
   }
