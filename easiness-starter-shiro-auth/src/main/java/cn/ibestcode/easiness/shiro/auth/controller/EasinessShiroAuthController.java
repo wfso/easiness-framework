@@ -72,14 +72,14 @@ public class EasinessShiroAuthController extends EasinessAuthController {
   }
 
   @GetMapping("availablePermissions")
-  @ApiOperation("获取当前用户有效权限 列表")
+  @ApiOperation("获取用户有效权限 列表")
   @RequiresAuthentication
   public List<EasinessPermission> getAvailablePermissions() {
     return super.getAvailablePermissions();
   }
 
   @GetMapping("currentPermissions")
-  @ApiOperation("获取当前用户有效权限 列表")
+  @ApiOperation("获取用户当前权限 列表")
   @RequiresAuthentication
   public List<EasinessPermission> getCurrentPermissions() {
     return super.getCurrentPermissions();
