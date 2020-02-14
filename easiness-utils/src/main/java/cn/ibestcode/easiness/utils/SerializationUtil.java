@@ -9,7 +9,7 @@ import java.io.*;
 @Slf4j
 public class SerializationUtil {
 
-  // 把 Object 对象转化为 byte数组
+  // 把 Object 对象转化为 Base64字符串
   public static String serialization(Object obj) {
     ByteArrayOutputStream bo = new ByteArrayOutputStream();
     byte[] bytes;
@@ -24,7 +24,7 @@ public class SerializationUtil {
     return DatatypeConverter.printBase64Binary(bytes);
   }
 
-  // 把 byte数组 还原为 Object 对象
+  // 把 Base64字符串 还原为 Object 对象
   public static Object deserialization(String string) {
     if (string == null) {
       return null;
