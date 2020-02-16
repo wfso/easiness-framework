@@ -82,6 +82,13 @@ public interface PayAsyncNotification {
   boolean isSucceed();
 
   /**
+   * 是否曾关闭交易
+   *
+   * @return 成功返回 true 否则 false
+   */
+  boolean isClosed();
+
+  /**
    * 通知对象的JSON
    *
    * @return JSON格式的下单返回对象

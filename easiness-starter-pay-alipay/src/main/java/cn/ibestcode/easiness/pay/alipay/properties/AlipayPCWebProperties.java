@@ -7,7 +7,6 @@
  */
 package cn.ibestcode.easiness.pay.alipay.properties;
 
-import cn.ibestcode.easiness.pay.EasinessPayConstant;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,16 +20,8 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Configuration
 @ConfigurationProperties(prefix = "easiness.pay.alipay.pc-web")
-public class AlipayPCWebProperties {
-  private String appId;
-  private String privateKey;
-  private String publicKey;
-  private String format = "json";
-  private String charset = "UTF-8";
-  private String serverUrl = "https://openapi.alipay.com/gateway.do";
-  private String signType = "RSA2";
-  private String notifyUrlPrefix = EasinessPayConstant.ASYNC_NOTIFY_URL_PREFIX;
-  private String returnUrl = "";
-  private String productCode = "FAST_INSTANT_TRADE_PAY";
-
+public class AlipayPCWebProperties extends AlipayProperties {
+  public AlipayPCWebProperties() {
+    setProductCode("FAST_INSTANT_TRADE_PAY");
+  }
 }

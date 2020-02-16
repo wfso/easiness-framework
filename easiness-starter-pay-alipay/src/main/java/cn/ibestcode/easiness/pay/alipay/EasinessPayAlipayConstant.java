@@ -14,4 +14,7 @@ package cn.ibestcode.easiness.pay.alipay;
  */
 public class EasinessPayAlipayConstant {
   public static final String EASINESS_PAY_TYPE_PC_WEB = "alipay-pcweb";
+  public static final String EASINESS_PAY_TYPE_APP = "alipay-app";
+  public static final String EASINESS_PAY_TYPE_PHONE_WEB = "alipay-phoneweb";
+  public static final String EASINESS_PAY_TYPE_FTF = "alipay-ftf";
 }
