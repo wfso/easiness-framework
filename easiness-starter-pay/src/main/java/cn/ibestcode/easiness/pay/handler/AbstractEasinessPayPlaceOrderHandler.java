@@ -9,11 +9,13 @@ package cn.ibestcode.easiness.pay.handler;
 
 import cn.ibestcode.easiness.configuration.EasinessConfiguration;
 import cn.ibestcode.easiness.order.model.EasinessOrder;
+import cn.ibestcode.easiness.order.model.OrderStatus;
 import cn.ibestcode.easiness.order.service.EasinessOrderService;
 import cn.ibestcode.easiness.pay.EasinessPayConstant;
 import cn.ibestcode.easiness.pay.biz.EasinessPayBiz;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.domain.PlaceOrderResult;
+import cn.ibestcode.easiness.pay.exception.EasinessPayException;
 import cn.ibestcode.easiness.pay.helper.EasinessPayHelper;
 import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.model.PayStatus;
@@ -44,6 +46,9 @@ public abstract class AbstractEasinessPayPlaceOrderHandler implements EasinessPa
   @Override
   public PlaceOrderResult placeOrderHandle(String orderUuid, String payerUuid, Map<String, String> params) {
     EasinessOrder easinessOrder = easinessOrderService.getByUuid(orderUuid);
+    if (!easinessOrder.getOrderStatus().equals(OrderStatus.UNPAID)) {
+      throw new EasinessPayException("OrderIsNotUnpaid");
+    }
     EasinessPay easinessPay = genEasinessPay(easinessOrder, payerUuid, params);
     PlaceOrderResult result = placeOrder(easinessOrder, easinessPay, easinessPayBiz.getPassbackParams(), params);
     return result;
