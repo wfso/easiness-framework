@@ -15,7 +15,6 @@ import cn.ibestcode.easiness.pay.exception.EasinessPayException;
 import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayObject;
 import com.alipay.api.AlipayRequest;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
@@ -45,9 +44,9 @@ public class AlipayAppPlaceOrderHandler extends AlipayPlaceOrderHandler {
 
   @Override
   protected AlipayTradeAppPayModel genBizModel(EasinessOrder order,
-                                     EasinessPay pay,
-                                     EasinessPayPassbackParams passbackParams,
-                                     Map<String, String> params) {
+                                               EasinessPay pay,
+                                               EasinessPayPassbackParams passbackParams,
+                                               Map<String, String> params) {
     // 构造BizContent
     AlipayTradeAppPayModel bizModel = new AlipayTradeAppPayModel();
     bizModel.setTimeExpire(expireDateFormat.format(new Date(pay.getExpirationAt())));

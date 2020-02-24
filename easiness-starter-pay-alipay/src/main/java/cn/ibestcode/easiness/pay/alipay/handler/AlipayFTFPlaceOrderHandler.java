@@ -9,7 +9,7 @@ package cn.ibestcode.easiness.pay.alipay.handler;
 
 import cn.ibestcode.easiness.order.model.EasinessOrder;
 import cn.ibestcode.easiness.pay.alipay.EasinessPayAlipayConstant;
-import cn.ibestcode.easiness.pay.alipay.properties.AlipayPCWebProperties;
+import cn.ibestcode.easiness.pay.alipay.properties.AlipayFTFProperties;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.exception.EasinessPayException;
 import cn.ibestcode.easiness.pay.model.EasinessPay;
@@ -17,14 +17,12 @@ import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayRequest;
 import com.alipay.api.AlipayResponse;
-import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.alipay.api.domain.AlipayTradePrecreateModel;
+import com.alipay.api.request.AlipayTradePrecreateRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -33,49 +31,44 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class AlipayPCWebPlaceOrderHandler extends AlipayPlaceOrderHandler {
+public class AlipayFTFPlaceOrderHandler extends AlipayPlaceOrderHandler {
   @Autowired
-  private AlipayPCWebProperties properties;
+  private AlipayFTFProperties properties;
 
 
   @Override
   public String supportType() {
-    return EasinessPayAlipayConstant.EASINESS_PAY_TYPE_PC_WEB;
+    return EasinessPayAlipayConstant.EASINESS_PAY_TYPE_FTF;
   }
 
   @Override
-  protected AlipayTradePagePayModel genBizModel(EasinessOrder order,
-                                                EasinessPay pay,
-                                                EasinessPayPassbackParams passbackParams,
-                                                Map<String, String> params) {
+  protected AlipayTradePrecreateModel genBizModel(EasinessOrder order,
+                                                  EasinessPay pay,
+                                                  EasinessPayPassbackParams passbackParams,
+                                                  Map<String, String> params) {
     // 构造BizContent
-    AlipayTradePagePayModel bizModel = new AlipayTradePagePayModel();
-    bizModel.setTimeExpire(expireDateFormat.format(new Date(pay.getExpirationAt())));
+    AlipayTradePrecreateModel bizModel = new AlipayTradePrecreateModel();
+    String timeoutExpress = ((pay.getExpirationAt() - pay.getCreatedAt()) / 60000) + "m";
+    bizModel.setTimeoutExpress(timeoutExpress);
     bizModel.setOutTradeNo(pay.getUuid());
     bizModel.setProductCode(properties.getProductCode());
-    bizModel.setIntegrationType("PCWEB");
     String price = PriceUtils.transformPrice(pay.getPrice());
     bizModel.setTotalAmount(price);
     bizModel.setSubject(order.getOrderName());
     bizModel.setBody(order.getOrderInfo());
-    try {
-      String passbackParamsJson = objectMapper.writeValueAsString(passbackParams);
-      bizModel.setPassbackParams(passbackParamsJson);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
+
     return bizModel;
   }
 
   @Override
   protected boolean requireReturnUrl() {
-    return true;
+    return false;
   }
 
   @Override
   protected AlipayResponse executeRequest(AlipayRequest request) {
     try {
-      return getAlipayClient(properties).pageExecute(request);
+      return getAlipayClient(properties).execute(request);
     } catch (AlipayApiException e) {
       e.printStackTrace();
       log.warn(e.getMessage(), e);
@@ -84,12 +77,12 @@ public class AlipayPCWebPlaceOrderHandler extends AlipayPlaceOrderHandler {
   }
 
   @Override
-  protected AlipayTradePagePayRequest newAlipayRequest() {
-    return new AlipayTradePagePayRequest();
+  protected AlipayTradePrecreateRequest newAlipayRequest() {
+    return new AlipayTradePrecreateRequest();
   }
 
   @Override
-  protected AlipayPCWebProperties getAlipayProperties() {
+  protected AlipayFTFProperties getAlipayProperties() {
     return properties;
   }
 }
