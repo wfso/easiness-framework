@@ -21,6 +21,7 @@ import java.io.Serializable;
 @Setter
 public class AlipayPlaceOrderResult implements PlaceOrderResult, Serializable {
   private String responseBody;
+  private boolean succeed = true;
 
   @Override
   public String getTradeId() {
@@ -30,11 +31,6 @@ public class AlipayPlaceOrderResult implements PlaceOrderResult, Serializable {
   @Override
   public String getOutTradeId() {
     return null;
-  }
-
-  @Override
-  public boolean isSucceed() {
-    return true;
   }
 
   @Override

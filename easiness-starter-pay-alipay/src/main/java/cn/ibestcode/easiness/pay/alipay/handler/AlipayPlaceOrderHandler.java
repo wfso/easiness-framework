@@ -61,23 +61,25 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
     request.setBizModel(genBizModel(order, pay, passbackParams, params));
 
     try {
-      AlipayResponse response = executeRequest(request);
-      changePayStatus(order, pay, response);
-      AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
-      result.setResponseBody(response.getBody());
-      pay.setOnlineUrl(getAlipayProperties().getServerUrl());
-      pay.setOnlineParam(objectMapper.writeValueAsString(request));
-      pay.setOnlineResultData(result.getResponseBody());
-      easinessPayService.update(pay);
-      return result;
+      AlipayPlaceOrderResult result = executeRequest(request);
+      if (result.isSucceed()) {
+        pay.setOnlineUrl(getAlipayProperties().getServerUrl());
+        pay.setOnlineParam(objectMapper.writeValueAsString(request));
+        pay.setOnlineResultData(result.getResponseBody());
+        easinessPayService.update(pay);
+        return result;
+      } else {
+        easinessPayBiz.setPayStatusCancel(pay.getUuid());
+        log.warn(objectMapper.writeValueAsString(request));
+        log.warn(result.toJSON());
+        log.warn(result.getResponseBody());
+        throw new EasinessPayException("PlaceOrderFailed");
+      }
     } catch (JsonProcessingException e) {
       log.warn(e.getMessage(), e);
       e.printStackTrace();
       throw new EasinessPayException("PlaceOrderFailed");
     }
-  }
-
-  protected void changePayStatus(EasinessOrder order, EasinessPay pay, AlipayResponse response) {
   }
 
   protected void setNotifyUrl(AlipayRequest request, EasinessPay pay) {
@@ -112,7 +114,7 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
 
   protected abstract boolean requireReturnUrl();
 
-  protected abstract AlipayResponse executeRequest(AlipayRequest request);
+  protected abstract AlipayPlaceOrderResult executeRequest(AlipayRequest request);
 
   protected abstract AlipayRequest newAlipayRequest();
 

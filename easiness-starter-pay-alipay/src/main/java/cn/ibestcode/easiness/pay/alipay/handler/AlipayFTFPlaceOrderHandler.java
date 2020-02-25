@@ -9,6 +9,7 @@ package cn.ibestcode.easiness.pay.alipay.handler;
 
 import cn.ibestcode.easiness.order.model.EasinessOrder;
 import cn.ibestcode.easiness.pay.alipay.EasinessPayAlipayConstant;
+import cn.ibestcode.easiness.pay.alipay.domain.AlipayPlaceOrderResult;
 import cn.ibestcode.easiness.pay.alipay.properties.AlipayFTFProperties;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.exception.EasinessPayException;
@@ -16,9 +17,9 @@ import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayRequest;
-import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -74,9 +75,13 @@ public class AlipayFTFPlaceOrderHandler extends AlipayPlaceOrderHandler {
   }
 
   @Override
-  protected AlipayResponse executeRequest(AlipayRequest request) {
+  protected AlipayPlaceOrderResult executeRequest(AlipayRequest request) {
     try {
-      return getAlipayClient(properties).execute(request);
+      AlipayTradePrecreateResponse response = (AlipayTradePrecreateResponse) getAlipayClient(properties).execute(request);
+      AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
+      result.setResponseBody(response.getQrCode());
+      result.setSucceed(response.isSuccess());
+      return result;
     } catch (AlipayApiException e) {
       e.printStackTrace();
       log.warn(e.getMessage(), e);

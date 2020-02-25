@@ -9,6 +9,7 @@ package cn.ibestcode.easiness.pay.alipay.handler;
 
 import cn.ibestcode.easiness.order.model.EasinessOrder;
 import cn.ibestcode.easiness.pay.alipay.EasinessPayAlipayConstant;
+import cn.ibestcode.easiness.pay.alipay.domain.AlipayPlaceOrderResult;
 import cn.ibestcode.easiness.pay.alipay.properties.AlipayFTFProperties;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.exception.EasinessPayException;
@@ -16,9 +17,9 @@ import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayRequest;
-import com.alipay.api.AlipayResponse;
 import com.alipay.api.domain.AlipayTradePayModel;
 import com.alipay.api.request.AlipayTradePayRequest;
+import com.alipay.api.response.AlipayTradePayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,22 +72,19 @@ public class AlipayFTFXPlaceOrderHandler extends AlipayPlaceOrderHandler {
     return bizModel;
   }
 
-  protected void changePayStatus(EasinessOrder order, EasinessPay pay, AlipayResponse response) {
-    String code = response.getCode();
-    if ("10000".equals(code)) {
-      easinessPayBiz.setPayStatusPaid(pay.getUuid());
-    }
-  }
-
   @Override
   protected boolean requireReturnUrl() {
     return false;
   }
 
   @Override
-  protected AlipayResponse executeRequest(AlipayRequest request) {
+  protected AlipayPlaceOrderResult executeRequest(AlipayRequest request) {
     try {
-      return getAlipayClient(properties).execute(request);
+      AlipayTradePayResponse response = (AlipayTradePayResponse) getAlipayClient(properties).execute(request);
+      AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
+      result.setSucceed(response.isSuccess());
+      result.setResponseBody("{}");
+      return result;
     } catch (AlipayApiException e) {
       e.printStackTrace();
       log.warn(e.getMessage(), e);

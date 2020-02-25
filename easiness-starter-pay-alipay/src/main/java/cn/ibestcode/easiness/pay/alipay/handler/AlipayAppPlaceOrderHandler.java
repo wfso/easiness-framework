@@ -9,6 +9,7 @@ package cn.ibestcode.easiness.pay.alipay.handler;
 
 import cn.ibestcode.easiness.order.model.EasinessOrder;
 import cn.ibestcode.easiness.pay.alipay.EasinessPayAlipayConstant;
+import cn.ibestcode.easiness.pay.alipay.domain.AlipayPlaceOrderResult;
 import cn.ibestcode.easiness.pay.alipay.properties.AlipayAppProperties;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.exception.EasinessPayException;
@@ -71,9 +72,12 @@ public class AlipayAppPlaceOrderHandler extends AlipayPlaceOrderHandler {
   }
 
   @Override
-  protected AlipayResponse executeRequest(AlipayRequest request) {
+  protected AlipayPlaceOrderResult executeRequest(AlipayRequest request) {
     try {
-      return getAlipayClient(properties).sdkExecute(request);
+      AlipayResponse response = getAlipayClient(properties).sdkExecute(request);
+      AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
+      result.setResponseBody(response.getBody());
+      return result;
     } catch (AlipayApiException e) {
       e.printStackTrace();
       log.warn(e.getMessage(), e);
