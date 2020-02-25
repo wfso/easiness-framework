@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 the original author or authors.
+ * Copyright 2020 the original author or authors.
  * <p>
  * Licensed to the IBESTCODE under one or more agreements.
  * The IBESTCODE licenses this file to you under the MIT license.
@@ -17,8 +17,8 @@ import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayRequest;
 import com.alipay.api.AlipayResponse;
-import com.alipay.api.domain.AlipayTradePrecreateModel;
-import com.alipay.api.request.AlipayTradePrecreateRequest;
+import com.alipay.api.domain.AlipayTradePayModel;
+import com.alipay.api.request.AlipayTradePayRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,35 +27,32 @@ import java.util.Map;
 
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2020/1/12 20:29
+ * create by WFSO (仵士杰) at 2020/2/12 20:29
  */
 @Component
 @Slf4j
-public class AlipayFTFPlaceOrderHandler extends AlipayPlaceOrderHandler {
+public class AlipayFTFXPlaceOrderHandler extends AlipayPlaceOrderHandler {
   @Autowired
   private AlipayFTFProperties properties;
 
 
   @Override
   public String supportType() {
-    return EasinessPayAlipayConstant.EASINESS_PAY_TYPE_FTF;
+    return EasinessPayAlipayConstant.EASINESS_PAY_TYPE_FTF_X;
   }
 
   @Override
-  protected AlipayTradePrecreateModel genBizModel(EasinessOrder order,
-                                                  EasinessPay pay,
-                                                  EasinessPayPassbackParams passbackParams,
-                                                  Map<String, String> params) {
+  protected AlipayTradePayModel genBizModel(EasinessOrder order,
+                                            EasinessPay pay,
+                                            EasinessPayPassbackParams passbackParams,
+                                            Map<String, String> params) {
     // 构造BizContent
-    AlipayTradePrecreateModel bizModel = new AlipayTradePrecreateModel();
+    AlipayTradePayModel bizModel = new AlipayTradePayModel();
     String timeoutExpress = ((pay.getExpirationAt() - pay.getCreatedAt()) / 60000) + "m";
     bizModel.setTimeoutExpress(timeoutExpress);
     bizModel.setOutTradeNo(pay.getUuid());
-    bizModel.setProductCode(properties.getProductCode());
-    String price = PriceUtils.transformPrice(pay.getPrice());
-    bizModel.setTotalAmount(price);
-    bizModel.setSubject(order.getOrderName());
-    bizModel.setBody(order.getOrderInfo());
+    bizModel.setScene("bar_code");
+    bizModel.setAuthCode(params.get("authCode"));
     if (params.containsKey("operatorId")) {
       bizModel.setOperatorId(params.get("operatorId"));
     }
@@ -65,7 +62,20 @@ public class AlipayFTFPlaceOrderHandler extends AlipayPlaceOrderHandler {
     if (params.containsKey("terminalId")) {
       bizModel.setTerminalId(params.get("terminalId"));
     }
+    bizModel.setProductCode(properties.getProductCode());
+    String price = PriceUtils.transformPrice(pay.getPrice());
+    bizModel.setTotalAmount(price);
+    bizModel.setSubject(order.getOrderName());
+    bizModel.setBody(order.getOrderInfo());
+
     return bizModel;
+  }
+
+  protected void changePayStatus(EasinessOrder order, EasinessPay pay, AlipayResponse response) {
+    String code = response.getCode();
+    if ("10000".equals(code)) {
+      easinessPayBiz.setPayStatusPaid(pay.getUuid());
+    }
   }
 
   @Override
@@ -85,8 +95,8 @@ public class AlipayFTFPlaceOrderHandler extends AlipayPlaceOrderHandler {
   }
 
   @Override
-  protected AlipayTradePrecreateRequest newAlipayRequest() {
-    return new AlipayTradePrecreateRequest();
+  protected AlipayTradePayRequest newAlipayRequest() {
+    return new AlipayTradePayRequest();
   }
 
   @Override

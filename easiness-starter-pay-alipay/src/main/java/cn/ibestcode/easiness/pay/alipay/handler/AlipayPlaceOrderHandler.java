@@ -62,6 +62,7 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
 
     try {
       AlipayResponse response = executeRequest(request);
+      changePayStatus(order, pay, response);
       AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
       result.setResponseBody(response.getBody());
       pay.setOnlineUrl(getAlipayProperties().getServerUrl());
@@ -74,6 +75,9 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
       e.printStackTrace();
       throw new EasinessPayException("PlaceOrderFailed");
     }
+  }
+
+  protected void changePayStatus(EasinessOrder order, EasinessPay pay, AlipayResponse response) {
   }
 
   protected void setNotifyUrl(AlipayRequest request, EasinessPay pay) {

@@ -13,8 +13,14 @@ package cn.ibestcode.easiness.pay.alipay;
  * create by WFSO (仵士杰) at 2020/1/12 20:29
  */
 public class EasinessPayAlipayConstant {
+  // 网页
   public static final String EASINESS_PAY_TYPE_PC_WEB = "alipay-pcweb";
   public static final String EASINESS_PAY_TYPE_APP = "alipay-app";
   public static final String EASINESS_PAY_TYPE_PHONE_WEB = "alipay-phoneweb";
+
+  // 当面会 扫码支付
   public static final String EASINESS_PAY_TYPE_FTF = "alipay-ftf";
+
+  // 当面付 条码支付
+  public static final String EASINESS_PAY_TYPE_FTF_X = "alipay-ftfx";
 }
