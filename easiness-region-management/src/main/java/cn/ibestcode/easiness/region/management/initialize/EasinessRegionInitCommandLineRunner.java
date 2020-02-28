@@ -45,9 +45,6 @@ public class EasinessRegionInitCommandLineRunner implements CommandLineRunner {
     if (region == null || region.getId() == null || region.getId() == 0) {
       log.info("easiness region initializing …………");
 
-      // 更新缓存时间
-      configuration.setConfig(EasinessRegionConstant.EASINESS_REGION_UPDATE_AT, String.valueOf(System.currentTimeMillis()));
-
       InputStream inputStream = getClass().getClassLoader()
         .getResourceAsStream("region.data");
       BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -97,6 +94,10 @@ public class EasinessRegionInitCommandLineRunner implements CommandLineRunner {
       }
       reader.close();
       inputStream.close();
+
+      // 更新缓存时间
+      configuration.setConfig(EasinessRegionConstant.EASINESS_REGION_UPDATE_AT, String.valueOf(System.currentTimeMillis()));
+
     } else {
       log.info("easiness region is initialized");
     }
@@ -104,6 +105,8 @@ public class EasinessRegionInitCommandLineRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    log.info("========== EasinessRegionInitCommandLineRunner Started ==========");
     init();
+    log.info("========== EasinessRegionInitCommandLineRunner Ended ==========");
   }
 }
