@@ -4,6 +4,8 @@ import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
 import cn.ibestcode.easiness.pay.domain.PayAsyncNotification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -17,36 +19,65 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class WechatPCWebAsyncNotification implements PayAsyncNotification, Serializable {
+@ApiModel("微信支付异步通知对象-基类")
+public class WechatAsyncNotification implements PayAsyncNotification, Serializable {
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
+  @ApiModelProperty("返回状态码")
   private String return_code;
+  @ApiModelProperty("返回信息")
   private String return_msg;
+  @ApiModelProperty("APPID")
   private String appid;
+  @ApiModelProperty("商户号")
   private String mch_id;
+  @ApiModelProperty("设备号")
   private String device_info;
+  @ApiModelProperty("随机字符串")
   private String nonce_str;
+  @ApiModelProperty("签名")
   private String sign;
+  @ApiModelProperty("签名类型")
   private String sign_type;
+  @ApiModelProperty("业务结果")
   private String result_code;
+  @ApiModelProperty("错误代码")
   private String err_code;
+  @ApiModelProperty("错误代码描述")
   private String err_code_des;
+  @ApiModelProperty("用户标识")
   private String openid;
+  @ApiModelProperty("是否关注公众账号")
   private String is_subscribe;
+  @ApiModelProperty("交易类型")
   private String trade_type;
+  @ApiModelProperty("付款银行")
   private String bank_type;
+  @ApiModelProperty("订单金额")
   private String total_fee;
+  @ApiModelProperty("应结订单金额")
   private String settlement_total_fee;
+  @ApiModelProperty("货币种类")
   private String fee_type;
+  @ApiModelProperty("现金支付金额")
   private String cash_fee;
+  @ApiModelProperty("现金支付货币类型")
   private String cash_fee_type;
+  @ApiModelProperty("总代金券金额")
   private String coupon_fee;
+  @ApiModelProperty("代金券使用数量")
   private String coupon_count;
+  @ApiModelProperty("微信支付订单号")
   private String transaction_id;
+  @ApiModelProperty("商户订单号")
   private String out_trade_no;
+  @ApiModelProperty("商家数据包")
   private String attach;
+  @ApiModelProperty("支付完成时间")
   private String time_end;
+  @ApiModelProperty("平台ID-开发者配置")
   private String platformId;
+  @ApiModelProperty("服务器ID-开发者配置")
   private String workerId;
 
   @Override
