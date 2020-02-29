@@ -71,7 +71,6 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
       } else {
         easinessPayBiz.setPayStatusCancel(pay.getUuid());
         log.warn(objectMapper.writeValueAsString(request));
-        log.warn(result.toJSON());
         log.warn(result.getResponseBody());
         throw new EasinessPayException("PlaceOrderFailed");
       }

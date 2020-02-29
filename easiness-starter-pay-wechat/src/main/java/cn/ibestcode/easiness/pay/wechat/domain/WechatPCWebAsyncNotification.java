@@ -102,6 +102,11 @@ public class WechatPCWebAsyncNotification implements PayAsyncNotification, Seria
   }
 
   @Override
+  public boolean isClosed() {
+    return !isSucceed();
+  }
+
+  @Override
   public String toJSON() {
     try {
       return objectMapper.writeValueAsString(this);

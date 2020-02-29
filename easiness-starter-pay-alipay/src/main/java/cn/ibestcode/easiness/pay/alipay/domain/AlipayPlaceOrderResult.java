@@ -8,6 +8,7 @@
 package cn.ibestcode.easiness.pay.alipay.domain;
 
 import cn.ibestcode.easiness.pay.domain.PlaceOrderResult;
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@ApiModel("支付宝下单接口通用返回值")
 public class AlipayPlaceOrderResult implements PlaceOrderResult, Serializable {
   private String responseBody;
   private boolean succeed = true;
