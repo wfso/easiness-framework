@@ -12,7 +12,6 @@ import cn.ibestcode.easiness.pay.alipay.EasinessPayAlipayConstant;
 import cn.ibestcode.easiness.pay.alipay.domain.AlipayPlaceOrderResult;
 import cn.ibestcode.easiness.pay.alipay.properties.AlipayAppProperties;
 import cn.ibestcode.easiness.pay.domain.EasinessPayPassbackParams;
-import cn.ibestcode.easiness.pay.exception.EasinessPayException;
 import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.utils.PriceUtils;
 import com.alipay.api.AlipayApiException;
@@ -72,17 +71,11 @@ public class AlipayAppPlaceOrderHandler extends AlipayPlaceOrderHandler {
   }
 
   @Override
-  protected AlipayPlaceOrderResult executeRequest(AlipayRequest request) {
-    try {
-      AlipayResponse response = getAlipayClient(properties).sdkExecute(request);
-      AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
-      result.setResponseBody(response.getBody());
-      return result;
-    } catch (AlipayApiException e) {
-      e.printStackTrace();
-      log.warn(e.getMessage(), e);
-      throw new EasinessPayException("PlaceOrderFailed");
-    }
+  protected AlipayPlaceOrderResult executeRequest(AlipayRequest request) throws AlipayApiException {
+    AlipayResponse response = getAlipayClient(properties).sdkExecute(request);
+    AlipayPlaceOrderResult result = new AlipayPlaceOrderResult();
+    result.setResponseBody(response.getBody());
+    return result;
   }
 
   @Override

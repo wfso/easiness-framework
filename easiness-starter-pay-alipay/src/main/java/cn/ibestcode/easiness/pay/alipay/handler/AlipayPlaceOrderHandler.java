@@ -48,12 +48,21 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
       return result;
     }
 
+    if (!"CNY".equals(pay.getCurrency())) {
+      easinessPayBiz.setPayStatusCancel(pay.getUuid());
+      throw new EasinessPayException("CurrencySupportCNYOnly");
+    }
+
     AlipayRequest request = newAlipayRequest();
 
     setNotifyUrl(request, pay);
 
     if (requireReturnUrl()) {
       setReturnUrl(request);
+      if (StringUtils.isBlank(request.getReturnUrl())) {
+        easinessPayBiz.setPayStatusCancel(pay.getUuid());
+        throw new EasinessPayException("ReturnUrlCanNotBeEmpty");
+      }
     }
 
     request.setProdCode(getAlipayProperties().getProductCode());
@@ -74,7 +83,8 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
         log.warn(result.getResponseBody());
         throw new EasinessPayException("PlaceOrderFailed");
       }
-    } catch (JsonProcessingException e) {
+    } catch (JsonProcessingException | AlipayApiException e) {
+      easinessPayBiz.setPayStatusCancel(pay.getUuid());
       log.warn(e.getMessage(), e);
       e.printStackTrace();
       throw new EasinessPayException("PlaceOrderFailed");
@@ -103,9 +113,6 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
     if (StringUtils.isBlank(request.getReturnUrl())) {
       request.setReturnUrl(CurrentRequestUtil.getReferer());
     }
-    if (StringUtils.isBlank(request.getReturnUrl())) {
-      throw new EasinessPayException("ReturnUrlCanNotBeEmpty");
-    }
   }
 
 
@@ -113,7 +120,7 @@ public abstract class AlipayPlaceOrderHandler extends AbstractEasinessPayPlaceOr
 
   protected abstract boolean requireReturnUrl();
 
-  protected abstract AlipayPlaceOrderResult executeRequest(AlipayRequest request);
+  protected abstract AlipayPlaceOrderResult executeRequest(AlipayRequest request) throws AlipayApiException;
 
   protected abstract AlipayRequest newAlipayRequest();
 
