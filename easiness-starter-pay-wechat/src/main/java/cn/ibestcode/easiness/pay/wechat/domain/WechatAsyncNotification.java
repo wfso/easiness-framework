@@ -134,7 +134,8 @@ public class WechatAsyncNotification implements PayAsyncNotification, Serializab
 
   @Override
   public boolean isClosed() {
-    return !isSucceed();
+    return "SUCCESS".equalsIgnoreCase(return_code)
+      && "FAIL".equalsIgnoreCase(result_code);
   }
 
   @Override

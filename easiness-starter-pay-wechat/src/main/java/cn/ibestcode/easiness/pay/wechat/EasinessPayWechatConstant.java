@@ -14,4 +14,11 @@ package cn.ibestcode.easiness.pay.wechat;
  */
 public class EasinessPayWechatConstant {
   public static final String EASINESS_PAY_TYPE_PC_WEB = "wechat-pcweb";
+  public static final String EASINESS_PAY_TYPE_APP = "wechat-app";
+  public static final String EASINESS_PAY_TYPE_H5 = "wechat-h5";
+  public static final String EASINESS_PAY_TYPE_JSAPI = "wechat-jsapi";
+  public static final String EASINESS_PAY_TYPE_MINAPP = "wechat-minapp";
+
+  // 付款码
+  public static final String EASINESS_PAY_TYPE_MICROPAY = "wechat-micropay";
 }

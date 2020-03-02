@@ -21,8 +21,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "yioks.pay.webchat.app")
 public class WechatAppProperties extends WechatProperties {
-  /**
-   @ApiModelProperty("开放平台应用中的AppId") private String appId;
-
+  /*
+   * @ApiModelProperty("开放平台应用中的AppId") private String appId;
    */
+
+  public WechatAppProperties() {
+    setTradeType("APP");
+  }
 }

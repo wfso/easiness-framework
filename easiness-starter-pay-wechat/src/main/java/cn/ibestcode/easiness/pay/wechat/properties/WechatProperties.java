@@ -34,5 +34,11 @@ public class WechatProperties {
   @ApiModelProperty("异常通知地址前缀")
   private String notifyUrlPrefix = EasinessPayConstant.ASYNC_NOTIFY_URL_PREFIX;
 
+  @ApiModelProperty("交易类型")
+  private String tradeType;
+
+  @ApiModelProperty("签名类型")
+  private String signType = "HMAC-SHA256";
+
 
 }

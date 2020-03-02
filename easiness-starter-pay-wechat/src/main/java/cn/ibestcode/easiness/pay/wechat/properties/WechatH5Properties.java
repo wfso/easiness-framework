@@ -21,8 +21,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "yioks.pay.webchat.h5")
 public class WechatH5Properties extends WechatProperties {
-  /**
-   @ApiModelProperty("公众号帐号id") private String appId;
-
+  /*
+   * @ApiModelProperty("公众号帐号id") private String appId;
    */
+
+  public WechatH5Properties() {
+    setTradeType("MWEB");
+  }
 }

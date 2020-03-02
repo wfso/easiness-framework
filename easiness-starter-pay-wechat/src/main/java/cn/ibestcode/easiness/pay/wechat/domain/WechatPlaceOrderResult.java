@@ -49,6 +49,9 @@ public class WechatPlaceOrderResult implements PlaceOrderResult, Serializable {
   @ApiModelProperty("二维码链接")
   private String code_url;
 
+  @ApiModelProperty("下单接口的返回内容")
+  private String responseBody;
+
   @Override
   public String getTradeId() {
     return prepay_id;
@@ -73,10 +76,5 @@ public class WechatPlaceOrderResult implements PlaceOrderResult, Serializable {
       e.printStackTrace();
     }
     return "";
-  }
-
-  @Override
-  public String getResponseBody() {
-    return code_url;
   }
 }

@@ -21,8 +21,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "yioks.pay.webchat.native")
 public class WechatNativeProperties extends WechatProperties {
-  /**
-   @ApiModelProperty("公众号帐号id") private String appId;
-
+  /*
+   * @ApiModelProperty("公众号帐号id") private String appId;
    */
+
+  public WechatNativeProperties() {
+    setTradeType("JSAPI");
+  }
 }
