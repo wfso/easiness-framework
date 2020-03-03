@@ -16,6 +16,14 @@ public class MultiValueMapUtil {
     return multiValueMap;
   }
 
+  public static MultiValueMap<String, String> fromMonolayerMap(Map<String, ?> map) {
+    MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+    for (Map.Entry<String, ?> entry : map.entrySet()) {
+      multiValueMap.add(entry.getKey(), entry.getValue().toString());
+    }
+    return multiValueMap;
+  }
+
   public static MultiValueMap<String, String> fromMonolayerObject(Object object) {
     final BeanWrapper sourceWrapper = new BeanWrapperImpl(object);
     PropertyDescriptor[] pds = sourceWrapper.getPropertyDescriptors();
