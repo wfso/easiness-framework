@@ -13,7 +13,7 @@ package cn.ibestcode.easiness.pay.wechat;
  * create by WFSO (仵士杰) at 2020/1/13 19:49
  */
 public class EasinessPayWechatConstant {
-  public static final String EASINESS_PAY_TYPE_PC_WEB = "wechat-pcweb";
+  public static final String EASINESS_PAY_TYPE_NATIVE = "wechat-native";
   public static final String EASINESS_PAY_TYPE_APP = "wechat-app";
   public static final String EASINESS_PAY_TYPE_H5 = "wechat-h5";
   public static final String EASINESS_PAY_TYPE_JSAPI = "wechat-jsapi";

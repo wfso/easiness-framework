@@ -28,7 +28,7 @@ public class MapUtil {
     return map;
   }
 
-  public static Map<String, String> monolayerObjectToTreeMap(Object object) {
+  public static TreeMap<String, String> monolayerObjectToTreeMap(Object object) {
     TreeMap<String, String> treeMap = new TreeMap<>();
     monolayerFillMap(object, treeMap);
     return treeMap;

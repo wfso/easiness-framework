@@ -7,6 +7,7 @@
  */
 package cn.ibestcode.easiness.pay.wechat.properties;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -24,6 +25,9 @@ public class WechatH5Properties extends WechatProperties {
   /*
    * @ApiModelProperty("公众号帐号id") private String appId;
    */
+
+  @ApiModelProperty("场景信息")
+  private String sceneInfo;
 
   public WechatH5Properties() {
     setTradeType("MWEB");

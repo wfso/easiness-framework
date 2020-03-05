@@ -9,6 +9,8 @@ package cn.ibestcode.easiness.pay.wechat.utils;
 
 import cn.ibestcode.easiness.utils.DigestUtil;
 import cn.ibestcode.easiness.utils.MacUtil;
+import cn.ibestcode.easiness.utils.MapUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,25 +25,45 @@ public class SignUtil {
     if (!(params instanceof TreeMap)) {
       params = new TreeMap<>(params);
     }
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (Map.Entry<String, String> entry : params.entrySet()) {
       if (entry.getValue() != null) {
-        buffer.append(entry.getKey())
+        sb.append(entry.getKey())
           .append("=")
           .append(entry.getValue())
           .append("&");
       }
     }
-    buffer.append("key=").append(key);
+    sb.append("key=").append(key);
+    return sign(sb.toString(), key, signType);
+  }
+
+  public static String sign(String str, String key, String signType) {
     switch (signType.toLowerCase()) {
       case "md5": {
-        return DigestUtil.md5Hex(buffer.toString());
+        return DigestUtil.md5Hex(str);
       }
       case "hmac-sha256":
       case "hmacsha256": {
-        return MacUtil.hmacSha256Hex(buffer.toString(), key);
+        return MacUtil.hmacSha256Hex(str, key);
       }
     }
     return null;
+  }
+
+
+  public static String sign(Object object, String appKey, String signType) {
+    TreeMap<String, String> treeMap = MapUtil.monolayerObjectToTreeMap(object);
+    StringBuilder sb = new StringBuilder();
+    for (Map.Entry<String, String> entry : treeMap.entrySet()) {
+      if (!entry.getKey().equalsIgnoreCase("sign") && StringUtils.isNotBlank(entry.getValue())) {
+        sb.append(entry.getKey().replaceAll("([^\\_])([A-Z])", "$1_$2").toLowerCase().replace(".", "`.`"))
+          .append("=")
+          .append(entry.getValue())
+          .append("&");
+      }
+    }
+    sb.append("key").append("=").append(appKey);
+    return SignUtil.sign(sb.toString(), appKey, signType);
   }
 }

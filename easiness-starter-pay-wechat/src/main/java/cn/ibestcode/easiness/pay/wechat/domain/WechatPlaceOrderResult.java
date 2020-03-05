@@ -48,6 +48,8 @@ public class WechatPlaceOrderResult implements PlaceOrderResult, Serializable {
   private String prepay_id;
   @ApiModelProperty("二维码链接")
   private String code_url;
+  @ApiModelProperty("h5支付的跳转链接")
+  private String mweb_url;
 
   @ApiModelProperty("下单接口的返回内容")
   private String responseBody;
