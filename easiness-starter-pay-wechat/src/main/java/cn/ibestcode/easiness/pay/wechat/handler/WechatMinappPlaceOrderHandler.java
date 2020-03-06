@@ -16,11 +16,11 @@ import cn.ibestcode.easiness.pay.wechat.domain.WechatPlaceOrderResult;
 import cn.ibestcode.easiness.pay.wechat.properties.WechatMinappProperties;
 import cn.ibestcode.easiness.pay.wechat.utils.SignUtil;
 import cn.ibestcode.easiness.utils.RandomUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -46,7 +46,7 @@ public class WechatMinappPlaceOrderHandler extends WechatPlaceOrderHandler {
     return orderParams;
   }
 
-  protected void setResponseBody(WechatPlaceOrderResult result) throws JsonProcessingException {
+  protected void setResponseBody(WechatPlaceOrderResult result) throws IOException {
     Map<String, String> appPayParam = new TreeMap<>();
     appPayParam.put("appId", result.getAppid());
     appPayParam.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));

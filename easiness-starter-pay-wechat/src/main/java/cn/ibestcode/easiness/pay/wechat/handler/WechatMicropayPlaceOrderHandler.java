@@ -15,7 +15,6 @@ import cn.ibestcode.easiness.pay.wechat.EasinessPayWechatConstant;
 import cn.ibestcode.easiness.pay.wechat.domain.PlaceOrderParams;
 import cn.ibestcode.easiness.pay.wechat.domain.WechatPlaceOrderResult;
 import cn.ibestcode.easiness.pay.wechat.properties.WechatMicropayProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -25,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -54,7 +54,7 @@ public class WechatMicropayPlaceOrderHandler extends WechatPlaceOrderHandler {
     return orderParams;
   }
 
-  protected void setResponseBody(WechatPlaceOrderResult result) throws JsonProcessingException {
+  protected void setResponseBody(WechatPlaceOrderResult result) throws IOException {
     result.setResponseBody("{}");
   }
 

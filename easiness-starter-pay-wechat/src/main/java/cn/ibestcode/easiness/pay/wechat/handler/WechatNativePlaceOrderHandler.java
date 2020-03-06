@@ -14,13 +14,11 @@ import cn.ibestcode.easiness.pay.wechat.EasinessPayWechatConstant;
 import cn.ibestcode.easiness.pay.wechat.domain.PlaceOrderParams;
 import cn.ibestcode.easiness.pay.wechat.domain.WechatPlaceOrderResult;
 import cn.ibestcode.easiness.pay.wechat.properties.WechatNativeProperties;
-import cn.ibestcode.easiness.spring.utils.IpUtil;
-import cn.ibestcode.easiness.utils.RandomUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -45,7 +43,7 @@ public class WechatNativePlaceOrderHandler extends WechatPlaceOrderHandler {
     return orderParams;
   }
 
-  protected void setResponseBody(WechatPlaceOrderResult result) throws JsonProcessingException {
+  protected void setResponseBody(WechatPlaceOrderResult result) throws IOException {
     result.setResponseBody(result.getCode_url());
   }
 
