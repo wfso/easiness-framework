@@ -27,6 +27,7 @@ public class WechatAsyncNotification implements PayAsyncNotification, Serializab
   private String return_code;
   @ApiModelProperty("返回信息")
   private String return_msg;
+
   @ApiModelProperty("APPID")
   private String appid;
   @ApiModelProperty("商户号")
@@ -75,6 +76,7 @@ public class WechatAsyncNotification implements PayAsyncNotification, Serializab
   private String attach;
   @ApiModelProperty("支付完成时间")
   private String time_end;
+
   @ApiModelProperty("平台ID-开发者配置")
   private String platformId;
   @ApiModelProperty("服务器ID-开发者配置")
