@@ -26,4 +26,6 @@ public interface EasinessConfiguration {
   int getIntConfig(String key, int defaultValue);
 
   boolean getBooleanConfigure(String key, boolean defaultValue);
+
+  void remove(String key);
 }
