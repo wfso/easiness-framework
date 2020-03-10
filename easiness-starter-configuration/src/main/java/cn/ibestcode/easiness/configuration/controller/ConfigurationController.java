@@ -33,7 +33,7 @@ public class ConfigurationController {
   //@RequiresPermissions("configuration:add")
   //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void add(@RequestBody Configuration configuration) {
-    configurationService.create(configuration);
+    configurationService.setConfig(configuration.getConfigKey(), configuration.getValue());
   }
 
   @PutMapping
@@ -41,7 +41,7 @@ public class ConfigurationController {
   //@RequiresPermissions("configuration:edit")
   //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void edit(@RequestBody Configuration configuration) {
-    configurationService.update(configuration);
+    configurationService.setConfig(configuration.getConfigKey(), configuration.getValue());
   }
 
   @PutMapping("batch")
@@ -49,7 +49,9 @@ public class ConfigurationController {
   //@RequiresPermissions("configuration:edit")
   //@RequiresRoles(EasinessRoleConstant.SYSTEM_ROLE)
   public void batchUpdate(@RequestBody List<Configuration> configs) {
-    configurationService.update(configs);
+    for (Configuration configuration : configs) {
+      configurationService.setConfig(configuration.getConfigKey(), configuration.getValue());
+    }
   }
 
   @DeleteMapping("/{id}")
