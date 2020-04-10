@@ -266,13 +266,6 @@
         <version>3.7.110.ALL</version>
       </dependency>
 
-
-      <!-- 阿里云 fastjson -->
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>1.2.59</version>
-      </dependency>
       <!-- 阿里云 短信支持 -->
       <dependency>
         <groupId>com.aliyun</groupId>
