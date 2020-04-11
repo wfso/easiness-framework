@@ -15,5 +15,9 @@
       <groupId>cn.ibestcode.easiness</groupId>
       <artifactId>easiness-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
   </dependencies>
 </project>
