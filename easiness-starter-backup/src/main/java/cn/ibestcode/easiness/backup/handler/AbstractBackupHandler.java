@@ -30,7 +30,7 @@ public abstract class AbstractBackupHandler<T> implements BackupHandler<T> {
     Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
     Assert.isTrue(actualTypeArguments.length == 1, "Number of type arguments must be 1");
     type = actualTypeArguments[0];
-    Assert.isInstanceOf(Class.class, type, "");
+    Assert.isInstanceOf(Class.class, type);
     this.clazz = (Class) type;
   }
 
