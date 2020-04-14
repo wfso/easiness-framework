@@ -39,10 +39,8 @@ public class MapUtil {
     PropertyDescriptor[] pds = sourceWrapper.getPropertyDescriptors();
     for (PropertyDescriptor pd : pds) {
       Object propertyValue = sourceWrapper.getPropertyValue(pd.getName());
-      if (propertyValue instanceof String) {
-        if (!ObjectUtils.isEmpty(propertyValue)) {
-          map.put(pd.getName(), propertyValue.toString());
-        }
+      if (!ObjectUtils.isEmpty(propertyValue)) {
+        map.put(pd.getName(), propertyValue.toString());
       }
     }
   }
