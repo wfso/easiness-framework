@@ -2,6 +2,7 @@ package cn.ibestcode.easiness.spring.restClient;
 
 import cn.ibestcode.easiness.utils.exception.UtilsException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -31,6 +32,14 @@ import java.security.NoSuchAlgorithmException;
 @Slf4j
 @Configuration
 public class RestTemplateConfiguration {
+
+
+  @Bean
+  @ConditionalOnMissingBean
+  public RestTemplateProperties restTemplateProperties() {
+    return new RestTemplateProperties();
+  }
+
   /**
    * 创建支持 HTTPS 的 HTTP Client
    * 参考： http://blog.csdn.net/ychau/article/details/53905886
@@ -38,10 +47,38 @@ public class RestTemplateConfiguration {
    * @return CloseableHttpClient
    */
   @Bean("closeableHttpClient")
-  public CloseableHttpClient closeableHttpClient() {
+  public CloseableHttpClient closeableHttpClient(RestTemplateProperties restTemplateProperties) {
     CloseableHttpClient client = null;
     try {
       HttpClientBuilder b = HttpClientBuilder.create();
+
+      if (!restTemplateProperties.isCookieManagement()) {
+        b.disableCookieManagement();
+      }
+      if (!restTemplateProperties.isAuthCaching()) {
+        b.disableAuthCaching();
+      }
+      if (!restTemplateProperties.isAutomaticRetries()) {
+        b.disableAutomaticRetries();
+      }
+      if (!restTemplateProperties.isConnectionState()) {
+        b.disableConnectionState();
+      }
+      if (!restTemplateProperties.isContentCompression()) {
+        b.disableContentCompression();
+      }
+      if (!restTemplateProperties.isDefaultUserAgent()) {
+        b.disableDefaultUserAgent();
+      }
+      if (!restTemplateProperties.isRedirectHandling()) {
+        b.disableRedirectHandling();
+      }
+
+      b.setConnectionManagerShared(restTemplateProperties.isConnectionManagerShared());
+
+      if (StringUtils.isNotBlank(restTemplateProperties.getUserAgent())) {
+        b.setUserAgent(restTemplateProperties.getUserAgent());
+      }
 
       SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build();
       b.setSSLContext(sslContext);
