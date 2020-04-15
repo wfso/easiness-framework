@@ -21,12 +21,6 @@ public interface EasinessUser {
   @ApiModelProperty("盐")
   String getSalt();
 
-  @ApiModelProperty("最后一次登录的SessionId")
-  String getLastLoginSessionId();
-
-  @ApiModelProperty("最后一次登录的Ip地址")
-  String getLastLoginIp();
-
   @ApiModelProperty("是否可用")
   boolean isAvailable();
 
