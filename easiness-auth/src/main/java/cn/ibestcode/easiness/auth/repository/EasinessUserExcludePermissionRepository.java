@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface EasinessUserExcludePermissionRepository extends JpaRepository<EasinessUserExcludePermission, Object> {
+public interface EasinessUserExcludePermissionRepository extends JpaRepository<EasinessUserExcludePermission, EasinessUserExcludePermission> {
   List<EasinessUserExcludePermission> findAllByPermissionCode(String permissionCode);
 
   List<EasinessUserExcludePermission> findAllByUserId(long userId);

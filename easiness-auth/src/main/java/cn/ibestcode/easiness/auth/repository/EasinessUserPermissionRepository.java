@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface EasinessUserPermissionRepository extends JpaRepository<EasinessUserPermission, Object> {
+public interface EasinessUserPermissionRepository extends JpaRepository<EasinessUserPermission, EasinessUserPermission> {
   List<EasinessUserPermission> findAllByPermissionCode(String permissionCode);
 
   List<EasinessUserPermission> findAllByUserId(long userId);

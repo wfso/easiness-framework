@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface EasinessUserRoleRepository extends JpaRepository<EasinessUserRole, Object> {
+public interface EasinessUserRoleRepository extends JpaRepository<EasinessUserRole, EasinessUserRole> {
   List<EasinessUserRole> findAllByUserId(long userId);
 
   List<EasinessUserRole> findAllByRoleCode(String roleCode);
