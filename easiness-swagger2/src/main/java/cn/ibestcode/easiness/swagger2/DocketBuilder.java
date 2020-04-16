@@ -39,7 +39,7 @@ public class DocketBuilder {
     parameters = new ArrayList<>();
   }
 
-  public DocketBuilder getInstance() {
+  public static DocketBuilder getInstance() {
     return new DocketBuilder();
   }
 
