@@ -163,7 +163,7 @@ public class AlipayAsyncNotification implements PayAsyncNotification, Serializab
   // endregion
 
 
-  // region Yioks框架参数
+  // region Easiness框架参数
 
   @ApiModelProperty("平台标识")
   private String platformId;

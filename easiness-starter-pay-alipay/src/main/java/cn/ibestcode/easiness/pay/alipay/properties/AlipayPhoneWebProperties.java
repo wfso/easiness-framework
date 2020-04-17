@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.alipay.phone-web")
+@ConfigurationProperties(prefix = "easiness.pay.alipay.phone-web")
 public class AlipayPhoneWebProperties extends AlipayProperties {
   public AlipayPhoneWebProperties() {
     setProductCode("QUICK_WAP_WAY");

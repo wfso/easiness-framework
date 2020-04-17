@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.alipay.app")
+@ConfigurationProperties(prefix = "easiness.pay.alipay.app")
 public class AlipayAppProperties extends AlipayProperties {
   public AlipayAppProperties() {
     setProductCode("QUICK_MSECURITY_PAY");

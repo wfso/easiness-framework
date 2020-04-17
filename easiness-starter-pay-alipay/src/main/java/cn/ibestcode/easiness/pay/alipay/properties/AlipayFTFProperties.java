@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.alipay.ftf")
+@ConfigurationProperties(prefix = "easiness.pay.alipay.ftf")
 public class AlipayFTFProperties extends AlipayProperties {
   public AlipayFTFProperties() {
     setProductCode("FACE_TO_FACE_PAYMENT");
