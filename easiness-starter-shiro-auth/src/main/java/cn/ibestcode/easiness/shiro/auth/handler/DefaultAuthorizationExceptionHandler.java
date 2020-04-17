@@ -1,0 +1,30 @@
+/**
+ * Copyright 2019 the original author or authors.
+ * <p>
+ * Licensed to the IBESTCODE under one or more agreements.
+ * The IBESTCODE licenses this file to you under the MIT license.
+ * See the LICENSE file in the project root for more information.
+ */
+package cn.ibestcode.easiness.shiro.auth.handler;
+
+import cn.ibestcode.easiness.exception.handler.AbstractExceptionHandler;
+import cn.ibestcode.easiness.exception.properties.EasinessExceptionTipsProperties;
+import org.apache.shiro.authz.AuthorizationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class DefaultAuthorizationExceptionHandler extends AbstractExceptionHandler {
+
+  @Autowired
+  private EasinessExceptionTipsProperties tipsProperties;
+
+  @ExceptionHandler(AuthorizationException.class)
+  @ResponseBody
+  ResponseEntity<Object> defaultAuthorizationExceptionHandle(Throwable throwable) {
+    return commonExceptionHandler(throwable, tipsProperties.getCodeName(), tipsProperties.getMsgName());
+  }
+}
