@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.webchat.micropay")
+@ConfigurationProperties(prefix = "easiness.pay.webchat.micropay")
 public class WechatMicropayProperties extends WechatProperties {
   /*
    * @ApiModelProperty("公众号帐号id") private String appId;

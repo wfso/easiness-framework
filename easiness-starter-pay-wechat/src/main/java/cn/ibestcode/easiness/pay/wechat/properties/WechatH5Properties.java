@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.webchat.h5")
+@ConfigurationProperties(prefix = "easiness.pay.webchat.h5")
 public class WechatH5Properties extends WechatProperties {
   /*
    * @ApiModelProperty("公众号帐号id") private String appId;

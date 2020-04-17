@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.webchat.minapp")
+@ConfigurationProperties(prefix = "easiness.pay.webchat.minapp")
 public class WechatMinappProperties extends WechatProperties {
   /*
    * @ApiModelProperty("小程序id") private String appId;

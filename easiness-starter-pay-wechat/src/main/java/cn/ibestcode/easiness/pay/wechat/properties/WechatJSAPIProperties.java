@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "yioks.pay.webchat.jsapi")
+@ConfigurationProperties(prefix = "easiness.pay.webchat.jsapi")
 public class WechatJSAPIProperties extends WechatProperties {
   /*
    * @ApiModelProperty("公众号帐号id") private String appId;
