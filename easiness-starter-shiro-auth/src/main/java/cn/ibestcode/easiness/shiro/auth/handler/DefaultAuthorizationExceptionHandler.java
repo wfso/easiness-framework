@@ -37,7 +37,7 @@ public class DefaultAuthorizationExceptionHandler extends AbstractExceptionHandl
 
   @ResponseBody
   @ExceptionHandler(AuthorizationException.class)
-  ResponseEntity<Object> defaultAuthorizationExceptionHandle(Throwable throwable) {
+  public ResponseEntity<Object> defaultAuthorizationExceptionHandle(Throwable throwable) {
     Map<String, Object> result = new HashMap<>();
     String code = throwable.getMessage();
     String msg = null;

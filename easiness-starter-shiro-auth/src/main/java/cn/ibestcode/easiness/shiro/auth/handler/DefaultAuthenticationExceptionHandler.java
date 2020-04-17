@@ -25,7 +25,7 @@ public class DefaultAuthenticationExceptionHandler extends AbstractExceptionHand
 
   @ResponseBody
   @ExceptionHandler(AuthenticationException.class)
-  ResponseEntity<Object> defaultAuthenticationExceptionHandle(Throwable throwable) {
+  public ResponseEntity<Object> defaultAuthenticationExceptionHandle(Throwable throwable) {
     return commonExceptionHandler(throwable, properties.getCodeName(), properties.getMsgName());
   }
 
