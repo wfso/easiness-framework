@@ -18,12 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,16 +43,12 @@ public class DefaultResponseFormat implements ResponseBodyAdvice<Object> {
 
   @Override
   public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-    Method method = returnType.getMethod();
-    if (method == null) {
-      return false;
-    }
-    ResponseFormat responseFormat = method.getAnnotation(ResponseFormat.class);
+    ResponseFormat responseFormat = returnType.getExecutable().getAnnotation(ResponseFormat.class);
     if (responseFormat == null) {
-      responseFormat = method.getDeclaringClass().getAnnotation(ResponseFormat.class);
-      if (responseFormat == null) {
-        return false;
-      }
+      responseFormat = returnType.getContainingClass().getAnnotation(ResponseFormat.class);
+    }
+    if (responseFormat == null) {
+      return false;
     }
     return true;
   }
@@ -64,16 +60,12 @@ public class DefaultResponseFormat implements ResponseBodyAdvice<Object> {
                                 ServerHttpRequest request,
                                 ServerHttpResponse response) {
 
-    Method method = returnType.getMethod();
-    if (method == null) {
-      return body;
-    }
-    ResponseFormat responseFormat = method.getAnnotation(ResponseFormat.class);
+    ResponseFormat responseFormat = returnType.getExecutable().getAnnotation(ResponseFormat.class);
     if (responseFormat == null) {
-      responseFormat = method.getDeclaringClass().getAnnotation(ResponseFormat.class);
-      if (responseFormat == null) {
-        return body;
-      }
+      responseFormat = returnType.getContainingClass().getAnnotation(ResponseFormat.class);
+    }
+    if (responseFormat == null) {
+      return body;
     }
 
     String codeName = responseFormat.codeName();
@@ -97,7 +89,7 @@ public class DefaultResponseFormat implements ResponseBodyAdvice<Object> {
     result.put(codeName, properties.getCodeValue());
     result.put(msgName, properties.getMsgValue());
 
-    if (String.class.isAssignableFrom(returnType.getMethod().getReturnType())) {
+    if (StringHttpMessageConverter.class.isAssignableFrom(selectedConverterType)) {
       try {
         return objectMapper.writeValueAsString(result);
       } catch (JsonProcessingException e) {
