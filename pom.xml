@@ -47,6 +47,7 @@
     <module>easiness-starter-pay-wechat</module>
     <module>easiness-region-management</module>
     <module>easiness-starter-backup</module>
+    <module>easiness-response-format</module>
   </modules>
 
   <dependencyManagement>
@@ -201,6 +202,11 @@
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-starter-backup</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-response-format</artifactId>
         <version>${easiness.version}</version>
       </dependency>
 
