@@ -46,7 +46,8 @@ import java.util.Map;
 @Component
 public class AliyunSmsProvider implements SmsProvider {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired(required = false)
   private EasinessConfiguration configuration;
@@ -120,7 +121,7 @@ public class AliyunSmsProvider implements SmsProvider {
     return AliyunSendSmsConstant.ALIYUN_TYPE;
   }
 
-  private static class AliyunSmsSender implements SmsSender {
+  private class AliyunSmsSender implements SmsSender {
     private final IAcsClient client;
     private final String signName;
     private final String domain;
@@ -175,7 +176,7 @@ public class AliyunSmsProvider implements SmsProvider {
 
   @Getter
   @Setter
-  private static class AliyunSmsResult implements SmsSenderResult {
+  private class AliyunSmsResult implements SmsSenderResult {
 
     private String BizId;
     private String Code;

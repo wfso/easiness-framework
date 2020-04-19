@@ -38,7 +38,8 @@ public class EasinessRegionInitCommandLineRunner implements CommandLineRunner {
   @Autowired
   private EasinessConfiguration configuration;
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   public void init() throws IOException {
     EasinessRegion region = regionService.getByCode("");

@@ -39,7 +39,8 @@ import java.util.Map;
 @Component
 public class SubmailSmsHook implements EasinessSmsHook {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired
   private SubmailSmsProperties smsProperties;
@@ -72,7 +73,7 @@ public class SubmailSmsHook implements EasinessSmsHook {
 
   @Getter
   @Setter
-  protected static class SubmailSmsHookResult implements SmsHookResult, Serializable {
+  protected class SubmailSmsHookResult implements SmsHookResult, Serializable {
 
     List<SmsHookResultItem> items = new ArrayList<>();
 
@@ -106,7 +107,7 @@ public class SubmailSmsHook implements EasinessSmsHook {
 
   @Getter
   @Setter
-  protected static class SubmailSmsHookResultItem implements SmsHookResultItem, Serializable {
+  protected class SubmailSmsHookResultItem implements SmsHookResultItem, Serializable {
 
     private String events;
     private String address;

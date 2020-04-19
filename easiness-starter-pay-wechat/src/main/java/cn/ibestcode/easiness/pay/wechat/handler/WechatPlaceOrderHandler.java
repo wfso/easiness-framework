@@ -39,8 +39,11 @@ import java.util.TreeMap;
  */
 @Slf4j
 public abstract class WechatPlaceOrderHandler extends AbstractEasinessPayPlaceOrderHandler {
-  protected static final ObjectMapper objectMapper = new ObjectMapper();
-  protected static final XmlMapper xmlMapper = new XmlMapper();
+  @Autowired
+  protected ObjectMapper objectMapper;
+
+  @Autowired
+  protected XmlMapper xmlMapper;
 
   @Autowired
   protected RestTemplate restTemplate;

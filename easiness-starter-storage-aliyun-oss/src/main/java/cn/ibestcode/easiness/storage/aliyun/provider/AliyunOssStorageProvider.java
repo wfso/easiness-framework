@@ -27,7 +27,8 @@ import java.io.InputStream;
 @Component
 public class AliyunOssStorageProvider implements StorageProvider {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired(required = false)
   private EasinessConfiguration configuration;
@@ -88,7 +89,7 @@ public class AliyunOssStorageProvider implements StorageProvider {
     return AliyunOssStorageConstant.ALIYUN_OSS_TYPE;
   }
 
-  private static class AliyunOssStorage implements Storage {
+  private class AliyunOssStorage implements Storage {
     private final String endpoint;
     private final String bucket;
     private final String prefixUrl;
@@ -135,7 +136,7 @@ public class AliyunOssStorageProvider implements StorageProvider {
   @Getter
   @Setter
   @ToString
-  private static class AliyunOSSStorageResult implements StorageResult {
+  private class AliyunOSSStorageResult implements StorageResult {
     private String id;
     private boolean success;
     private String url;

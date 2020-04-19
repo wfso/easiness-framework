@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,8 @@ import java.nio.file.StandardCopyOption;
 @Component
 public class LocalStorageProvider implements StorageProvider {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired(required = false)
   private EasinessConfiguration configuration;
@@ -67,8 +67,7 @@ public class LocalStorageProvider implements StorageProvider {
     return LocalStorageConstant.LOCAL_TYPE;
   }
 
-  @Slf4j
-  private static class LocalStorage implements Storage {
+  private class LocalStorage implements Storage {
 
     private final String filePath;
     private final String prefixUrl;
@@ -121,8 +120,7 @@ public class LocalStorageProvider implements StorageProvider {
 
   @Getter
   @Setter
-  @ToString
-  private static class LocalStorageResult implements StorageResult {
+  private class LocalStorageResult implements StorageResult {
     private String id;
     private boolean success;
     private String url;

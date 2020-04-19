@@ -38,7 +38,8 @@ import java.util.TreeMap;
 @Component
 public class SubmailSmsProvider implements SmsProvider {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired
   private RestTemplate restTemplate;
@@ -107,7 +108,7 @@ public class SubmailSmsProvider implements SmsProvider {
     }
   }
 
-  private static class SubmailSmsSender implements SmsSender {
+  private class SubmailSmsSender implements SmsSender {
 
     private final String appId;
 
@@ -167,7 +168,7 @@ public class SubmailSmsProvider implements SmsProvider {
 
   @Setter
   @Getter
-  private static class SubmailSmsResult implements SmsSenderResult {
+  private class SubmailSmsResult implements SmsSenderResult {
 
     private String status;
     private String send_id;

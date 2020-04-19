@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -36,7 +37,8 @@ import java.util.List;
 @Component
 public class AliyunSmsHook implements EasinessSmsHook {
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Override
   public String supportType() {
@@ -64,7 +66,7 @@ public class AliyunSmsHook implements EasinessSmsHook {
 
   @Getter
   @Setter
-  protected static class AliyunSmsHookResult implements SmsHookResult, Serializable {
+  protected class AliyunSmsHookResult implements SmsHookResult, Serializable {
 
     private List<SmsHookResultItem> items = new ArrayList<>();
 
@@ -105,7 +107,7 @@ public class AliyunSmsHook implements EasinessSmsHook {
 
   @Getter
   @Setter
-  protected static class AliyunSmsHookResultItem implements SmsHookResultItem, Serializable {
+  protected class AliyunSmsHookResultItem implements SmsHookResultItem, Serializable {
     private String phone_number;
     private String send_time;
     private String report_time;

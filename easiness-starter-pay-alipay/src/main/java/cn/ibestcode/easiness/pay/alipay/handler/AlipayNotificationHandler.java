@@ -38,7 +38,8 @@ public abstract class AlipayNotificationHandler implements EasinessPayNotifyHand
   @Autowired
   protected EasinessPayBiz payBiz;
 
-  protected ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired
+  protected ObjectMapper objectMapper;
 
   @Override
   public String notifyHandle(String payUuid) {
