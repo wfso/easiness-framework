@@ -41,6 +41,10 @@ public class EasinessPayStatusChangeEventProcessor {
         orderBiz.setOrderStatusUnpaid(event.getOrderUuid(), event.getPayUuid());
         break;
       }
+      case COMPLETE: {
+        orderBiz.setOrderStatusComplete(event.getOrderUuid());
+        break;
+      }
     }
 
   }
