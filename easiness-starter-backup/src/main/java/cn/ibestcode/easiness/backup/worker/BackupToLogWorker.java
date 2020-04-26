@@ -13,12 +13,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/4/11 17:08
  */
 @Slf4j
+@Component
+@ConditionalOnProperty(value = "easiness.backup.toLog", matchIfMissing = true)
 public class BackupToLogWorker implements BackupWorker {
   @Autowired
   private ObjectMapper objectMapper;
