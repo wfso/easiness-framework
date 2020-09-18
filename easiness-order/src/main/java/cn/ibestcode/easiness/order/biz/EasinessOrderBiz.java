@@ -27,7 +27,8 @@ import cn.ibestcode.easiness.utils.SpringBeanUtilsExt;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -646,7 +647,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
-    notifyBiz.during(srcStatus,order);
+    notifyBiz.during(srcStatus, order);
     eventBus.post(new OrderStatusChangeEvent(orderUuid, payUuid, OrderStatus.DURING));
   }
 

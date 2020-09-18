@@ -4,7 +4,7 @@ import cn.ibestcode.easiness.backup.entity.annotation.BackupResult;
 import cn.ibestcode.easiness.core.base.model.Model;
 import cn.ibestcode.easiness.core.base.service.BaseService;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public abstract class BaseBackupService<T extends Model<ID>, ID> extends BaseService<T, ID> {

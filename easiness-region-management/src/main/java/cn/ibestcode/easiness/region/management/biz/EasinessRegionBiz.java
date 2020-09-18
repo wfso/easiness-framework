@@ -16,7 +16,7 @@ import cn.ibestcode.easiness.region.management.model.*;
 import cn.ibestcode.easiness.region.management.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**

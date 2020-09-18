@@ -6,7 +6,7 @@ import cn.ibestcode.easiness.utils.RandomUtil;
 import cn.ibestcode.easiness.utils.SpringBeanUtilsExt;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class UuidBaseJpaService<T extends UuidBaseJpaModel> extends BaseJpaService<T> implements UuidService<T> {
   protected abstract UuidBaseJpaRepository<T> getRepository();

@@ -4,7 +4,7 @@ import cn.ibestcode.easiness.backup.entity.annotation.BackupResult;
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.core.base.service.UuidBaseJpaService;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public abstract class UuidBaseJpaBackupService<T extends UuidBaseJpaModel> extends UuidBaseJpaService<T> {

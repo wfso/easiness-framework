@@ -22,7 +22,7 @@ import cn.ibestcode.easiness.pay.service.EasinessPayExtendService;
 import cn.ibestcode.easiness.pay.service.EasinessPayService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -3,7 +3,7 @@ package cn.ibestcode.easiness.core.base.repository;
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @NoRepositoryBean
 public interface UuidBaseJpaRepository<T extends UuidBaseJpaModel> extends BaseJpaRepository<T> {
