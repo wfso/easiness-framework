@@ -17,6 +17,7 @@ import cn.ibestcode.easiness.region.management.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -383,6 +384,7 @@ public class EasinessRegionBiz {
    * 如果缓存之后没有更新过，则返回空列表
    *
    * @param code String 区域编码
+   * @param cacheAt 缓存时间
    * @return EasinessRegion 列表
    */
   public RegionCacheVo getListByCodeSupportCache(String code, long cacheAt) {
@@ -419,7 +421,8 @@ public class EasinessRegionBiz {
    * 如果缓存之后更新过，则通过level获取所有可用的区域；
    * 如果缓存之后没有更新过，则返回空列表
    *
-   * @param level 区域层级
+   * @param level   区域层级
+   * @param cacheAt 缓存时间
    * @return EasinessRegion 列表
    */
   public RegionCacheVo getListByLevelSupportCache(String level, long cacheAt) {

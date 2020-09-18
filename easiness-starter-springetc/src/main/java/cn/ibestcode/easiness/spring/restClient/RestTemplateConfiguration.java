@@ -44,6 +44,7 @@ public class RestTemplateConfiguration {
    * 创建支持 HTTPS 的 HTTP Client
    * 参考： http://blog.csdn.net/ychau/article/details/53905886
    *
+   * @param restTemplateProperties restTemplateProperties
    * @return CloseableHttpClient
    */
   @Bean("closeableHttpClient")

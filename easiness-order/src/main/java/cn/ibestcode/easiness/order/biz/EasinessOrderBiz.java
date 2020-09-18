@@ -633,6 +633,7 @@ public class EasinessOrderBiz {
    * 设置订单的状态为 DURING（支付中）
    *
    * @param orderUuid 需要设置状态的订单对象的 uuid（逻辑主键）
+   * @param payUuid 支付对象的 uuid（逻辑主键）
    */
   @Transactional
   public void setOrderStatusDuring(String orderUuid, String payUuid) {
@@ -655,6 +656,7 @@ public class EasinessOrderBiz {
    * 设置订单的状态为 UNPAID（未支付）
    *
    * @param orderUuid 需要设置状态的订单对象的 uuid（逻辑主键）
+   * @param payUuid 支付对象 uuid (逻辑主键)
    */
   @Transactional
   public void setOrderStatusUnpaid(String orderUuid, String payUuid) {
@@ -678,6 +680,7 @@ public class EasinessOrderBiz {
    * 设置订单的状态为 PAID（已付款）
    *
    * @param orderUuid 需要设置状态的订单对象的 uuid（逻辑主键）
+   * @param payUuid   对应支付对象的 uuid（逻辑主键）
    */
   @Transactional
   public void setOrderStatusPaid(String orderUuid, String payUuid) {

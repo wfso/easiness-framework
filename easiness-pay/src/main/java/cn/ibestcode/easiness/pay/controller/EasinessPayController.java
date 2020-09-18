@@ -33,6 +33,7 @@ public class EasinessPayController {
   /**
    * 支付的异步通知接口
    *
+   * @param payType 支付方式
    * @param payUuid 支付实体的UUID
    * @return 根据对应支付平台要求返回字符串
    */

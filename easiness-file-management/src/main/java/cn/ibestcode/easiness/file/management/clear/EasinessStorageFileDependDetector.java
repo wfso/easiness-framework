@@ -37,7 +37,7 @@ public class EasinessStorageFileDependDetector {
    * @param force            为true时 强制检查所有模块，
    *                         为false时 遇到对 easinessStorageFile 依赖的
    *                         模块后则返回true，不进行后续查检；
-   * @return
+   * @return boolean
    */
   public boolean dependOn(EasinessStorageFile easinessStorageFile, boolean force) {
     boolean result = false;
