@@ -60,7 +60,7 @@ public class EasinessEventBus implements EventBus {
     Class<? extends Annotation> synchronizedAnnotation,
     Class<? extends Annotation> multithreadingAnnotation) {
     this(
-      Executors.newScheduledThreadPool(pollSize),
+      Executors.newFixedThreadPool(pollSize),
       dispatcher,
       subscribeAnnotation,
       listenerAnnotation,
@@ -71,7 +71,7 @@ public class EasinessEventBus implements EventBus {
 
 
   public EasinessEventBus(int pollSize, Dispatcher dispatcher) {
-    this(Executors.newScheduledThreadPool(pollSize), dispatcher);
+    this(Executors.newFixedThreadPool(pollSize), dispatcher);
   }
 
   public EasinessEventBus(Dispatcher dispatcher) {
