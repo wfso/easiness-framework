@@ -54,6 +54,10 @@ public class EasinessOrderBiz {
   private EasinessOrderPayableRuleService orderPayableRuleService;
 
   @Autowired
+  private EasinessOrderNotifyBiz notifyBiz;
+
+
+  @Autowired
   private EventBus eventBus;
 
   // region 创建订单
@@ -633,6 +637,7 @@ public class EasinessOrderBiz {
   public void setOrderStatusDuring(String orderUuid, String payUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusDuring]", OrderStatus.UNPAID);
     EasinessOrder order = orderService.getByUuid(orderUuid);
+    OrderStatus srcStatus = order.getOrderStatus();
     order.setOrderStatus(OrderStatus.DURING);
     order.setPayUuid(payUuid);
     List<EasinessOrderItem> items = orderItemService.getByOrderUuid(orderUuid);
@@ -641,6 +646,7 @@ public class EasinessOrderBiz {
     }
     orderService.update(order);
     orderItemService.update(items);
+    notifyBiz.during(srcStatus,order);
     eventBus.post(new OrderStatusChangeEvent(orderUuid, payUuid, OrderStatus.DURING));
   }
 
