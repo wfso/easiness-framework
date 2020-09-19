@@ -94,7 +94,7 @@ public class EasinessPayBiz {
   @Transactional
   public void setPayStatusTimeout(String payUuid) {
     checkPayStatus(payUuid, "[setPayStatusTimeout]", PayStatus.DURING);
-    EasinessPay pay = payService.getByUuid(payUuid);
+    EasinessPay pay = payService.readByUuid(payUuid);
     pay.setPayStatus(PayStatus.TIMEOUT);
     pay.setComplete(true);
     pay.setCompleteAt(System.currentTimeMillis());
@@ -105,7 +105,7 @@ public class EasinessPayBiz {
   @Transactional
   public void setPayStatusPaid(String payUuid) {
     checkPayStatus(payUuid, "[setPayStatusPaid]", PayStatus.DURING);
-    EasinessPay pay = payService.getByUuid(payUuid);
+    EasinessPay pay = payService.readByUuid(payUuid);
     pay.setPayStatus(PayStatus.PAID);
     payService.update(pay);
     eventBus.post(new PayStatusChangeEvent(payUuid, pay.getOrderUuid(), PayStatus.PAID));
@@ -114,7 +114,7 @@ public class EasinessPayBiz {
   @Transactional
   public void setPayStatusCancel(String payUuid) {
     checkPayStatus(payUuid, "[setPayStatusCancel]", PayStatus.DURING);
-    EasinessPay pay = payService.getByUuid(payUuid);
+    EasinessPay pay = payService.readByUuid(payUuid);
     pay.setPayStatus(PayStatus.CANCEL);
     pay.setComplete(true);
     pay.setCompleteAt(System.currentTimeMillis());
@@ -125,7 +125,7 @@ public class EasinessPayBiz {
   @Transactional
   public void setPayStatusComplete(String payUuid) {
     checkPayStatus(payUuid, "[setPayStatusComplete]", PayStatus.PAID);
-    EasinessPay pay = payService.getByUuid(payUuid);
+    EasinessPay pay = payService.readByUuid(payUuid);
     pay.setPayStatus(PayStatus.COMPLETE);
     pay.setComplete(true);
     pay.setCompleteAt(System.currentTimeMillis());
@@ -138,7 +138,7 @@ public class EasinessPayBiz {
 
   // region private method
   private boolean checkPayStatus(String payUuid, String message, PayStatus... payStatuses) {
-    EasinessPay pay = payService.getByUuid(payUuid);
+    EasinessPay pay = payService.readByUuid(payUuid);
     if (pay == null) {
       throw new EasinessPayException(new StringBuilder().append(message)
         .append(" EasinessPay not found by uuid[").append(payUuid).append("]").toString());
