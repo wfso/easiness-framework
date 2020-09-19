@@ -11,13 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -118,6 +117,12 @@ public abstract class BaseService<T extends Model<ID>, ID> implements Service<T,
   @Override
   public T getById(ID id) {
     return getRepository().findById(id).orElse(null);
+  }
+
+  @Override
+  @Transactional
+  public T readById(ID id) {
+    return getRepository().readById(id);
   }
 
   @Override

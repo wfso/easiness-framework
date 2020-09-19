@@ -2,8 +2,8 @@ package cn.ibestcode.easiness.core.base.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,11 @@ public interface CURDService<T, ID> {
 
   Page<T> getPage(Pageable pageable);
 
+  // 无锁读
   T getById(ID id);
+
+  // 共享锁的读
+  T readById(ID id);
 
   List<T> getByIds(Iterable<ID> ids);
 

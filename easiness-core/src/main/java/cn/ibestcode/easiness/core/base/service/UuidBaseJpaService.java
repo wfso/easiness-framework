@@ -11,10 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class UuidBaseJpaService<T extends UuidBaseJpaModel> extends BaseJpaService<T> implements UuidService<T> {
   protected abstract UuidBaseJpaRepository<T> getRepository();
 
+  @Override
   public T getByUuid(String uuid) {
     return getRepository().findByUuid(uuid);
   }
 
+  @Override
+  @Transactional
+  public T readByUuid(String uuid) {
+    return getRepository().readByUuid(uuid);
+  }
+
+  @Override
   @Transactional
   public T removeByUuid(String uuid) {
     T entity = getByUuid(uuid);
@@ -22,6 +30,7 @@ public abstract class UuidBaseJpaService<T extends UuidBaseJpaModel> extends Bas
     return entity;
   }
 
+  @Override
   @Transactional
   public T updateByUuid(T entity) {
     T t = getByUuid(entity.getUuid());
@@ -32,6 +41,7 @@ public abstract class UuidBaseJpaService<T extends UuidBaseJpaModel> extends Bas
     return entity;
   }
 
+  @Override
   @Transactional
   public T updateByUuidIgnoreNull(T entity) {
     T target = genFreeEntityFromDbByUuid(entity);
@@ -39,6 +49,7 @@ public abstract class UuidBaseJpaService<T extends UuidBaseJpaModel> extends Bas
     return update(target);
   }
 
+  @Override
   @Transactional
   public T updateByUuidIgnoreEmpty(T entity) {
     T target = genFreeEntityFromDbByUuid(entity);
