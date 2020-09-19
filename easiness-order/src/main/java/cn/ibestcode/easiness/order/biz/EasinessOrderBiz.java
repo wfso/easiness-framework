@@ -522,7 +522,7 @@ public class EasinessOrderBiz {
   // region private method
 
   private boolean checkOrderRefund(String orderUuid, String message) {
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     if (order == null) {
       throw new EasinessOrderException(new StringBuilder().append(message)
         .append(" EasinessOrder not found by uuid[").append(orderUuid).append("]").toString());
@@ -540,7 +540,7 @@ public class EasinessOrderBiz {
   }
 
   private boolean checkOrderItemRefund(String itemUuid, String message) {
-    EasinessOrderItem item = orderItemService.getByUuid(itemUuid);
+    EasinessOrderItem item = orderItemService.readByUuid(itemUuid);
     if (item == null) {
       throw new EasinessOrderException(new StringBuilder().append(message)
         .append(" EasinessOrder not found by uuid[").append(item).append("]").toString());
@@ -558,7 +558,7 @@ public class EasinessOrderBiz {
   }
 
   private boolean checkOrderStatus(String orderUuid, String message, OrderStatus... orderStatuses) {
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     if (order == null) {
       throw new EasinessOrderException(new StringBuilder().append(message)
         .append(" EasinessOrder not found by uuid[").append(orderUuid).append("]").toString());
@@ -582,7 +582,7 @@ public class EasinessOrderBiz {
   }
 
   private boolean checkOrderItemStatus(String orderUuid, String message, OrderStatus... orderStatuses) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderUuid);
+    EasinessOrderItem item = orderItemService.readByUuid(orderUuid);
     if (item == null) {
       throw new EasinessOrderException(new StringBuilder().append(message)
         .append(" EasinessOrder not found by uuid[").append(orderUuid).append("]").toString());
@@ -617,7 +617,7 @@ public class EasinessOrderBiz {
   @Transactional
   public EasinessOrder recalculateOrder(String orderUuid) {
     checkOrderStatus(orderUuid, "[recalculateOrder]", OrderStatus.UNPAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     List<EasinessOrderItem> items = orderItemService.getByOrderUuid(orderUuid);
     List<EasinessOrderPayableRule> rules = orderPayableRuleService.getByOrderUuid(orderUuid);
     orderItemProcess(order, items);
@@ -638,7 +638,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusDuring(String orderUuid, String payUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusDuring]", OrderStatus.UNPAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     OrderStatus srcStatus = order.getOrderStatus();
     order.setOrderStatus(OrderStatus.DURING);
     order.setPayUuid(payUuid);
@@ -661,7 +661,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusUnpaid(String orderUuid, String payUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusUnpaid]", OrderStatus.DURING, OrderStatus.UNPAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     if (StringUtils.isNotBlank(order.getPayUuid()) && !order.getPayUuid().equalsIgnoreCase(payUuid)) {
       throw new EasinessOrderException("PayUuidNotEqual");
     }
@@ -685,7 +685,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusPaid(String orderUuid, String payUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusPaid]", OrderStatus.DURING, OrderStatus.UNPAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     order.setOrderStatus(OrderStatus.PAID);
     order.setPayUuid(payUuid);
     List<EasinessOrderItem> items = orderItemService.getByOrderUuid(orderUuid);
@@ -705,7 +705,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusCancel(String orderUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusCancel]", OrderStatus.UNPAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     order.setOrderStatus(OrderStatus.CANCEL);
     order.setComplete(true);
     order.setCompleteAt(System.currentTimeMillis());
@@ -727,7 +727,7 @@ public class EasinessOrderBiz {
    */
   @Transactional
   public void setOrderStatusRefunding(String orderUuid) {
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     checkOrderRefund(order, "[setOrderStatusRefunding]");
     checkOrderStatus(order, "[setOrderStatusRefunding]", OrderStatus.COMPLETE, OrderStatus.PART_REFUND, OrderStatus.PART_REFUNDING);
     order.setOrderStatus(OrderStatus.REFUNDING);
@@ -748,7 +748,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusRefund(String orderUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusRefund]", OrderStatus.REFUNDING);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     order.setOrderStatus(OrderStatus.REFUND);
     List<EasinessOrderItem> items = orderItemService.getByOrderUuid(orderUuid);
     for (EasinessOrderItem item : items) {
@@ -766,8 +766,8 @@ public class EasinessOrderBiz {
    */
   @Transactional
   public void setOrderItemStatusPartRefunding(String orderItemUuid) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderItemUuid);
-    EasinessOrder order = orderService.getByUuid(item.getOrderUuid());
+    EasinessOrderItem item = orderItemService.readByUuid(orderItemUuid);
+    EasinessOrder order = orderService.readByUuid(item.getOrderUuid());
     checkOrderRefund(order, "[setOrderItemStatusPartRefunding]");
     checkOrderItemRefund(item, "[setOrderItemStatusPartRefunding]");
     checkOrderStatus(order, "[setOrderItemStatusPartRefunding]", OrderStatus.COMPLETE, OrderStatus.PART_REFUND, OrderStatus.PART_REFUNDING);
@@ -786,8 +786,8 @@ public class EasinessOrderBiz {
    */
   @Transactional
   public void setOrderItemStatusPartRefund(String orderItemUuid) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderItemUuid);
-    EasinessOrder order = orderService.getByUuid(item.getOrderUuid());
+    EasinessOrderItem item = orderItemService.readByUuid(orderItemUuid);
+    EasinessOrder order = orderService.readByUuid(item.getOrderUuid());
     checkOrderStatus(order, "[setOrderItemStatusPartRefund]", OrderStatus.PART_REFUNDING);
     checkOrderItemStatus(item, "[setOrderItemStatusPartRefund]", OrderStatus.PART_REFUNDING);
     order.setOrderStatus(OrderStatus.PART_REFUND);
@@ -814,8 +814,8 @@ public class EasinessOrderBiz {
    */
   @Transactional
   public void setOrderItemStatusRefunding(String orderItemUuid) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderItemUuid);
-    EasinessOrder order = orderService.getByUuid(item.getOrderUuid());
+    EasinessOrderItem item = orderItemService.readByUuid(orderItemUuid);
+    EasinessOrder order = orderService.readByUuid(item.getOrderUuid());
     checkOrderRefund(order, "[setOrderItemStatusPartRefunding]");
     checkOrderItemRefund(item, "[setOrderItemStatusPartRefunding]");
     checkOrderStatus(order, "[setOrderItemStatusRefunding]", OrderStatus.COMPLETE, OrderStatus.PART_REFUND, OrderStatus.PART_REFUNDING);
@@ -844,8 +844,8 @@ public class EasinessOrderBiz {
    */
   @Transactional
   public void setOrderItemStatusRefund(String orderItemUuid) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderItemUuid);
-    EasinessOrder order = orderService.getByUuid(item.getOrderUuid());
+    EasinessOrderItem item = orderItemService.readByUuid(orderItemUuid);
+    EasinessOrder order = orderService.readByUuid(item.getOrderUuid());
     checkOrderStatus(order, "[setOrderItemStatusRefund]", OrderStatus.PART_REFUNDING, OrderStatus.REFUNDING);
     checkOrderItemStatus(item, "[setOrderItemStatusRefund]", OrderStatus.REFUNDING);
     if (order.getOrderStatus().equals(OrderStatus.REFUNDING)) {
@@ -881,7 +881,7 @@ public class EasinessOrderBiz {
   @Transactional
   public void setOrderStatusComplete(String orderUuid) {
     checkOrderStatus(orderUuid, "[setOrderStatusComplete]", OrderStatus.PAID);
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     order.setOrderStatus(OrderStatus.COMPLETE);
     order.setComplete(true);
     order.setCompleteAt(System.currentTimeMillis());
@@ -898,7 +898,7 @@ public class EasinessOrderBiz {
 
   // region update method
   public EasinessOrder updateOrder(EasinessOrderUpdateVo vo) {
-    EasinessOrder order = orderService.getByUuid(vo.getUuid());
+    EasinessOrder order = orderService.readByUuid(vo.getUuid());
     SpringBeanUtilsExt.copyPropertiesIgnoreEmpty(vo, order);
     orderService.update(order);
     eventBus.post(new OrderUpdatedEvent(order.getUuid()));
@@ -906,7 +906,7 @@ public class EasinessOrderBiz {
   }
 
   public EasinessOrder updateOrderStatusDescription(String orderUuid, String statusDescription) {
-    EasinessOrder order = orderService.getByUuid(orderUuid);
+    EasinessOrder order = orderService.readByUuid(orderUuid);
     order.setStatusDescription(statusDescription);
     orderService.update(order);
     eventBus.post(new OrderUpdatedEvent(order.getUuid()));
@@ -914,7 +914,7 @@ public class EasinessOrderBiz {
   }
 
   public EasinessOrderItem updateOrderItem(EasinessOrderItemUpdateVo vo) {
-    EasinessOrderItem item = orderItemService.getByUuid(vo.getUuid());
+    EasinessOrderItem item = orderItemService.readByUuid(vo.getUuid());
     SpringBeanUtilsExt.copyPropertiesIgnoreEmpty(vo, item);
     orderItemService.update(item);
     eventBus.post(new OrderUpdatedEvent(item.getOrderUuid()));
@@ -922,7 +922,7 @@ public class EasinessOrderBiz {
   }
 
   public EasinessOrderItem updateOrderItemStatusDescription(String orderItemUuid, String statusDescription) {
-    EasinessOrderItem item = orderItemService.getByUuid(orderItemUuid);
+    EasinessOrderItem item = orderItemService.readByUuid(orderItemUuid);
     item.setStatusDescription(statusDescription);
     orderItemService.update(item);
     eventBus.post(new OrderUpdatedEvent(item.getOrderUuid()));
