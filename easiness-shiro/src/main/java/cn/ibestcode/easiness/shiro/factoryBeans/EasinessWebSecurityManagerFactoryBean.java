@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
 public class EasinessWebSecurityManagerFactoryBean implements FactoryBean<SecurityManager> {
 
   @Autowired
-  Realm realm;
+  private Realm realm;
 
   @Autowired(required = false)
   private RedissonClient redissonClient;
