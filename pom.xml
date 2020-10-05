@@ -48,6 +48,7 @@
     <module>easiness-region-management</module>
     <module>easiness-starter-backup</module>
     <module>easiness-response-format</module>
+    <module>easiness-spring-security</module>
   </modules>
 
   <dependencyManagement>
