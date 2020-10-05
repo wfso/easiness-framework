@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
+@Deprecated
 public class RedissonSessionDAO extends EnterpriseCacheSessionDAO {
 
 

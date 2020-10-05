@@ -28,6 +28,7 @@ import java.io.Serializable;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
+@Deprecated
 public class EasinessSessionManagerFactoryBean implements FactoryBean<EasinessSessionManager> {
 
   @Autowired(required = false)

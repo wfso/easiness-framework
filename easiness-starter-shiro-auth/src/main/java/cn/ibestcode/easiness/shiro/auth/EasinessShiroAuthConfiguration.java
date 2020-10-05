@@ -13,31 +13,18 @@ import cn.ibestcode.easiness.shiro.auth.biz.EasinessShiroAuthBiz;
 import cn.ibestcode.easiness.shiro.authentication.DefaultEasinessAuthentication;
 import cn.ibestcode.easiness.shiro.filter.SpringShiroFilterRegistrationBean;
 import cn.ibestcode.easiness.shiro.realm.EasinessAuthorizationRealm;
-import cn.ibestcode.easiness.shiro.session.cache.RedissonSessionCache;
-import cn.ibestcode.easiness.shiro.session.dao.RedissonSessionDAO;
-import cn.ibestcode.easiness.shiro.session.manager.EasinessSessionManager;
-import cn.ibestcode.easiness.shiro.session.properties.EasinessSessionProperties;
 import cn.ibestcode.easiness.shiro.session.utils.DefaultEasinessSession;
-import org.apache.shiro.cache.AbstractCacheManager;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.redisson.api.RMapCache;
-import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-
-import java.io.Serializable;
 
 @Configuration
 @ComponentScan
@@ -66,38 +53,6 @@ public class EasinessShiroAuthConfiguration {
     return realm;
   }
 
-  @Bean
-  @ConditionalOnMissingBean(EasinessSessionProperties.class)
-  public EasinessSessionProperties easinessSessionProperties() {
-    return new EasinessSessionProperties();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(EasinessSessionManager.class)
-  public EasinessSessionManager easinessSessionManager(EasinessSessionProperties sessionProperties, RedissonClient redissonClient, DefaultWebSecurityManager defaultWebSecurityManager) {
-
-    EasinessSessionManager sessionManager = new EasinessSessionManager();
-    sessionManager.setTokenIdentification(sessionProperties.getTokenIdentification());
-    sessionManager.setGlobalSessionTimeout(sessionProperties.getTimeout());
-    sessionManager.setDeleteInvalidSessions(true);
-    sessionManager.setSessionValidationSchedulerEnabled(true);
-    sessionManager.setSessionValidationInterval(sessionProperties.getSessionValidationInterval());
-
-    // 把 Session 存储到 redis 数据库中
-    RMapCache<Serializable, Session> rMap = redissonClient.getMapCache(sessionProperties.getRedissonStoreName());
-    RMapCache<Serializable, Session> rMapCache = redissonClient.getMapCache(sessionProperties.getRedissonStoreName() + "-cache");
-    EnterpriseCacheSessionDAO sessionDAO = new RedissonSessionDAO(rMap);
-    sessionManager.setSessionDAO(sessionDAO);
-    sessionManager.setCacheManager(new AbstractCacheManager() {
-      @Override
-      protected Cache createCache(String s) throws CacheException {
-        return new RedissonSessionCache(rMapCache);
-      }
-    });
-
-    defaultWebSecurityManager.setSessionManager(sessionManager);
-    return sessionManager;
-  }
 
   @Bean
   @ConditionalOnMissingBean(SecurityManager.class)
