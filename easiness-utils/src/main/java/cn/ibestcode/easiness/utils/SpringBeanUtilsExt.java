@@ -118,7 +118,9 @@ public class SpringBeanUtilsExt extends BeanUtils {
             }
 
             try {
-              if (Integer.class.isAssignableFrom(writeClass)) {
+              if (String.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, sv);
+              } else if (Integer.class.isAssignableFrom(writeClass)) {
                 writeMethod.invoke(target, Integer.valueOf(sv));
               } else if (Float.class.isAssignableFrom(writeClass)) {
                 writeMethod.invoke(target, Float.valueOf(sv));
