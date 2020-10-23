@@ -7,9 +7,12 @@
  */
 package cn.ibestcode.easiness.form.domain;
 
+import lombok.Data;
+
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/10/23 13:26
  */
-public class StringItem implements Item{
+@Data
+public class StringItem extends AbstractItem {
 }

@@ -11,6 +11,7 @@ import cn.ibestcode.easiness.form.domain.Item;
 import cn.ibestcode.easiness.form.model.FormData;
 import cn.ibestcode.easiness.form.model.FormItem;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -103,7 +104,30 @@ public class FormItemConverter {
   }
 
   public static <T extends Item> FormItem from(T t) {
-    return getProviderByType(t.getClass().getSimpleName()).from(t);
+    return getProviderByType(t.getType()).from(t);
+  }
+
+  public static <T extends Item> T to(Map<String, String> map) {
+    if (map.containsKey("type")) {
+      T item = getItemBySimpleName(map.get("type"));
+      try {
+        BeanUtils.copyProperties(item, map);
+      } catch (Exception e) {
+        log.warn(e.getMessage(), e);
+      }
+      return item;
+    }
+    return null;
+  }
+
+  public static <T extends Item> T getItemBySimpleName(String simpleName) {
+    Class<T> clazz = getClassBySimpleName(simpleName);
+    try {
+      return clazz.newInstance();
+    } catch (Exception e) {
+      log.warn(e.getMessage(), e);
+    }
+    return null;
   }
 
 }
