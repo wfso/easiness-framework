@@ -49,6 +49,7 @@
     <module>easiness-starter-backup</module>
     <module>easiness-response-format</module>
     <module>easiness-spring-security</module>
+    <module>easiness-form</module>
   </modules>
 
   <dependencyManagement>
