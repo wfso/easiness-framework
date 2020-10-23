@@ -1,16 +1,15 @@
 package cn.ibestcode.easiness.utils;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.BeansException;
+import org.springframework.beans.*;
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.beans.PropertyDescriptor;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public class SpringBeanUtilsExt extends BeanUtils {
 
@@ -76,5 +75,76 @@ public class SpringBeanUtilsExt extends BeanUtils {
     Set<String> noValuePropertySet = getNullPropertyNames(source);
     noValuePropertySet.addAll(Arrays.asList(ignoreProperties));
     BeanUtils.copyProperties(source, target, noValuePropertySet.toArray(new String[0]));
+  }
+
+
+  private static void copyProperties(Map source, Object target, @Nullable Class<?> editable,
+                                     @Nullable String... ignoreProperties) throws BeansException {
+    Assert.notNull(source, "Source must not be null");
+    Assert.notNull(target, "Target must not be null");
+
+    Class<?> actualEditable = target.getClass();
+    if (editable != null) {
+      if (!editable.isInstance(target)) {
+        throw new IllegalArgumentException("Target class [" + target.getClass().getName() +
+          "] not assignable to Editable class [" + editable.getName() + "]");
+      }
+      actualEditable = editable;
+    }
+    PropertyDescriptor[] targetPds = getPropertyDescriptors(actualEditable);
+    List<String> ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
+
+    for (PropertyDescriptor targetPd : targetPds) {
+      Method writeMethod = targetPd.getWriteMethod();
+      if (writeMethod != null && (ignoreList == null || !ignoreList.contains(targetPd.getName()))) {
+        Object value = source.get(targetPd.getName());
+        Class writeClass = writeMethod.getParameterTypes()[0];
+        if (value != null) {
+          if (ClassUtils.isAssignable(writeClass, value.getClass())) {
+            try {
+              if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+                writeMethod.setAccessible(true);
+              }
+              writeMethod.invoke(target, value);
+            } catch (Throwable ex) {
+              throw new FatalBeanException(
+                "Could not copy property '" + targetPd.getName() + "' from source to target", ex);
+            }
+          } else if ((ClassUtils.isPrimitiveWrapper(value.getClass()) || value.getClass() == String.class)
+            && (ClassUtils.isPrimitiveOrWrapper(writeClass) || writeClass == String.class)) {
+            String sv = value.toString();
+            if (writeClass.isPrimitive()) {
+              writeClass = ClassUtils.resolvePrimitiveIfNecessary(writeClass);
+            }
+
+            try {
+              if (Integer.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Integer.valueOf(sv));
+              } else if (Float.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Float.valueOf(sv));
+              } else if (Double.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Double.valueOf(sv));
+              } else if (Character.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, sv.charAt(0));
+              } else if (Short.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Short.valueOf(sv));
+              } else if (Long.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Long.valueOf(sv));
+              } else if (Byte.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Byte.valueOf(sv));
+              } else if (Boolean.class.isAssignableFrom(writeClass)) {
+                writeMethod.invoke(target, Boolean.valueOf(sv));
+              } else {
+                throw new FatalBeanException(
+                  "Could not copy property '" + targetPd.getName() + "' from source to target");
+              }
+            } catch (Throwable ex) {
+              throw new FatalBeanException(
+                "Could not copy property '" + targetPd.getName() + "' from source to target", ex);
+            }
+          }
+        }
+      }
+    }
   }
 }
