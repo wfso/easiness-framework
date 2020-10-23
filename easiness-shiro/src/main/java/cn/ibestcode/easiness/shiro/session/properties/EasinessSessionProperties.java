@@ -18,6 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
+@Deprecated
 @ConfigurationProperties("easiness.session")
 public class EasinessSessionProperties {
 

@@ -15,17 +15,17 @@ import org.apache.shiro.session.Session;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
-public class EasinessSessionUtil {
+public class EasinessShiroSessionUtil {
 
-  public static void setSession(String key, Object value){
+  public static void setAttribute(String key, Object value){
     getSession().setAttribute(key,value);
   }
 
-  public static Object getSession(String key){
+  public static Object getAttribute(String key){
     return getSession().getAttribute(key);
   }
 
-  public static Object removeSession(String key){
+  public static Object removeAttribute(String key){
     return getSession().removeAttribute(key);
   }
 

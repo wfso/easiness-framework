@@ -14,11 +14,11 @@ package cn.ibestcode.easiness.shiro.session.utils;
  */
 public interface EasinessSession {
 
-  void setSession(String key, Object value);
+  void setAttribute(String key, Object value);
 
-  Object getSession(String key);
+  Object getAttribute(String key);
 
-  Object removeSession(String key);
+  Object removeAttribute(String key);
 
   String getSessionId();
 }

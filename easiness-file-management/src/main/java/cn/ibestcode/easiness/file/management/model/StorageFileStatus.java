@@ -38,7 +38,7 @@ public enum StorageFileStatus {
   @Getter
   private String text;
 
-  private StorageFileStatus(String text) {
+  StorageFileStatus(String text) {
     this.text = text;
   }
 }

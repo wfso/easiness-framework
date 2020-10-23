@@ -16,25 +16,25 @@ import org.apache.shiro.session.Session;
  */
 public abstract class AbstractEasinessSession implements EasinessSession {
 
-  protected abstract Session getSessionObject();
+  protected abstract Session getSession();
 
   @Override
-  public void setSession(String key, Object value) {
-    getSessionObject().setAttribute(key, value);
+  public void setAttribute(String key, Object value) {
+    getSession().setAttribute(key, value);
   }
 
   @Override
-  public Object getSession(String key) {
-    return getSessionObject().getAttribute(key);
+  public Object getAttribute(String key) {
+    return getSession().getAttribute(key);
   }
 
   @Override
-  public Object removeSession(String key) {
-    return getSessionObject().removeAttribute(key);
+  public Object removeAttribute(String key) {
+    return getSession().removeAttribute(key);
   }
 
   @Override
   public String getSessionId() {
-    return getSessionObject().getId().toString();
+    return getSession().getId().toString();
   }
 }

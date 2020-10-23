@@ -9,7 +9,7 @@
 package cn.ibestcode.easiness.shiro.auth.biz;
 
 import cn.ibestcode.easiness.auth.biz.AbstractEasinessAuthBiz;
-import cn.ibestcode.easiness.shiro.session.utils.EasinessSessionUtil;
+import cn.ibestcode.easiness.shiro.session.utils.EasinessShiroSessionUtil;
 import cn.ibestcode.easiness.shiro.token.EasinessAuthenticationToken;
 import cn.ibestcode.easiness.utils.RandomUtil;
 import org.apache.shiro.SecurityUtils;
@@ -24,22 +24,22 @@ public class EasinessShiroAuthBiz extends AbstractEasinessAuthBiz {
 
   @Override
   public void setSession(String key, Object value) {
-    EasinessSessionUtil.setSession(key, value);
+    EasinessShiroSessionUtil.setAttribute(key, value);
   }
 
   @Override
   public Object getSession(String key) {
-    return EasinessSessionUtil.getSession(key);
+    return EasinessShiroSessionUtil.getAttribute(key);
   }
 
   @Override
   public Object removeSession(String key) {
-    return EasinessSessionUtil.removeSession(key);
+    return EasinessShiroSessionUtil.removeAttribute(key);
   }
 
   @Override
   public String getSessionId() {
-    return EasinessSessionUtil.getSessionId();
+    return EasinessShiroSessionUtil.getSessionId();
   }
 
   @Override

@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/23
  */
+@Deprecated
 public class RedissonSessionCache implements Cache<Serializable, Session> {
 
   private final RMapCache<Serializable, Session> map;

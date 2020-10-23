@@ -17,7 +17,7 @@ import org.apache.shiro.session.Session;
  */
 public class DefaultEasinessSession extends AbstractEasinessSession {
   @Override
-  protected Session getSessionObject() {
+  protected Session getSession() {
     return SecurityUtils.getSubject().getSession();
   }
 }
