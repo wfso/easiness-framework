@@ -5,13 +5,11 @@
  * The IBESTCODE licenses this file to you under the MIT license.
  * See the LICENSE file in the project root for more information.
  */
-package cn.ibestcode.easiness.form.converter;
-
-import cn.ibestcode.easiness.form.domain.Item;
+package cn.ibestcode.easiness.form.domain;
 
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2020/10/23 14:00
+ * create by WFSO (仵士杰) at 2020/10/24 12:54
  */
-public abstract class AbstractItemConverterProvider<T extends Item> implements ItemConverterProvider<T> {
+public interface Limit {
 }
