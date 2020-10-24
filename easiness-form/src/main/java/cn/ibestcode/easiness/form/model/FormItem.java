@@ -10,6 +10,7 @@ package cn.ibestcode.easiness.form.model;
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.core.converter.MapJsonConverter;
 import cn.ibestcode.easiness.form.domain.Item;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,7 @@ import java.util.Map;
   @Index(columnList = "uuid", name = "form_item_uuid", unique = true),
   @Index(columnList = "formUuid", name = "form_item_form_uuid")
 })
+@ApiModel("表单项")
 public class FormItem extends UuidBaseJpaModel implements Item<Map<String, String>> {
 
   @ApiModelProperty("所属 表单（FormPattern）的 UUID")

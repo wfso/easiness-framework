@@ -9,8 +9,10 @@ package cn.ibestcode.easiness.form.model;
 
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.form.domain.Form;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,9 +25,11 @@ import java.util.Map;
  */
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "form_pattern", indexes = {
   @Index(columnList = "uuid", name = "form_pattern_uuid", unique = true)
 })
+@ApiModel("表单模式")
 public class FormPattern extends UuidBaseJpaModel implements Form<FormItem, Map<String, String>> {
 
   @ApiModelProperty("表单名称")

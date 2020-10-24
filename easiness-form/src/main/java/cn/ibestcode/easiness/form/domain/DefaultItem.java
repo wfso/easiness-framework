@@ -8,6 +8,7 @@
 package cn.ibestcode.easiness.form.domain;
 
 import cn.ibestcode.easiness.form.limit.Limit;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ import lombok.Data;
  * create by WFSO (仵士杰) at 2020/10/23 15:35
  */
 @Data
+@ApiModel("表单项")
 public class DefaultItem implements Item<Limit> {
   @ApiModelProperty("所属Form的唯一标识")
   private String formUuid;
