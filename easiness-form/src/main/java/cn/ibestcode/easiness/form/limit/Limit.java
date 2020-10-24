@@ -5,17 +5,11 @@
  * The IBESTCODE licenses this file to you under the MIT license.
  * See the LICENSE file in the project root for more information.
  */
-package cn.ibestcode.easiness.form.domain;
-
-import lombok.Data;
+package cn.ibestcode.easiness.form.limit;
 
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2020/10/23 13:26
+ * create by WFSO (仵士杰) at 2020/10/24 12:54
  */
-@Data
-public class StringLimit implements Limit {
-  private int min = 0;
-  private int max = Integer.MAX_VALUE;
-  private String pattern = ".*";
+public interface Limit {
 }

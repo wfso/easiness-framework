@@ -9,7 +9,7 @@ package cn.ibestcode.easiness.form.converter;
 
 import cn.ibestcode.easiness.form.domain.DefaultForm;
 import cn.ibestcode.easiness.form.domain.DefaultItem;
-import cn.ibestcode.easiness.form.domain.Limit;
+import cn.ibestcode.easiness.form.limit.Limit;
 import cn.ibestcode.easiness.form.model.FormData;
 import cn.ibestcode.easiness.form.model.FormItem;
 import cn.ibestcode.easiness.form.model.FormPattern;

@@ -7,6 +7,7 @@
  */
 package cn.ibestcode.easiness.form.domain;
 
+import cn.ibestcode.easiness.form.limit.Limit;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

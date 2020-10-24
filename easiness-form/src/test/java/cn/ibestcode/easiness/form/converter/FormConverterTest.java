@@ -8,6 +8,9 @@
 package cn.ibestcode.easiness.form.converter;
 
 import cn.ibestcode.easiness.form.domain.*;
+import cn.ibestcode.easiness.form.limit.Limit;
+import cn.ibestcode.easiness.form.limit.NumberLimit;
+import cn.ibestcode.easiness.form.limit.StringLimit;
 import cn.ibestcode.easiness.form.model.FormItem;
 import cn.ibestcode.easiness.form.model.FormPattern;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +68,9 @@ public class FormConverterTest {
     DefaultItem defaultItem = new DefaultItem();
     defaultItem.setLimit(new StringLimit());
     defaultForm = new DefaultForm();
+    defaultForm.addItem(defaultItem);
+    defaultItem = new DefaultItem();
+    defaultItem.setLimit(new NumberLimit());
     defaultForm.addItem(defaultItem);
     log.warn(defaultForm.toString());
 
