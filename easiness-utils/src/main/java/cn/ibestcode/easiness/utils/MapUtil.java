@@ -25,25 +25,25 @@ import java.util.*;
 public class MapUtil {
   public static Map<String, String> monolayerObjectToMap(Object object) {
     Map<String, String> map = new HashMap<>();
-    monolayerFillMap(object, map, null);
+    monolayerFillMap(object, map, null, (String[]) null);
     return map;
   }
 
   public static TreeMap<String, String> monolayerObjectToTreeMap(Object object) {
     TreeMap<String, String> treeMap = new TreeMap<>();
-    monolayerFillMap(object, treeMap, null);
+    monolayerFillMap(object, treeMap, null, (String[]) null);
     return treeMap;
   }
 
   public static Map<String, String> monolayerObjectToMap(Object object, Class<?> editable) {
     Map<String, String> map = new HashMap<>();
-    monolayerFillMap(object, map, editable);
+    monolayerFillMap(object, map, editable, (String[]) null);
     return map;
   }
 
   public static TreeMap<String, String> monolayerObjectToTreeMap(Object object, Class<?> editable) {
     TreeMap<String, String> treeMap = new TreeMap<>();
-    monolayerFillMap(object, treeMap, editable);
+    monolayerFillMap(object, treeMap, editable, (String[]) null);
     return treeMap;
   }
 
@@ -86,25 +86,25 @@ public class MapUtil {
 
   public static Map<String, Object> objectToMap(Object object) {
     Map<String, Object> map = new HashMap<>();
-    fillMap(object, map, null);
+    fillMap(object, map, null, (String[]) null);
     return map;
   }
 
   public static TreeMap<String, Object> objectToTreeMap(Object object) {
     TreeMap<String, Object> treeMap = new TreeMap<>();
-    fillMap(object, treeMap, null);
+    fillMap(object, treeMap, null, (String[]) null);
     return treeMap;
   }
 
   public static Map<String, Object> objectToMap(Object object, Class<?> editable) {
     Map<String, Object> map = new HashMap<>();
-    fillMap(object, map, editable);
+    fillMap(object, map, editable, (String[]) null);
     return map;
   }
 
   public static TreeMap<String, Object> objectToTreeMap(Object object, Class<?> editable) {
     TreeMap<String, Object> treeMap = new TreeMap<>();
-    fillMap(object, treeMap, editable);
+    fillMap(object, treeMap, editable, (String[]) null);
     return treeMap;
   }
 
@@ -139,6 +139,20 @@ public class MapUtil {
         map.put(pd.getName(), propertyValue);
       }
     }
+  }
+
+
+  public static void mapToObject(Map source, Object target) throws BeansException {
+    mapToObject(source, target, null, (String[]) null);
+  }
+
+
+  public static void mapToObject(Map source, Object target, Class<?> editable) throws BeansException {
+    mapToObject(source, target, editable, (String[]) null);
+  }
+
+  public static void mapToObject(Map source, Object target, @Nullable String... ignoreProperties) throws BeansException {
+    mapToObject(source, target, null, ignoreProperties);
   }
 
 
