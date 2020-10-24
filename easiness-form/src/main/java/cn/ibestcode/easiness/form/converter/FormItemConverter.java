@@ -10,8 +10,8 @@ package cn.ibestcode.easiness.form.converter;
 import cn.ibestcode.easiness.form.domain.Item;
 import cn.ibestcode.easiness.form.model.FormData;
 import cn.ibestcode.easiness.form.model.FormItem;
+import cn.ibestcode.easiness.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -111,7 +111,7 @@ public class FormItemConverter {
     if (map.containsKey("type")) {
       T item = getItemBySimpleName(map.get("type"));
       try {
-        BeanUtils.copyProperties(item, map);
+        MapUtil.mapToObject(map,item);
       } catch (Exception e) {
         log.warn(e.getMessage(), e);
       }

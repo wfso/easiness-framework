@@ -61,8 +61,6 @@ public class FormItemConverterTest {
     log.warn(item.toString());
     log.warn(numberItem.toString());
     Assert.isTrue(numberItem.equals(item), "mapToTest Fail");
-    log.warn(Integer.TYPE.isPrimitive()+"");
-
 
   }
 
