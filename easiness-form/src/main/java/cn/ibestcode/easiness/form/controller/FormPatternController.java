@@ -7,15 +7,11 @@
  */
 package cn.ibestcode.easiness.form.controller;
 
-import cn.ibestcode.easiness.form.converter.FormItemConverter;
-import cn.ibestcode.easiness.form.domain.Item;
-
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/10/23 10:29
  */
 public class FormPatternController {
   public void add() {
-    Class<Item> itemClass = FormItemConverter.getClassBySimpleName("abc");
   }
 }

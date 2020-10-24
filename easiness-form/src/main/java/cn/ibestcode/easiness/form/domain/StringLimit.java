@@ -8,15 +8,14 @@
 package cn.ibestcode.easiness.form.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/10/23 13:26
  */
 @Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class NumberItem extends AbstractItem {
+public class StringLimit implements Limit {
+  private int min = 0;
+  private int max = Integer.MAX_VALUE;
+  private String pattern = ".*";
 }

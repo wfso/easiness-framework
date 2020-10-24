@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2020/10/23 11:47
  */
-public interface Item {
+public interface Item<L> {
 
   /**
    * 表单项 所属的表单
@@ -30,7 +30,7 @@ public interface Item {
    */
   @ApiModelProperty("类型")
   default String getType() {
-    return getClass().getSimpleName();
+    return getLimit().getClass().getSimpleName();
   }
 
   /**
@@ -48,10 +48,24 @@ public interface Item {
   String getValue();
 
   /**
-   * 验证用户输入是否合法
-   * 用户提供合法输入时，返回true，反之返回 false
+   * 获取 表单项在表单中的位置
    *
-   * @return boolean
+   * @return int
    */
-  boolean checkValue();
+  int getPosition();
+
+  /**
+   * 设置表单项在表单中的位置
+   *
+   * @return int
+   */
+  void setPosition(int position);
+
+  /**
+   * 表单值的限制数据
+   *
+   * @return L
+   */
+  L getLimit();
+
 }

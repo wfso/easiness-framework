@@ -14,5 +14,7 @@ import lombok.Data;
  * create by WFSO (仵士杰) at 2020/10/23 13:26
  */
 @Data
-public class StringItem extends AbstractItem {
+public class NumberLimit implements Limit {
+  private int min = 0;
+  private int max = Integer.MAX_VALUE;
 }

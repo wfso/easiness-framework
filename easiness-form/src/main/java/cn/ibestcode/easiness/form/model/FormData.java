@@ -8,6 +8,7 @@
 package cn.ibestcode.easiness.form.model;
 
 import cn.ibestcode.easiness.core.converter.MapJsonConverter;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Convert;
@@ -19,8 +20,10 @@ import java.util.Map;
  */
 @Data
 public class FormData {
+  @ApiModelProperty("所属 Form 的 uuid")
   private String formUuid;
 
+  @ApiModelProperty("用户提交的数据")
   @Convert(converter = MapJsonConverter.class)
   private Map<String, String> data;
 }

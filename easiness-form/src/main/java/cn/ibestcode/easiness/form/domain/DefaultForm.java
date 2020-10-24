@@ -10,20 +10,21 @@ package cn.ibestcode.easiness.form.domain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author WFSO (仵士杰)
- * create by WFSO (仵士杰) at 2020/10/23 15:35
+ * create by WFSO (仵士杰) at 2020/10/24 13:21
  */
 @Data
-public abstract class AbstractItem implements Item {
-  @ApiModelProperty("所属Form的唯一标识")
-  private String formUuid;
-  @ApiModelProperty("表单项的名称，对应 HTML 表单中的 name 属性")
+public class DefaultForm implements Form<DefaultItem, Limit> {
+  @ApiModelProperty("唯一标识")
+  private String uuid;
+  @ApiModelProperty("表单名称")
   private String name;
-  @ApiModelProperty("用户提交的表单数据，对应 HTML 表单中的 value 属性")
-  private String value;
-
-  public boolean checkValue() {
-    return true;
-  }
+  @ApiModelProperty("表单的说明")
+  private String description;
+  @ApiModelProperty("表单项列表")
+  private List<DefaultItem> items = new ArrayList<>();
 }

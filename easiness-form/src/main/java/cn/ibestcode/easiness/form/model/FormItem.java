@@ -9,11 +9,14 @@ package cn.ibestcode.easiness.form.model;
 
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.core.converter.MapJsonConverter;
+import cn.ibestcode.easiness.form.domain.Item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,20 +25,21 @@ import java.util.Map;
  */
 @Data
 @Entity
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "form_item", indexes = {
   @Index(columnList = "uuid", name = "form_item_uuid", unique = true),
   @Index(columnList = "formUuid", name = "form_item_form_uuid")
 })
-public class FormItem extends UuidBaseJpaModel {
-
-  @ApiModelProperty("类型")
-  @Column(name = "item_type", length = 100)
-  private String type;
+public class FormItem extends UuidBaseJpaModel implements Item<Map<String, String>> {
 
   @ApiModelProperty("所属 表单（FormPattern）的 UUID")
   @Column(length = 64)
   private String formUuid;
+
+  @ApiModelProperty("类型")
+  @Column(name = "item_type", length = 100)
+  private String type;
 
   @ApiModelProperty("表单项的名称，对应 HTML 表单中的 name 属性")
   @Column(name = "item_name", length = 100)
@@ -46,9 +50,13 @@ public class FormItem extends UuidBaseJpaModel {
   @Lob
   private String value;
 
-  @ApiModelProperty("表单的其他数据，如限制规则等")
+  @ApiModelProperty("表单项，在表单中的位置")
+  private int position;
+
+  @ApiModelProperty("表单数据（value）的限制规则（取值范围）")
   @Lob
   @Convert(converter = MapJsonConverter.class)
-  private Map<String, String> data;
+  @Column(name = "item_limit")
+  private Map<String, String> limit = new HashMap<>();
 
 }
