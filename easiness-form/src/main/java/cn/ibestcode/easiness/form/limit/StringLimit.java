@@ -18,4 +18,9 @@ public class StringLimit implements Limit {
   private int min = 0;
   private int max = Integer.MAX_VALUE;
   private String pattern = ".*";
+
+  @Override
+  public boolean check(String value) {
+    return true;
+  }
 }

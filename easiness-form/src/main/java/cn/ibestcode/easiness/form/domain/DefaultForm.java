@@ -30,4 +30,11 @@ public class DefaultForm implements Form<DefaultItem, Limit> {
   private String description;
   @ApiModelProperty("表单项列表")
   private List<DefaultItem> items = new ArrayList<>();
+
+  public boolean checkItems() {
+    for (DefaultItem item : items) {
+      if (!item.checkValue()) return false;
+    }
+    return true;
+  }
 }

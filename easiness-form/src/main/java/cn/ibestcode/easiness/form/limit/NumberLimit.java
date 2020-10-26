@@ -17,4 +17,9 @@ import lombok.Data;
 public class NumberLimit implements Limit {
   private int minSize = 0;
   private int maxSize = Integer.MAX_VALUE;
+
+  @Override
+  public boolean check(String value) {
+    return true;
+  }
 }

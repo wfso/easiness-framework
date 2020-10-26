@@ -12,4 +12,5 @@ package cn.ibestcode.easiness.form.limit;
  * create by WFSO (仵士杰) at 2020/10/24 12:54
  */
 public interface Limit {
+  boolean check(String value);
 }

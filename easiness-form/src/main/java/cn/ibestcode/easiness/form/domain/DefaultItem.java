@@ -30,4 +30,7 @@ public class DefaultItem implements Item<Limit> {
   @ApiModelProperty("表单数据（value）的限制规则（取值范围）")
   private Limit limit;
 
+  public boolean checkValue() {
+    return limit.check(value);
+  }
 }
