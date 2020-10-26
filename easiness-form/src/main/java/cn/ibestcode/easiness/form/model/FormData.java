@@ -7,6 +7,7 @@
  */
 package cn.ibestcode.easiness.form.model;
 
+import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
 import cn.ibestcode.easiness.core.converter.MapJsonConverter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 @Data
 @ApiModel("用户提交的表单数据")
-public class FormData {
+public class FormData extends UuidBaseJpaModel {
   @ApiModelProperty("所属 Form 的 uuid")
   private String formUuid;
 
