@@ -36,6 +36,10 @@ public class FormPattern extends UuidBaseJpaModel implements Form<FormItem, Map<
   @Column(name = "form_name", length = 100)
   private String name;
 
+  @ApiModelProperty("所属人 uuid")
+  @Column(length = 64)
+  private String userUuid;
+
   @ApiModelProperty("表单的说明")
   private String description;
 

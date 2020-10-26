@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Lob;
 import java.util.Map;
@@ -25,7 +26,12 @@ import java.util.Map;
 @ApiModel("用户提交的表单数据")
 public class FormData extends UuidBaseJpaModel {
   @ApiModelProperty("所属 Form 的 uuid")
+  @Column(length = 64)
   private String formUuid;
+
+  @ApiModelProperty("所属人 uuid")
+  @Column(length = 64)
+  private String userUuid;
 
   @Lob
   @ApiModelProperty("用户提交的数据")
