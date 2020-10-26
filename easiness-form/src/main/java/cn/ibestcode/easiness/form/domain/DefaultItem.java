@@ -25,6 +25,8 @@ public class DefaultItem implements Item<Limit> {
   private String name;
   @ApiModelProperty("用户提交的表单数据，对应 HTML 表单中的 value 属性")
   private String value;
+  @ApiModelProperty("表单项的说明，帮助填写表单的用户理解他要填写的是什么")
+  private String description;
   @ApiModelProperty("表单项，在表单中的位置")
   private int position;
   @ApiModelProperty("表单数据（value）的限制规则（取值范围）")

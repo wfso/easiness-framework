@@ -47,6 +47,14 @@ public interface Item<L> {
    */
   String getValue();
 
+
+  /**
+   * 表单项的说明，帮助填写表单的用户理解他要填写的是什么
+   *
+   * @return string
+   */
+  String getDescription();
+
   /**
    * 获取 表单项在表单中的位置
    *

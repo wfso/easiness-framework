@@ -52,6 +52,10 @@ public class FormItem extends UuidBaseJpaModel implements Item<Map<String, Strin
   @Lob
   private String value;
 
+  @ApiModelProperty("表单项的说明，帮助填写表单的用户理解他要填写的是什么")
+  @Column(length = 250)
+  private String description;
+
   @ApiModelProperty("表单项，在表单中的位置")
   private int position;
 
