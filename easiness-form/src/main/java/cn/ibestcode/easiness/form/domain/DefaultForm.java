@@ -31,10 +31,28 @@ public class DefaultForm implements Form<DefaultItem, Limit> {
   @ApiModelProperty("表单项列表")
   private List<DefaultItem> items = new ArrayList<>();
 
-  public boolean checkItems() {
-    for (DefaultItem item : items) {
-      if (!item.checkValue()) return false;
+  @ApiModelProperty("表单中无法通过验证的项")
+  private List<DefaultItem> exceptionItems;
+
+  public List<DefaultItem> getExceptionItems() {
+    if (exceptionItems == null) {
+      checkItems();
     }
-    return true;
+    return exceptionItems;
+  }
+
+  public boolean checkItems() {
+    if (exceptionItems == null) {
+      exceptionItems = new ArrayList<>();
+    }
+    if (exceptionItems.size() > 0) {
+      return false;
+    }
+    for (DefaultItem item : items) {
+      if (!item.checkValue()) {
+        exceptionItems.add(item);
+      }
+    }
+    return exceptionItems.size() <= 0;
   }
 }
