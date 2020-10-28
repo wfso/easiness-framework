@@ -2,7 +2,7 @@ package cn.ibestcode.easiness.auth.password.handler;
 
 import cn.ibestcode.easiness.auth.biz.EasinessAuthBiz;
 import cn.ibestcode.easiness.auth.biz.EasinessUserRelationBiz;
-import cn.ibestcode.easiness.auth.handler.EasinessLoginHandler;
+import cn.ibestcode.easiness.auth.handler.EasinessLoginProvider;
 import cn.ibestcode.easiness.auth.model.EasinessUser;
 import cn.ibestcode.easiness.auth.password.EasinessPasswordAuthConstant;
 import cn.ibestcode.easiness.auth.password.exception.PasswordAuthenticationException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 @Component
-public class EasinessPasswordLoginHandler implements EasinessLoginHandler {
+public class EasinessPasswordLoginProvider implements EasinessLoginProvider {
 
   @Autowired
   private EasinessAuthBiz authBiz;
@@ -33,7 +33,7 @@ public class EasinessPasswordLoginHandler implements EasinessLoginHandler {
   }
 
   @Override
-  public long loginHandle() {
+  public long login() {
     HttpServletRequest request = ServletUtil.getHttpServletRequest();
     String username = request.getParameter("username");
     if (StringUtils.isEmpty(username) || StringUtils.isBlank(username)) {

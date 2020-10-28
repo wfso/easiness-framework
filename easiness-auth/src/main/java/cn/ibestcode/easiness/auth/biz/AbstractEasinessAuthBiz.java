@@ -13,7 +13,7 @@ import cn.ibestcode.easiness.auth.domain.EasinessLoginBeforeResult;
 import cn.ibestcode.easiness.auth.domain.EasinessLoginResult;
 import cn.ibestcode.easiness.auth.domain.RoleAndPermissionResult;
 import cn.ibestcode.easiness.auth.exception.EasinessAuthenticationException;
-import cn.ibestcode.easiness.auth.handler.EasinessLoginHandlerBus;
+import cn.ibestcode.easiness.auth.handler.EasinessLoginHandler;
 import cn.ibestcode.easiness.auth.model.EasinessPermission;
 import cn.ibestcode.easiness.auth.model.EasinessRole;
 import cn.ibestcode.easiness.auth.model.EasinessUser;
@@ -43,7 +43,7 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
   @Autowired
   protected EasinessRoleService roleService;
   @Autowired
-  protected EasinessLoginHandlerBus loginHandlerBus;
+  protected EasinessLoginHandler loginHandler;
 
 
   @Override
@@ -67,7 +67,7 @@ public abstract class AbstractEasinessAuthBiz implements EasinessAuthBiz {
 
   @Override
   public EasinessLoginResult login(String type) {
-    long userId = loginHandlerBus.loginHandle(type);
+    long userId = loginHandler.handle(type);
     recordLoginStatus(userId);
     setSession(EasinessAuthConstant.USER_ID_SESSION_NAME, userId);
     RoleAndPermissionResult roleAndPermissionResult = checkRole(null);

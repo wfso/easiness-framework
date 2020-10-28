@@ -8,12 +8,49 @@
 
 package cn.ibestcode.easiness.auth.handler;
 
+import cn.ibestcode.easiness.auth.exception.EasinessAuthenticationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author WFSO (仵士杰)
  * create by WFSO (仵士杰) at 2019/11/25 19:56
  */
-public interface EasinessLoginHandler {
-  String supportType();
+@Component
+public class EasinessLoginHandler {
 
-  long loginHandle();
+  @Autowired
+  private List<EasinessLoginProvider> providers;
+
+  private Map<String, EasinessLoginProvider> providerMap;
+
+  public long handle(String type) {
+    EasinessLoginProvider provider = getProviderByType(type);
+    if (provider == null) {
+      throw new EasinessAuthenticationException("LoginProviderCanNotBeNull");
+    }
+    return provider.login();
+  }
+
+  private EasinessLoginProvider getProviderByType(String type) {
+    if (providerMap == null) {
+      synchronized (this) {
+        if (providerMap == null) {
+          providerMap = new HashMap<>();
+          for (EasinessLoginProvider provider : providers) {
+            providerMap.put(provider.supportType(), provider);
+          }
+        }
+      }
+    }
+    if (!providerMap.containsKey(type)) {
+      throw new EasinessAuthenticationException("NotLoginProviderExistOfType", type);
+    }
+    return providerMap.get(type);
+  }
+
 }
