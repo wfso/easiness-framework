@@ -7,8 +7,6 @@
  */
 package cn.ibestcode.easiness.form.controller;
 
-import cn.ibestcode.easiness.form.converter.FormConverter;
-import cn.ibestcode.easiness.form.limit.Limit;
 import cn.ibestcode.easiness.form.model.FormPattern;
 import cn.ibestcode.easiness.form.service.FormPatternService;
 import io.swagger.annotations.Api;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author WFSO (仵士杰)
@@ -30,12 +27,6 @@ public class FormPatternController {
 
   @Autowired
   private FormPatternService formPatternService;
-
-  @GetMapping("item/limits")
-  @ApiOperation("表单项的类型/限制")
-  public Map<String, Limit> getItemTypes() {
-    return FormConverter.getAllLimitMap();
-  }
 
   @PostMapping
   @ApiOperation("创建一个表单")
