@@ -8,16 +8,15 @@
 package cn.ibestcode.easiness.form.model;
 
 import cn.ibestcode.easiness.core.base.model.UuidBaseJpaModel;
-import cn.ibestcode.easiness.form.domain.Form;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * @author WFSO (仵士杰)
@@ -30,7 +29,7 @@ import java.util.Map;
   @Index(columnList = "uuid", name = "form_pattern_uuid", unique = true)
 })
 @ApiModel("表单模式")
-public class FormPattern extends UuidBaseJpaModel implements Form<FormItem, Map<String, String>> {
+public class FormPattern extends UuidBaseJpaModel {
 
   @ApiModelProperty("表单名称")
   @Column(name = "form_name", length = 100)
@@ -42,8 +41,5 @@ public class FormPattern extends UuidBaseJpaModel implements Form<FormItem, Map<
 
   @ApiModelProperty("表单的说明")
   private String description;
-
-  @Transient
-  private List<FormItem> items = new ArrayList<>();
 
 }

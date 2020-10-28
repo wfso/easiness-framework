@@ -10,8 +10,10 @@ package cn.ibestcode.easiness.form.controller;
 import cn.ibestcode.easiness.form.converter.FormConverter;
 import cn.ibestcode.easiness.form.limit.Limit;
 import cn.ibestcode.easiness.form.model.FormPattern;
+import cn.ibestcode.easiness.form.service.FormPatternService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +27,10 @@ import java.util.Map;
 @RequestMapping("/api/form")
 @Api(tags = "表单模式管理")
 public class FormPatternController {
+
+  @Autowired
+  private FormPatternService formPatternService;
+
   @GetMapping("item/limits")
   @ApiOperation("表单项的类型/限制")
   public Map<String, Limit> getItemTypes() {
@@ -34,13 +40,13 @@ public class FormPatternController {
   @PostMapping
   @ApiOperation("创建一个表单")
   public void create(FormPattern formPattern) {
-
+    formPatternService.create(formPattern);
   }
 
   @PutMapping
   @ApiOperation("修改一个表单")
   public void edit(FormPattern formPattern) {
-
+    formPatternService.updateIgnoreNull(formPattern);
   }
 
   @GetMapping
