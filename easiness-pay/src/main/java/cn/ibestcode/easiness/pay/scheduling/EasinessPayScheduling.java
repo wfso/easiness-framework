@@ -7,7 +7,7 @@
  */
 package cn.ibestcode.easiness.pay.scheduling;
 
-import cn.ibestcode.easiness.core.properites.EasinessApplicationProperties;
+import cn.ibestcode.easiness.core.properties.EasinessApplicationProperties;
 import cn.ibestcode.easiness.pay.biz.EasinessPayBiz;
 import cn.ibestcode.easiness.pay.model.EasinessPay;
 import cn.ibestcode.easiness.pay.model.PayStatus;

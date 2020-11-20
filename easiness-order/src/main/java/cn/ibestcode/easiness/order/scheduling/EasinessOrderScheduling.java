@@ -1,6 +1,6 @@
 package cn.ibestcode.easiness.order.scheduling;
 
-import cn.ibestcode.easiness.core.properites.EasinessApplicationProperties;
+import cn.ibestcode.easiness.core.properties.EasinessApplicationProperties;
 import cn.ibestcode.easiness.core.query.builder.DefaultFiltersBuilder;
 import cn.ibestcode.easiness.core.query.filter.IFilter;
 import cn.ibestcode.easiness.order.model.EasinessOrder;

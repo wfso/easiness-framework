@@ -1,4 +1,4 @@
-package cn.ibestcode.easiness.core.properites;
+package cn.ibestcode.easiness.core.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

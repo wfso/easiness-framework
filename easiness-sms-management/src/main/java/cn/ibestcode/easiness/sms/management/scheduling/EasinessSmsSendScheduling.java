@@ -8,7 +8,7 @@
 
 package cn.ibestcode.easiness.sms.management.scheduling;
 
-import cn.ibestcode.easiness.core.properites.EasinessApplicationProperties;
+import cn.ibestcode.easiness.core.properties.EasinessApplicationProperties;
 import cn.ibestcode.easiness.sendsms.sender.SmsSender;
 import cn.ibestcode.easiness.sendsms.sender.SmsSenderResult;
 import cn.ibestcode.easiness.sms.management.model.EasinessSmsCrontab;
