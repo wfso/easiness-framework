@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
 @ToString(callSuper = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class UuidBaseJpaModel extends BaseJpaModel implements UuidModel {
+public class UuidBaseJpaModel extends BaseJpaModel implements UuidModel<Long> {
 
   @ApiModelProperty("逻辑主键")
   @Column(length = 32, updatable = false, nullable = false)
