@@ -19,6 +19,7 @@
   <modules>
     <module>easiness-core</module>
     <module>easiness-swagger2</module>
+    <module>easiness-starter-redisson</module>
     <module>easiness-configuration</module>
     <module>easiness-utils</module>
     <module>easiness-eventbus</module>
