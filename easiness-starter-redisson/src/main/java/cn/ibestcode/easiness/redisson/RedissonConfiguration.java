@@ -25,7 +25,8 @@ public class RedissonConfiguration {
   @ConditionalOnMissingBean(RedissonClient.class)
   public RedissonClient redisson() {
     Config config = null;
-    Long timeoutLong = redisProperties.getTimeout().toMillis();
+    Long timeoutLong = redisProperties.getTimeout() == null
+      ? null : redisProperties.getTimeout().toMillis();
     int timeout;
     if (null == timeoutLong) {
       timeout = 10000;
