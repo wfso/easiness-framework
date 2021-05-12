@@ -69,6 +69,11 @@
       </dependency>
       <dependency>
         <groupId>cn.ibestcode.easiness</groupId>
+        <artifactId>easiness-starter-redisson</artifactId>
+        <version>${easiness.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.ibestcode.easiness</groupId>
         <artifactId>easiness-configuration</artifactId>
         <version>${easiness.version}</version>
       </dependency>
@@ -349,7 +354,7 @@
     <shiro.version>1.4.1</shiro.version>
     <jackson.version>2.9.8</jackson.version>
     <javax.interceptor.version>1.2.2</javax.interceptor.version>
-    <redisson.version>3.11.5</redisson.version>
+    <redisson.version>3.15.4</redisson.version>
     <guava.version>28.1-jre</guava.version>
     <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>

@@ -25,8 +25,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.redisson</groupId>
-      <artifactId>redisson</artifactId>
+      <groupId>cn.ibestcode.easiness</groupId>
+      <artifactId>easiness-starter-redisson</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
