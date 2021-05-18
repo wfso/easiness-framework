@@ -352,7 +352,7 @@
   <properties>
     <easiness.version>1.0.0</easiness.version>
     <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
-    <shiro.version>1.4.1</shiro.version>
+    <shiro.version>1.7.0</shiro.version>
     <jackson.version>2.9.8</jackson.version>
     <javax.interceptor.version>1.2.2</javax.interceptor.version>
     <redisson.version>3.15.4</redisson.version>
